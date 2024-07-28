@@ -1,6 +1,6 @@
-import tsParser from "@typescript-eslint/parser";
-import eslintTsPlugin from "@typescript-eslint/eslint-plugin";
 import eslintPlugin from "@eslint/js";
+import eslintTsPlugin from "@typescript-eslint/eslint-plugin";
+import tsParser from "@typescript-eslint/parser";
 // import eslintReact from "eslint-plugin-react";
 // import eslintReactHooks from "eslint-plugin-react-hooks";
 import eslintA11y from "eslint-plugin-jsx-a11y";

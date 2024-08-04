@@ -26,7 +26,38 @@
       "output": "static",
       "##favicon": "./assets/images/favicon.png"
     },
-    "plugins": ["expo-router"],
+    "plugins": [
+      "expo-router",
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "node_modules/@expo-google-fonts/noto-serif/NotoSerif_400Regular_Italic.ttf",
+            "node_modules/@expo-google-fonts/noto-serif/NotoSerif_400Regular.ttf",
+            "node_modules/@expo-google-fonts/noto-serif/NotoSerif_700Bold_Italic.ttf",
+            "node_modules/@expo-google-fonts/noto-serif/NotoSerif_700Bold.ttf",
+            "node_modules/@expo-google-fonts/noto-sans/NotoSans_100Thin_Italic.ttf",
+            "node_modules/@expo-google-fonts/noto-sans/NotoSans_100Thin.ttf",
+            "node_modules/@expo-google-fonts/noto-sans/NotoSans_200ExtraLight_Italic.ttf",
+            "node_modules/@expo-google-fonts/noto-sans/NotoSans_200ExtraLight.ttf",
+            "node_modules/@expo-google-fonts/noto-sans/NotoSans_300Light_Italic.ttf",
+            "node_modules/@expo-google-fonts/noto-sans/NotoSans_300Light.ttf",
+            "node_modules/@expo-google-fonts/noto-sans/NotoSans_400Regular_Italic.ttf",
+            "node_modules/@expo-google-fonts/noto-sans/NotoSans_400Regular.ttf",
+            "node_modules/@expo-google-fonts/noto-sans/NotoSans_500Medium_Italic.ttf",
+            "node_modules/@expo-google-fonts/noto-sans/NotoSans_500Medium.ttf",
+            "node_modules/@expo-google-fonts/noto-sans/NotoSans_600SemiBold_Italic.ttf",
+            "node_modules/@expo-google-fonts/noto-sans/NotoSans_600SemiBold.ttf",
+            "node_modules/@expo-google-fonts/noto-sans/NotoSans_700Bold_Italic.ttf",
+            "node_modules/@expo-google-fonts/noto-sans/NotoSans_700Bold.ttf",
+            "node_modules/@expo-google-fonts/noto-sans/NotoSans_800ExtraBold_Italic.ttf",
+            "node_modules/@expo-google-fonts/noto-sans/NotoSans_800ExtraBold.ttf",
+            "node_modules/@expo-google-fonts/noto-sans/NotoSans_900Black_Italic.ttf",
+            "node_modules/@expo-google-fonts/noto-sans/NotoSans_900Black.ttf"
+          ]
+        }
+      ]
+    ],
     "experiments": {
       "typedRoutes": true
     }

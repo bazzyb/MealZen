@@ -1,7 +1,6 @@
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Tabs } from "expo-router";
-import { Colors } from "react-native-ui-lib";
 
 import { tabColors } from "@/styles/colors";
 import { SerifFont } from "@/styles/typography";
@@ -11,22 +10,25 @@ export default function TabsLayout() {
     <Tabs
       screenOptions={{
         ...tabColors,
+        tabBarStyle: {
+          height: 60,
+        },
         headerTitleStyle: { fontFamily: SerifFont },
-        tabBarLabelStyle: { fontFamily: SerifFont, textAlign: "center" },
+        tabBarLabelStyle: { fontFamily: SerifFont, paddingBottom: 4 },
       }}
     >
       <Tabs.Screen
         name="meal-plan"
         options={{
           title: "Meal Plan",
-          tabBarIcon: () => <FontAwesome6 name="calendar-days" size={24} color={Colors.white} />,
+          tabBarIcon: ({ color, size }) => <FontAwesome6 name="calendar-days" size={size} color={color} />,
         }}
       />
       <Tabs.Screen
         name="meals"
         options={{
           title: "Meals",
-          tabBarIcon: () => <Ionicons name="fast-food-outline" size={24} color={Colors.white} />,
+          tabBarIcon: ({ color, size }) => <Ionicons name="fast-food-outline" size={size} color={color} />,
         }}
       />
     </Tabs>

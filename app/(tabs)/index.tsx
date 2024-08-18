@@ -54,9 +54,13 @@ export default function MealPlan() {
         renderItem={renderItem}
         ListHeaderComponent={() => (
           <ViewRow alignItems="center" backgroundColor={isDarkMode ? colors.black : colors.white}>
-            <Text style={{ width: 60 }}>Date</Text>
-            <Text style={{ width: 100 }}>Name</Text>
-            <Text>Notes</Text>
+            <Text bold style={{ width: 60 }}>
+              Date
+            </Text>
+            <Text bold style={{ width: 100 }}>
+              Name
+            </Text>
+            <Text bold>Notes</Text>
           </ViewRow>
         )}
         renderPlaceholder={() => <ViewColumn alignItems="center" backgroundColor="#DDD" />}

@@ -34,12 +34,12 @@ export const darkColors: typeof lightColors = {
 
 export function getTheme(theme: ColorSchemeName) {
   return {
-    isDarkMode: theme === "dark",
     colors: {
       ...(theme === "light" ? lightColors : darkColors),
       ...colors,
     },
     fontFamily: "NotoSans_400Regular",
+    fontBold: "NotoSans_700Bold",
     headerFontFamily: "NotoSerif_400Regular",
   };
 }

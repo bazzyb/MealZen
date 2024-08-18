@@ -1,19 +1,26 @@
-const PURPLE_LIGHT = "#7950F2";
-const PURPLE = "#5F3DC4";
-const WHITE = "#EEE";
-// const BLACK = "#222";
-
-export const stackColors = {
-  statusBarColor: PURPLE_LIGHT,
-};
-
-export const tabColors = {
-  tabBarActiveBackgroundColor: PURPLE,
-  tabBarActiveTintColor: WHITE,
-  tabBarInactiveBackgroundColor: PURPLE_LIGHT,
-  tabBarInactiveTintColor: WHITE,
-  headerTintColor: WHITE,
-  headerStyle: {
-    backgroundColor: PURPLE_LIGHT,
+export const colors = {
+  purple: {
+    "0": "#e2d6f4",
+    "1": "#c3aee9",
+    "2": "#a488dd",
+    "3": "#8462d1",
+    "4": "#5f3dc4",
+    "5": "#4d3299",
+    "6": "#3c2771",
+    "7": "#2b1d4b",
+    "8": "#1a1328",
   },
+  red: {
+    "0": "#f3d3ce",
+    "1": "#d17c72",
+    "2": "#bc5048",
+    "3": "#a31621",
+    "4": "#81191c",
+    "5": "#611817",
+    "6": "#421512",
+    "7": "#e4a79e",
+    "8": "#250f0a",
+  },
+  white: "#EEE",
+  black: "#222",
 };

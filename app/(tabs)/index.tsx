@@ -1,8 +1,9 @@
 import { useCallback, useState } from "react";
-import { TouchableOpacity, View } from "react-native";
+import { TouchableOpacity } from "react-native";
 import DraggableFlatList, { DragEndParams, RenderItemParams } from "react-native-draggable-flatlist";
 
 import { Text, ViewColumn, ViewRow } from "@/app/components";
+import { useAppTheme } from "@/styles/useAppTheme";
 
 interface Item {
   id: string;
@@ -20,6 +21,8 @@ const data = Array.from({ length: 30 }, (_, index) => ({
 
 export default function MealPlan() {
   const [orderedItems, setOrderedItems] = useState<Item[]>(data);
+
+  const { isDarkMode, colors } = useAppTheme();
 
   const keyExtractor = useCallback((item: Item) => item.id, []);
 
@@ -45,25 +48,23 @@ export default function MealPlan() {
   }, []);
 
   return (
-    <View style={{ display: "flex" }}>
-      <ViewColumn>
-        <DraggableFlatList
-          data={orderedItems}
-          renderItem={renderItem}
-          ListHeaderComponent={() => (
-            <ViewRow alignItems="center" backgroundColor="white">
-              <Text style={{ width: 60 }}>Date</Text>
-              <Text style={{ width: 100 }}>Name</Text>
-              <Text>Notes</Text>
-            </ViewRow>
-          )}
-          renderPlaceholder={() => <ViewColumn alignItems="center" backgroundColor="#DDD" />}
-          stickyHeaderIndices={[0]}
-          keyExtractor={keyExtractor}
-          onDragEnd={onOrderChange}
-          initialNumToRender={orderedItems.length}
-        />
-      </ViewColumn>
-    </View>
+    <ViewColumn>
+      <DraggableFlatList
+        data={orderedItems}
+        renderItem={renderItem}
+        ListHeaderComponent={() => (
+          <ViewRow alignItems="center" backgroundColor={isDarkMode ? colors.black : colors.white}>
+            <Text style={{ width: 60 }}>Date</Text>
+            <Text style={{ width: 100 }}>Name</Text>
+            <Text>Notes</Text>
+          </ViewRow>
+        )}
+        renderPlaceholder={() => <ViewColumn alignItems="center" backgroundColor="#DDD" />}
+        stickyHeaderIndices={[0]}
+        keyExtractor={keyExtractor}
+        onDragEnd={onOrderChange}
+        initialNumToRender={orderedItems.length}
+      />
+    </ViewColumn>
   );
 }

@@ -2,19 +2,24 @@ import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Tabs } from "expo-router";
 
-import { tabColors } from "@/styles/colors";
-import { SerifFont } from "@/styles/typography";
+import { useAppTheme } from "@/styles/useAppTheme";
 
 export default function TabsLayout() {
+  const theme = useAppTheme();
+
   return (
     <Tabs
       screenOptions={{
-        ...tabColors,
+        tabBarActiveBackgroundColor: theme.colors.tabsActiveBackground,
+        tabBarInactiveBackgroundColor: theme.colors.tabsBackground,
+        tabBarActiveTintColor: theme.colors.tabsActiveText,
+        tabBarInactiveTintColor: theme.colors.text,
         tabBarStyle: {
           height: 60,
         },
-        headerTitleStyle: { fontFamily: SerifFont },
-        tabBarLabelStyle: { fontFamily: SerifFont, paddingBottom: 4 },
+        headerTintColor: theme.colors.headerText,
+        headerTitleStyle: { fontFamily: theme.headerFontFamily },
+        tabBarLabelStyle: { fontFamily: theme.headerFontFamily, paddingBottom: 4 },
       }}
     >
       <Tabs.Screen

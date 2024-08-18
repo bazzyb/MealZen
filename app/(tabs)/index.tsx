@@ -1,16 +1,6 @@
-import { useCallback, useState } from "react";
-import { TouchableOpacity } from "react-native";
-import DraggableFlatList, { DragEndParams, RenderItemParams } from "react-native-draggable-flatlist";
+import { Table } from "../components/Table";
 
-import { Text, ViewColumn, ViewRow } from "@/app/components";
-import { useAppTheme } from "@/styles/useAppTheme";
-
-interface Item {
-  id: string;
-  text: string;
-  text2: string;
-  text3: string;
-}
+import { ViewColumn } from "@/app/components";
 
 const data = Array.from({ length: 30 }, (_, index) => ({
   id: `${index}`,
@@ -20,54 +10,15 @@ const data = Array.from({ length: 30 }, (_, index) => ({
 }));
 
 export default function MealPlan() {
-  const [orderedItems, setOrderedItems] = useState<Item[]>(data);
-
-  const { isDarkMode, colors } = useAppTheme();
-
-  const keyExtractor = useCallback((item: Item) => item.id, []);
-
-  const onOrderChange = useCallback((params: DragEndParams<Item>) => {
-    setOrderedItems(params.data);
-  }, []);
-
-  const renderItem = useCallback(({ item, drag, isActive }: RenderItemParams<Item>) => {
-    return (
-      <TouchableOpacity
-        style={{ height: 50, alignItems: "center" }}
-        onLongPress={drag}
-        delayLongPress={300}
-        disabled={isActive}
-      >
-        <ViewRow alignItems="center" height={50}>
-          <Text style={{ width: 60 }}>{item.text}</Text>
-          <Text style={{ width: 100 }}>{item.text2}</Text>
-          <Text>{item.text3}</Text>
-        </ViewRow>
-      </TouchableOpacity>
-    );
-  }, []);
-
   return (
     <ViewColumn>
-      <DraggableFlatList
-        data={orderedItems}
-        renderItem={renderItem}
-        ListHeaderComponent={() => (
-          <ViewRow alignItems="center" backgroundColor={isDarkMode ? colors.black : colors.white}>
-            <Text bold style={{ width: 60 }}>
-              Date
-            </Text>
-            <Text bold style={{ width: 100 }}>
-              Name
-            </Text>
-            <Text bold>Notes</Text>
-          </ViewRow>
-        )}
-        renderPlaceholder={() => <ViewColumn alignItems="center" backgroundColor="#DDD" />}
-        stickyHeaderIndices={[0]}
-        keyExtractor={keyExtractor}
-        onDragEnd={onOrderChange}
-        initialNumToRender={orderedItems.length}
+      <Table
+        data={data}
+        columns={[
+          { label: "Date", accessor: "text", width: 60 },
+          { label: "Name", accessor: "text2", width: 100 },
+          { label: "Notes", accessor: "text3" },
+        ]}
       />
     </ViewColumn>
   );

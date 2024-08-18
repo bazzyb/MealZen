@@ -1,7 +1,7 @@
 import { ReactNode, useCallback, useState } from "react";
 import DraggableFlatList, { DragEndParams } from "react-native-draggable-flatlist";
 
-import { ViewColumn } from "@/components";
+import { ViewColumn } from "@/components/Views/ViewColumn";
 
 import { TableHeader } from "./Header";
 import { HeaderCell } from "./HeaderCell";

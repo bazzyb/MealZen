@@ -1,7 +1,7 @@
 import { PropsWithChildren } from "react";
 import { TouchableOpacity } from "react-native";
 
-import { ViewRow } from "@/components";
+import { ViewRow } from "@/components/Views/ViewRow";
 
 type Props = {
   draggableProps?: {

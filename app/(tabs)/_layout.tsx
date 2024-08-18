@@ -18,6 +18,7 @@ export default function TabsLayout() {
           height: 60,
         },
         headerTintColor: theme.colors.headerText,
+        headerTitleAlign: "left",
         headerTitleStyle: { fontFamily: theme.headerFontFamily },
         tabBarLabelStyle: { fontFamily: theme.headerFontFamily, paddingBottom: 4 },
       }}

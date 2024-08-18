@@ -1,6 +1,6 @@
 import { PropsWithChildren } from "react";
 
-import { ViewRow } from "@/app/components";
+import { ViewRow } from "@/components";
 import { useAppTheme } from "@/styles/useAppTheme";
 
 export function TableHeader({ children }: PropsWithChildren<unknown>) {

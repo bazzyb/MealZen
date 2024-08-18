@@ -1,6 +1,4 @@
-import { Table } from "../components/Table";
-
-import { ViewColumn } from "@/app/components";
+import { Table, ViewColumn } from "@/components";
 
 const data = Array.from({ length: 30 }, (_, index) => ({
   id: `${index}`,

@@ -1,6 +1,6 @@
 import { PropsWithChildren } from "react";
 
-import { Text } from "@/app/components";
+import { Text } from "@/components";
 
 type Props = {
   width?: number;

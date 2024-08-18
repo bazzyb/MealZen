@@ -1,6 +1,6 @@
 import { StatusBar } from "react-native";
 
-import { Text, ViewColumn } from "@/app/components";
+import { Text, ViewColumn } from "@/components";
 
 export default function Index() {
   return (

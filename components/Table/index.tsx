@@ -1,60 +1,44 @@
-import { ReactNode, useCallback, useState } from "react";
+import { useCallback, useState } from "react";
+import { FlatList } from "react-native";
 import DraggableFlatList, { DragEndParams } from "react-native-draggable-flatlist";
 
 import { ViewColumn } from "@/components/Views/ViewColumn";
 
 import { TableHeader } from "./Header";
-import { HeaderCell } from "./HeaderCell";
 import { TableRow } from "./Row";
-import { RowCell } from "./RowCell";
+import { GenericData, TableProps } from "./types";
 
-type GenericData = {
-  id: string | number;
-} & Record<string, string | ReactNode>;
-
-type Column<TData extends GenericData> = {
-  label: string;
-  accessor: keyof TData;
-  width?: number;
-};
-
-type TableProps<TData extends GenericData> = {
-  data: TData[];
-  columns: Array<Column<TData>>;
-};
-
-export function Table<TData extends GenericData>({ data, columns }: TableProps<TData>) {
+export function Table<TData extends GenericData>({ data, columns, isSortable }: TableProps<TData>) {
   const [items, setItems] = useState<TData[]>(data);
 
   const onOrderChange = useCallback(({ data: reorderedItems }: DragEndParams<TData>) => {
     setItems(reorderedItems);
   }, []);
 
+  if (isSortable) {
+    return (
+      <DraggableFlatList
+        data={items}
+        renderItem={({ item, drag, isActive }) => (
+          <TableRow item={item} columns={columns} draggableProps={{ drag, isActive }} />
+        )}
+        ListHeaderComponent={() => <TableHeader columns={columns} />}
+        renderPlaceholder={() => <ViewColumn alignItems="center" backgroundColor="#DDD" />}
+        stickyHeaderIndices={[0]}
+        keyExtractor={item => item.id.toString()}
+        onDragEnd={onOrderChange}
+        initialNumToRender={items.length}
+      />
+    );
+  }
+
   return (
-    <DraggableFlatList
+    <FlatList
       data={items}
-      renderItem={({ item, drag, isActive }) => (
-        <TableRow draggableProps={{ drag, isActive }}>
-          {columns.map(({ label, accessor, width }) => (
-            <RowCell key={label} width={width}>
-              {item[accessor]}
-            </RowCell>
-          ))}
-        </TableRow>
-      )}
-      ListHeaderComponent={() => (
-        <TableHeader>
-          {columns.map(({ label, width }) => (
-            <HeaderCell key={label} width={width}>
-              {label}
-            </HeaderCell>
-          ))}
-        </TableHeader>
-      )}
-      renderPlaceholder={() => <ViewColumn alignItems="center" backgroundColor="#DDD" />}
+      renderItem={({ item }) => <TableRow item={item} columns={columns} />}
+      ListHeaderComponent={<TableHeader columns={columns} />}
       stickyHeaderIndices={[0]}
       keyExtractor={item => item.id.toString()}
-      onDragEnd={onOrderChange}
       initialNumToRender={items.length}
     />
   );

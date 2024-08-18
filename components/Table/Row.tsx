@@ -3,14 +3,24 @@ import { TouchableOpacity } from "react-native";
 
 import { ViewRow } from "@/components/Views/ViewRow";
 
-type Props = {
-  draggableProps?: {
-    drag: () => void;
-    isActive: boolean;
-  };
+import { RowCell } from "./RowCell";
+import { Column, GenericData } from "./types";
+
+type DraggableProps = {
+  drag: () => void;
+  isActive: boolean;
 };
 
-function DraggableWrapper({ draggableProps, children }: PropsWithChildren<Props>) {
+type SharedProps = {
+  draggableProps?: DraggableProps;
+};
+
+type RowProps<TData extends GenericData> = {
+  item: TData;
+  columns: Array<Column<TData>>;
+} & SharedProps;
+
+function DraggableWrapper({ draggableProps, children }: PropsWithChildren<SharedProps>) {
   if (draggableProps) {
     return (
       <TouchableOpacity
@@ -24,14 +34,22 @@ function DraggableWrapper({ draggableProps, children }: PropsWithChildren<Props>
     );
   }
 
-  return <ViewRow />;
+  return children;
 }
 
-export function TableRow({ draggableProps, children }: PropsWithChildren<Props>) {
+export function TableRow<TData extends GenericData>({
+  item,
+  draggableProps,
+  columns,
+}: PropsWithChildren<RowProps<TData>>) {
   return (
     <DraggableWrapper draggableProps={draggableProps}>
       <ViewRow width="100%" justifyContent="flex-start" alignItems="center" height={50}>
-        {children}
+        {columns.map(({ label, accessor, width }) => (
+          <RowCell key={label} width={width}>
+            {item[accessor]}
+          </RowCell>
+        ))}
       </ViewRow>
     </DraggableWrapper>
   );

@@ -1,9 +1,14 @@
-import { PropsWithChildren } from "react";
-
 import { ViewRow } from "@/components/Views/ViewRow";
 import { useAppTheme } from "@/styles/useAppTheme";
 
-export function TableHeader({ children }: PropsWithChildren<unknown>) {
+import { HeaderCell } from "./HeaderCell";
+import { Column, GenericData } from "./types";
+
+type Props<TData extends GenericData> = {
+  columns: Array<Column<TData>>;
+};
+
+export function TableHeader<TData extends GenericData>({ columns }: Props<TData>) {
   const { colors } = useAppTheme();
 
   return (
@@ -14,7 +19,11 @@ export function TableHeader({ children }: PropsWithChildren<unknown>) {
       borderBottomWidth={2}
       backgroundColor={colors.background}
     >
-      {children}
+      {columns.map(({ label, width }) => (
+        <HeaderCell key={label} width={width}>
+          {label}
+        </HeaderCell>
+      ))}
     </ViewRow>
   );
 }

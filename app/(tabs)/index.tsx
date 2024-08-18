@@ -11,6 +11,7 @@ export default function MealPlan() {
   return (
     <ViewColumn>
       <Table
+        isSortable
         data={data}
         columns={[
           { label: "Date", accessor: "text", width: 60 },

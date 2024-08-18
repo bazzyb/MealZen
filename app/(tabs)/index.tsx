@@ -1,36 +1,34 @@
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { useCallback, useState } from "react";
-import { Colors, SortableList, SortableListItemProps, Text, TouchableOpacity, View } from "react-native-ui-lib";
+import DraggableFlatList, { DragEndParams, RenderItemParams } from "react-native-draggable-flatlist";
+import { Text, TouchableOpacity, View } from "react-native-ui-lib";
 
-interface Item extends SortableListItemProps {
+interface Item {
+  id: string;
   text: string;
   text2: string;
   text3: string;
 }
 
 const data = Array.from({ length: 30 }, (_, index) => ({
+  id: `${index}`,
   text: `${index}`,
   text2: `2 - ${index}`,
   text3: `3 - ${index}`,
-  id: `${index}`,
 }));
 
 export default function MealPlan() {
   const [orderedItems, setOrderedItems] = useState<Item[]>(data);
 
-  const keyExtractor = useCallback((item: Item) => {
-    return `${item.id}`;
+  const keyExtractor = useCallback((item: Item) => item.id, []);
+
+  const onOrderChange = useCallback((params: DragEndParams<Item>) => {
+    setOrderedItems(params.data);
   }, []);
 
-  const onOrderChange = useCallback((newData: Item[]) => {
-    setOrderedItems(newData);
-  }, []);
-
-  const renderItem = useCallback(({ item }: { item: Item; index: number }) => {
+  const renderItem = useCallback(({ item, drag, isActive }: RenderItemParams<Item>) => {
     return (
-      <TouchableOpacity centerV>
-        <View flex row centerV>
-          <MaterialIcons style={{ width: 44 }} name="drag-indicator" size={24} color={Colors.$iconDefault} />
+      <TouchableOpacity centerV style={{ height: 50 }} onLongPress={drag} delayLongPress={300} disabled={isActive}>
+        <View flex row centerV height={50}>
           <Text style={{ width: 60 }}>{item.text}</Text>
           <Text style={{ width: 100 }}>{item.text2}</Text>
           <Text>{item.text3}</Text>
@@ -41,27 +39,22 @@ export default function MealPlan() {
 
   return (
     <View flex>
-      <Text text30 $textDefault margin10>
-        Sortable List
-      </Text>
       <View flex useSafeArea>
-        <SortableList
-          flexMigration
-          data={data}
+        <DraggableFlatList
+          data={orderedItems}
           renderItem={renderItem}
           ListHeaderComponent={() => (
             <View flex row centerV backgroundColor="white">
-              <Text style={{ width: 44 }} />
               <Text style={{ width: 60 }}>Date</Text>
               <Text style={{ width: 100 }}>Name</Text>
               <Text>Notes</Text>
             </View>
           )}
+          renderPlaceholder={() => <View flex center backgroundColor="#DDD" />}
           stickyHeaderIndices={[0]}
           keyExtractor={keyExtractor}
-          onOrderChange={onOrderChange}
-          scale={1.02}
-          initialNumToRender={data.length}
+          onDragEnd={onOrderChange}
+          initialNumToRender={orderedItems.length}
         />
       </View>
     </View>

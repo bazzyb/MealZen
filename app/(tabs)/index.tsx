@@ -1,6 +1,8 @@
 import { useCallback, useState } from "react";
+import { TouchableOpacity, View } from "react-native";
 import DraggableFlatList, { DragEndParams, RenderItemParams } from "react-native-draggable-flatlist";
-import { Text, TouchableOpacity, View } from "react-native-ui-lib";
+
+import { Text, ViewColumn, ViewRow } from "@/app/components";
 
 interface Item {
   id: string;
@@ -27,36 +29,41 @@ export default function MealPlan() {
 
   const renderItem = useCallback(({ item, drag, isActive }: RenderItemParams<Item>) => {
     return (
-      <TouchableOpacity centerV style={{ height: 50 }} onLongPress={drag} delayLongPress={300} disabled={isActive}>
-        <View flex row centerV height={50}>
+      <TouchableOpacity
+        style={{ height: 50, alignItems: "center" }}
+        onLongPress={drag}
+        delayLongPress={300}
+        disabled={isActive}
+      >
+        <ViewRow alignItems="center" height={50}>
           <Text style={{ width: 60 }}>{item.text}</Text>
           <Text style={{ width: 100 }}>{item.text2}</Text>
           <Text>{item.text3}</Text>
-        </View>
+        </ViewRow>
       </TouchableOpacity>
     );
   }, []);
 
   return (
-    <View flex>
-      <View flex useSafeArea>
+    <View style={{ display: "flex" }}>
+      <ViewColumn>
         <DraggableFlatList
           data={orderedItems}
           renderItem={renderItem}
           ListHeaderComponent={() => (
-            <View flex row centerV backgroundColor="white">
+            <ViewRow alignItems="center" backgroundColor="white">
               <Text style={{ width: 60 }}>Date</Text>
               <Text style={{ width: 100 }}>Name</Text>
               <Text>Notes</Text>
-            </View>
+            </ViewRow>
           )}
-          renderPlaceholder={() => <View flex center backgroundColor="#DDD" />}
+          renderPlaceholder={() => <ViewColumn alignItems="center" backgroundColor="#DDD" />}
           stickyHeaderIndices={[0]}
           keyExtractor={keyExtractor}
           onDragEnd={onOrderChange}
           initialNumToRender={orderedItems.length}
         />
-      </View>
+      </ViewColumn>
     </View>
   );
 }

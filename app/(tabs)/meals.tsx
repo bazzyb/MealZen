@@ -1,15 +1,9 @@
-import { Text, View } from "react-native-ui-lib";
+import { Text, ViewColumn } from "@/app/components";
 
 export default function Index() {
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
+    <ViewColumn justifyContent="center" alignItems="center">
       <Text>Meals</Text>
-    </View>
+    </ViewColumn>
   );
 }

@@ -1,5 +1,3 @@
-// import { Colors } from "react-native-ui-lib";
-
 const PURPLE_LIGHT = "#7950F2";
 const PURPLE = "#5F3DC4";
 const WHITE = "#EEE";
@@ -19,10 +17,3 @@ export const tabColors = {
     backgroundColor: PURPLE_LIGHT,
   },
 };
-
-/**
- * https://wix.github.io/react-native-ui-lib/docs/foundation/colors
- */
-// Colors.loadColors({
-//   primary: Colors.pu,
-// });

@@ -23,4 +23,5 @@ export type TableProps<TData extends GenericData> = {
   data: TData[];
   columns: Array<Column<TData>>;
   isSortable?: boolean;
+  hideHeader?: boolean;
 };

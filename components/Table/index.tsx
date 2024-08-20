@@ -8,7 +8,9 @@ import { TableHeader } from "./Header";
 import { TableRow } from "./Row";
 import { GenericData, TableProps } from "./types";
 
-export function Table<TData extends GenericData>({ data, columns, isSortable }: TableProps<TData>) {
+export function Table<TData extends GenericData>(props: TableProps<TData>) {
+  const { data, columns, isSortable, hideHeader } = props;
+
   const [items, setItems] = useState<TData[]>(data);
 
   const onOrderChange = useCallback(({ data: reorderedItems }: DragEndParams<TData>) => {
@@ -22,7 +24,7 @@ export function Table<TData extends GenericData>({ data, columns, isSortable }: 
         renderItem={({ item, drag, isActive }) => (
           <TableRow item={item} columns={columns} draggableProps={{ drag, isActive }} />
         )}
-        ListHeaderComponent={() => <TableHeader columns={columns} />}
+        ListHeaderComponent={() => !hideHeader && <TableHeader columns={columns} />}
         renderPlaceholder={() => <ViewColumn alignItems="center" backgroundColor="#DDD" />}
         stickyHeaderIndices={[0]}
         keyExtractor={item => item.id.toString()}
@@ -36,7 +38,7 @@ export function Table<TData extends GenericData>({ data, columns, isSortable }: 
     <FlatList
       data={items}
       renderItem={({ item }) => <TableRow item={item} columns={columns} />}
-      ListHeaderComponent={<TableHeader columns={columns} />}
+      ListHeaderComponent={() => !hideHeader && <TableHeader columns={columns} />}
       stickyHeaderIndices={[0]}
       keyExtractor={item => item.id.toString()}
       initialNumToRender={items.length}

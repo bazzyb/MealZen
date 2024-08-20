@@ -18,9 +18,11 @@ export default function Index() {
   return (
     <ViewColumn>
       <Table
+        hideHeader
+        data={dummyMeals}
         columns={[
           {
-            label: "Name",
+            id: "name",
             accessorFn: item => (
               <ViewRow alignItems="center">
                 <ViewColumn paddingRight={8}>
@@ -50,7 +52,6 @@ export default function Index() {
             width: 48,
           },
         ]}
-        data={dummyMeals}
       />
     </ViewColumn>
   );

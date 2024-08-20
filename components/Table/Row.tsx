@@ -1,9 +1,9 @@
 import { PropsWithChildren } from "react";
-import { TouchableOpacity } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 
+import { Text } from "@/components/Text";
 import { ViewRow } from "@/components/Views/ViewRow";
 
-import { RowCell } from "./RowCell";
 import { Column, GenericData } from "./types";
 
 type DraggableProps = {
@@ -44,12 +44,15 @@ export function TableRow<TData extends GenericData>({
 }: PropsWithChildren<RowProps<TData>>) {
   return (
     <DraggableWrapper draggableProps={draggableProps}>
-      <ViewRow width="100%" justifyContent="flex-start" alignItems="center" height={50}>
-        {columns.map(({ label, accessor, width }) => (
-          <RowCell key={label} width={width}>
-            {item[accessor]}
-          </RowCell>
-        ))}
+      <ViewRow width="100%" justifyContent="flex-start" alignItems="center" minHeight={50} paddingVertical={4}>
+        {columns.map(({ id, label, width, ...accessors }) => {
+          const accessor = "accessor" in accessors ? accessors.accessor : accessors.accessorFn;
+          return (
+            <View key={id || label} style={{ flex: width ? 0 : 1, width, paddingHorizontal: 8 }}>
+              {typeof accessor === "string" ? <Text>{item[accessor]}</Text> : accessor(item)}
+            </View>
+          );
+        })}
       </ViewRow>
     </DraggableWrapper>
   );

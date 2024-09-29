@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { FlatList } from "react-native";
 import DraggableFlatList, { DragEndParams } from "react-native-draggable-flatlist";
 
@@ -12,6 +12,11 @@ export function Table<TData extends GenericData>(props: TableProps<TData>) {
   const { data, columns, isSortable, hideHeader } = props;
 
   const [items, setItems] = useState<TData[]>(data);
+
+  useEffect(() => {
+    // update table when row inserted, updated or deleted
+    setItems(data);
+  }, [data]);
 
   const onOrderChange = useCallback(({ data: reorderedItems }: DragEndParams<TData>) => {
     setItems(reorderedItems);

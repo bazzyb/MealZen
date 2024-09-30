@@ -61,8 +61,6 @@ export class SupabaseConnector implements PowerSyncBackendConnector {
       return null;
     }
 
-    Logger.log("session expires at", session.expires_at);
-
     return {
       endpoint: POWERSYNC_URL,
       token: session.access_token ?? "",

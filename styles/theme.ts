@@ -1,21 +1,21 @@
 import { ColorSchemeName } from "react-native";
 
-import { colors } from "./colors";
+import { PRIMARY_COLOR, colors } from "./colors";
 
 export const lightColors = {
   headerText: colors.white,
-  headerBackground: colors.purple[4],
+  headerBackground: colors[PRIMARY_COLOR][4],
   tabsBackground: colors.white,
-  tabsActiveBackground: colors.purple[4],
+  tabsActiveBackground: colors[PRIMARY_COLOR][4],
   tabsActiveText: colors.white,
 
   text: colors.black,
   textSecondary: colors.gray[6],
   background: colors.white,
 
-  primary: colors.purple[3],
-  primaryLight: colors.purple[2],
-  primaryDark: colors.purple[5],
+  primary: colors[PRIMARY_COLOR][3],
+  primaryLight: colors[PRIMARY_COLOR][2],
+  primaryDark: colors[PRIMARY_COLOR][5],
 
   success: colors.green[4],
   successLight: colors.green[2],
@@ -28,18 +28,18 @@ export const lightColors = {
 
 export const darkColors: typeof lightColors = {
   headerText: colors.white,
-  headerBackground: colors.purple[4],
-  tabsBackground: colors.purple[4],
-  tabsActiveBackground: colors.purple[6],
+  headerBackground: colors[PRIMARY_COLOR][4],
+  tabsBackground: colors[PRIMARY_COLOR][4],
+  tabsActiveBackground: colors[PRIMARY_COLOR][6],
   tabsActiveText: colors.white,
 
   text: colors.white,
   textSecondary: colors.gray[1],
   background: colors.black,
 
-  primary: colors.purple[3],
-  primaryLight: colors.purple[2],
-  primaryDark: colors.purple[5],
+  primary: colors[PRIMARY_COLOR][3],
+  primaryLight: colors[PRIMARY_COLOR][2],
+  primaryDark: colors[PRIMARY_COLOR][5],
 
   success: colors.green[2],
   successLight: colors.green[1],
@@ -56,6 +56,7 @@ export function getTheme(theme: ColorSchemeName) {
       ...(theme === "light" ? lightColors : darkColors),
       ...colors,
     },
+    borderRadius: 4,
     fontFamily: "NotoSans_400Regular",
     fontBold: "NotoSans_700Bold",
     headerFontFamily: "NotoSerif_400Regular",

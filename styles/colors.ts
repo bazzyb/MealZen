@@ -46,3 +46,7 @@ export const colors = {
     "8": "#0a250f",
   },
 };
+
+export const PRIMARY_COLOR = "purple";
+
+export type Colors = keyof typeof colors;

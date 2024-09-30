@@ -3,6 +3,7 @@ import { FlatList } from "react-native";
 import DraggableFlatList, { DragEndParams } from "react-native-draggable-flatlist";
 
 import { ViewColumn } from "@/components/Views/ViewColumn";
+import { useAppTheme } from "@/styles/useAppTheme";
 
 import { TableHeader } from "./Header";
 import { TableRow } from "./Row";
@@ -10,6 +11,8 @@ import { GenericData, TableProps } from "./types";
 
 export function Table<TData extends GenericData>(props: TableProps<TData>) {
   const { data, columns, isSortable, hideHeader } = props;
+
+  const { colors } = useAppTheme();
 
   const [items, setItems] = useState<TData[]>(data);
 

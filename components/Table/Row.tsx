@@ -1,8 +1,9 @@
 import { PropsWithChildren } from "react";
 import { TouchableOpacity, View } from "react-native";
 
-import { Text } from "@/components/Text";
 import { ViewRow } from "@/components/Views/ViewRow";
+import { Text } from "@/components/core/Text";
+import { useAppTheme } from "@/styles/useAppTheme";
 
 import { Column, GenericData } from "./types";
 
@@ -24,7 +25,7 @@ function DraggableWrapper({ draggableProps, children }: PropsWithChildren<Shared
   if (draggableProps) {
     return (
       <TouchableOpacity
-        style={{ height: 50, alignItems: "center" }}
+        style={{ alignItems: "center" }}
         onLongPress={draggableProps.drag}
         delayLongPress={300}
         disabled={draggableProps.isActive}
@@ -42,13 +43,24 @@ export function TableRow<TData extends GenericData>({
   draggableProps,
   columns,
 }: PropsWithChildren<RowProps<TData>>) {
+  const { colors } = useAppTheme();
+
   return (
     <DraggableWrapper draggableProps={draggableProps}>
-      <ViewRow width="100%" justifyContent="flex-start" alignItems="center" minHeight={50} paddingVertical={4}>
+      <ViewRow
+        width="100%"
+        justifyContent="flex-start"
+        alignItems="center"
+        paddingVertical={8}
+        paddingHorizontal={16}
+        gap={8}
+        borderBottomWidth={1}
+        borderBottomColor={colors.gray[0]}
+      >
         {columns.map(({ id, label, width, ...accessors }) => {
           const accessor = "accessor" in accessors ? accessors.accessor : accessors.accessorFn;
           return (
-            <View key={id || label} style={{ flex: width ? 0 : 1, width, paddingHorizontal: 8 }}>
+            <View key={id || label} style={{ flex: width ? 0 : 1, width }}>
               {typeof accessor === "string" ? <Text>{item[accessor]}</Text> : accessor(item)}
             </View>
           );

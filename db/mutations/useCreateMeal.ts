@@ -1,5 +1,5 @@
 import { supabase } from "..";
-import { MEAL_TABLE } from "../schema";
+import { MEAL_TABLE } from "../schemas/meal";
 import { AbstractPowerSyncDatabase, usePowerSync } from "@powersync/react-native";
 import { useState } from "react";
 
@@ -11,7 +11,7 @@ const createMeal = async (name: string, userId: string | null, db: AbstractPower
 
   const resultRecord = res.rows?.item(0);
   if (!resultRecord) {
-    throw new Error("Could not create list");
+    throw new Error("Could not create meal");
   }
   return resultRecord;
 };

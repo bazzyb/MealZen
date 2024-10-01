@@ -4,7 +4,7 @@ import { PowerSyncDatabase } from "@powersync/react-native";
 
 import { Logger } from "@/utils/logger";
 
-import { appSchema } from "./schema";
+import { appSchema } from "./schemas";
 
 export const supabase = new SupabaseConnector();
 export const db = new PowerSyncDatabase({

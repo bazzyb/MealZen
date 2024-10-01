@@ -1,5 +1,5 @@
 import { supabase } from "..";
-import { MEAL_TABLE } from "../schema";
+import { MEAL_TABLE } from "../schemas/meal";
 import { AbstractPowerSyncDatabase, usePowerSync } from "@powersync/react-native";
 import { useState } from "react";
 

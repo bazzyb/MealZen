@@ -23,7 +23,7 @@ export const MealZodSchema = z.object({
   is_overnight: z.number(),
   is_long_prep: z.number(),
   is_long_cook: z.number(),
-  recipe_url: z.string().url().nullish(),
+  recipe_url: z.string().url().nullable(),
   book_id: z.string().uuid().nullable(),
   page: z.number().nullable(),
 });

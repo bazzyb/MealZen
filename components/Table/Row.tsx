@@ -1,5 +1,5 @@
 import { PropsWithChildren } from "react";
-import { Pressable, TouchableOpacity, View } from "react-native";
+import { TouchableHighlight, View } from "react-native";
 
 import { ViewRow } from "@/components/Views/ViewRow";
 import { Text } from "@/components/core/Text";
@@ -23,9 +23,13 @@ type RowProps<TData extends GenericData> = {
 } & SharedProps;
 
 function DraggableWrapper({ draggableProps, onPress, children }: PropsWithChildren<SharedProps>) {
+  const { colors } = useAppTheme();
+
   if (draggableProps) {
     return (
-      <TouchableOpacity
+      <TouchableHighlight
+        activeOpacity={0.2}
+        underlayColor={colors.rowActiveBackground}
         style={{ alignItems: "center" }}
         onPress={onPress}
         onLongPress={draggableProps.drag}
@@ -33,11 +37,19 @@ function DraggableWrapper({ draggableProps, onPress, children }: PropsWithChildr
         disabled={draggableProps.isActive}
       >
         {children}
-      </TouchableOpacity>
+      </TouchableHighlight>
     );
   }
 
-  return <Pressable onPress={onPress}>{children}</Pressable>;
+  if (onPress) {
+    return (
+      <TouchableHighlight activeOpacity={0.2} underlayColor={colors.rowActiveBackground} onPress={onPress}>
+        {children}
+      </TouchableHighlight>
+    );
+  }
+
+  return children;
 }
 
 export function TableRow<TData extends GenericData>({
@@ -59,6 +71,7 @@ export function TableRow<TData extends GenericData>({
         gap={8}
         borderBottomWidth={1}
         borderBottomColor={colors.gray[0]}
+        backgroundColor={draggableProps?.isActive ? colors.rowDragBackground : "transparent"}
       >
         {columns.map(({ id, label, width, ...accessors }) => {
           const accessor = "accessor" in accessors ? accessors.accessor : accessors.accessorFn;

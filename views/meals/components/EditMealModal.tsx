@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Controller, useForm } from "react-hook-form";
 import { Modal, View } from "react-native";
 
 import { Button, CloseButton, Text, TextInput, ViewColumn, ViewRow } from "@/components";
 import { useUpdateMeal } from "@/db/mutations/useUpdateMeal";
 import { MealRecord, MealZodSchema } from "@/db/schemas/meal";
 import { useAppTheme } from "@/styles/useAppTheme";
-import { Logger } from "@/utils/logger";
 
 type ModalBodyProps = {
   selectedMeal: MealRecord;
@@ -14,32 +14,22 @@ type ModalBodyProps = {
 
 function ModalBody({ selectedMeal, setSelectedMeal }: ModalBodyProps) {
   const { colors } = useAppTheme();
-
-  const [name, setName] = useState(selectedMeal?.name);
-  const [recipeUrl, setRecipeUrl] = useState(selectedMeal?.recipe_url || "");
+  const { control, handleSubmit, formState } = useForm({
+    defaultValues: { ...selectedMeal },
+    resolver: zodResolver(MealZodSchema),
+  });
 
   const { mutate, isMutating } = useUpdateMeal();
 
-  async function handleSave() {
-    const validMeal = MealZodSchema.safeParse({
-      ...selectedMeal,
-      name,
-      recipe_url: recipeUrl || null,
-    });
-
-    if (!validMeal.success) {
-      Logger.error(validMeal.error);
-      return;
-    }
-
-    await mutate(validMeal.data);
+  const handleSave = async (data: MealRecord) => {
+    await mutate(data);
     setSelectedMeal(null);
-  }
+  };
 
   return (
     <View
       style={{
-        backgroundColor: "#222A",
+        backgroundColor: colors.modalBlurBackground,
         position: "absolute",
         bottom: 0,
         top: 0,
@@ -77,9 +67,38 @@ function ModalBody({ selectedMeal, setSelectedMeal }: ModalBodyProps) {
           borderBottomLeftRadius={8}
           borderBottomRightRadius={8}
         >
-          <TextInput label="Name" value={name} onChangeText={setName} />
-          <TextInput label="Recipe URL" value={recipeUrl} onChangeText={setRecipeUrl} />
-          <Button color="green" style={{ marginTop: 16, width: "auto" }} disabled={isMutating} onPress={handleSave}>
+          <Controller
+            name="name"
+            control={control}
+            render={({ field }) => (
+              <TextInput
+                label="Name"
+                onChangeText={field.onChange}
+                value={field.value}
+                error={formState.errors.name?.message}
+              />
+            )}
+          />
+
+          <Controller
+            name="recipe_url"
+            control={control}
+            render={({ field }) => (
+              <TextInput
+                label="Recipe URL"
+                onChangeText={field.onChange}
+                value={field.value}
+                error={formState.errors.recipe_url?.message}
+              />
+            )}
+          />
+
+          <Button
+            color="green"
+            style={{ marginTop: 16, width: "auto" }}
+            disabled={isMutating}
+            onPress={handleSubmit(handleSave)}
+          >
             Save
           </Button>
         </ViewColumn>

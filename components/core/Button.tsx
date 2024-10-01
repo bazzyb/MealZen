@@ -1,3 +1,4 @@
+import { LoadingIcon } from "../LoadingIcon";
 import { PropsWithChildren } from "react";
 import { Pressable, PressableProps, ViewStyle } from "react-native";
 
@@ -10,10 +11,21 @@ type Props = Omit<PressableProps, "style"> & {
   color?: Colors;
   textColor?: string;
   style?: ViewStyle;
+  loading?: boolean;
 };
 
-export function Button({ children, color, textColor, style, ...buttonProps }: PropsWithChildren<Props>) {
+export function Button({ children, loading, color, textColor, style, ...buttonProps }: PropsWithChildren<Props>) {
   const { colors, fontFamily, borderRadius } = useAppTheme();
+
+  function getBackgroundColor(pressed: boolean) {
+    if (pressed) {
+      return colors[color || PRIMARY_COLOR][5];
+    }
+    if (loading) {
+      return colors.gray[0];
+    }
+    return colors[color || PRIMARY_COLOR][4];
+  }
 
   return (
     <Pressable
@@ -22,12 +34,12 @@ export function Button({ children, color, textColor, style, ...buttonProps }: Pr
         paddingVertical: 8,
         paddingHorizontal: 16,
         borderRadius,
-        backgroundColor: pressed ? colors[color || PRIMARY_COLOR][5] : colors[color || PRIMARY_COLOR][4],
+        backgroundColor: getBackgroundColor(pressed),
         ...style,
       })}
       {...buttonProps}
     >
-      <Text color={textColor || colors.white}>{children}</Text>
+      {loading ? <LoadingIcon /> : <Text color={textColor || colors.white}>{children}</Text>}
     </Pressable>
   );
 }

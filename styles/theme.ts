@@ -13,7 +13,12 @@ export const lightColors = {
   textSecondary: colors.gray[6],
   link: colors.blue[5],
   label: colors.gray[7],
+
   background: colors.white,
+  modalBlurBackground: `${colors.black}A`,
+
+  rowActiveBackground: colors.gray[2],
+  rowDragBackground: colors.blue[1],
 
   primary: colors[PRIMARY_COLOR][3],
   primaryLight: colors[PRIMARY_COLOR][2],
@@ -39,7 +44,12 @@ export const darkColors: typeof lightColors = {
   textSecondary: colors.gray[1],
   link: colors.blue[1],
   label: colors.gray[1],
+
   background: colors.black,
+  modalBlurBackground: `${colors.white}3`,
+
+  rowActiveBackground: colors.gray[6],
+  rowDragBackground: colors.blue[6],
 
   primary: colors[PRIMARY_COLOR][3],
   primaryLight: colors[PRIMARY_COLOR][2],

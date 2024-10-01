@@ -1,20 +1,24 @@
 import { ViewColumn } from "../Views/ViewColumn";
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, forwardRef } from "react";
 import { TextInput as TextInputBase, TextInputProps, TextStyle } from "react-native";
 
 import { useAppTheme } from "@/styles/useAppTheme";
 
 import { Text } from "./Text";
 
-type Props = Omit<TextInputProps, "style"> & {
+type Props = Omit<TextInputProps, "style" | "value"> & {
   label?: string;
+  value?: string | null;
   style?: TextStyle;
   color?: string;
   size?: number;
   bold?: boolean;
+  error?: string;
 };
 
-export function TextInput({ children, label, style, color, size, bold, ...textInputProps }: PropsWithChildren<Props>) {
+export const TextInput = forwardRef<TextInputBase, PropsWithChildren<Props>>((props, ref) => {
+  const { children, label, value, error, style, color, size, bold, ...textInputProps } = props;
+
   const { colors, fontFamily, fontBold, borderRadius } = useAppTheme();
 
   return (
@@ -25,6 +29,8 @@ export function TextInput({ children, label, style, color, size, bold, ...textIn
         </Text>
       )}
       <TextInputBase
+        ref={ref}
+        value={value || ""}
         style={{
           fontFamily: bold ? fontBold : fontFamily,
           color: color || colors.black,
@@ -32,8 +38,8 @@ export function TextInput({ children, label, style, color, size, bold, ...textIn
           paddingVertical: 8,
           paddingHorizontal: 16,
           borderRadius,
-          borderWidth: 1,
-          borderColor: `1px solid ${colors.gray[2]}`,
+          borderWidth: error ? 2 : 1,
+          borderColor: error ? colors.errorLight : colors.gray[2],
           backgroundColor: colors.white,
           ...style,
         }}
@@ -42,6 +48,11 @@ export function TextInput({ children, label, style, color, size, bold, ...textIn
       >
         {children}
       </TextInputBase>
+      {error && (
+        <Text style={{ marginLeft: 8, fontSize: 12, color: colors.error }} bold>
+          {error}
+        </Text>
+      )}
     </ViewColumn>
   );
-}
+});

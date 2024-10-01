@@ -5,7 +5,7 @@ export const MEAL_TABLE = "meal";
 export const mealSchema = {
   // id column (text) is automatically included
   user_id: column.text,
-  name: column.text!,
+  name: column.text,
   is_simple: column.integer,
   is_overnight: column.integer,
   is_long_prep: column.integer,

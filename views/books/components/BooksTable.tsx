@@ -3,8 +3,13 @@ import { View } from "react-native";
 import { CloseButton, Table, Text, ViewColumn, ViewRow } from "@/components";
 import { useDeleteBook } from "@/db/mutations/useDeleteBook";
 import { useGetBooks } from "@/db/queries/useGetBooks";
+import { BookRecord } from "@/db/schemas/book";
 
-export function BooksTable() {
+type Props = {
+  setSelectedBook: (meal: BookRecord | null) => void;
+};
+
+export function BooksTable({ setSelectedBook }: Props) {
   const { data: books, isLoading } = useGetBooks();
   const { mutate: deleteBook, isMutating: isDeletingBook } = useDeleteBook();
 
@@ -28,6 +33,7 @@ export function BooksTable() {
     <Table
       hideHeader
       data={books}
+      onRowPress={setSelectedBook}
       columns={[
         {
           id: "name",
@@ -35,6 +41,11 @@ export function BooksTable() {
             <ViewRow alignItems="center">
               <ViewColumn paddingRight={8}>
                 <Text>{book.name}</Text>
+                {book.author && (
+                  <Text color="gray" size={11}>
+                    {book.author}
+                  </Text>
+                )}
               </ViewColumn>
             </ViewRow>
           ),

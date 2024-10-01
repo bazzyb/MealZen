@@ -12,7 +12,7 @@ type Props = Omit<PressableProps, "style"> & {
   style?: ViewStyle;
 };
 
-export function Button({ children, color, textColor, style, ...textInputProps }: PropsWithChildren<Props>) {
+export function Button({ children, color, textColor, style, ...buttonProps }: PropsWithChildren<Props>) {
   const { colors, fontFamily, borderRadius } = useAppTheme();
 
   return (
@@ -25,7 +25,7 @@ export function Button({ children, color, textColor, style, ...textInputProps }:
         backgroundColor: pressed ? colors[color || PRIMARY_COLOR][5] : colors[color || PRIMARY_COLOR][4],
         ...style,
       })}
-      {...textInputProps}
+      {...buttonProps}
     >
       <Text color={textColor || colors.white}>{children}</Text>
     </Pressable>

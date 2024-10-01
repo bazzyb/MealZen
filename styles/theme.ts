@@ -11,6 +11,8 @@ export const lightColors = {
 
   text: colors.black,
   textSecondary: colors.gray[6],
+  link: colors.blue[5],
+  label: colors.gray[7],
   background: colors.white,
 
   primary: colors[PRIMARY_COLOR][3],
@@ -35,6 +37,8 @@ export const darkColors: typeof lightColors = {
 
   text: colors.white,
   textSecondary: colors.gray[1],
+  link: colors.blue[1],
+  label: colors.gray[1],
   background: colors.black,
 
   primary: colors[PRIMARY_COLOR][3],

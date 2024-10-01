@@ -3,16 +3,13 @@ import { FlatList } from "react-native";
 import DraggableFlatList, { DragEndParams } from "react-native-draggable-flatlist";
 
 import { ViewColumn } from "@/components/Views/ViewColumn";
-import { useAppTheme } from "@/styles/useAppTheme";
 
 import { TableHeader } from "./Header";
 import { TableRow } from "./Row";
 import { GenericData, TableProps } from "./types";
 
 export function Table<TData extends GenericData>(props: TableProps<TData>) {
-  const { data, columns, isSortable, hideHeader } = props;
-
-  const { colors } = useAppTheme();
+  const { data, columns, onRowPress, isSortable, hideHeader } = props;
 
   const [items, setItems] = useState<TData[]>(data);
 
@@ -30,7 +27,12 @@ export function Table<TData extends GenericData>(props: TableProps<TData>) {
       <DraggableFlatList
         data={items}
         renderItem={({ item, drag, isActive }) => (
-          <TableRow item={item} columns={columns} draggableProps={{ drag, isActive }} />
+          <TableRow
+            item={item}
+            columns={columns}
+            onPress={() => onRowPress?.(item)}
+            draggableProps={{ drag, isActive }}
+          />
         )}
         ListHeaderComponent={() => !hideHeader && <TableHeader columns={columns} />}
         renderPlaceholder={() => <ViewColumn alignItems="center" backgroundColor="#DDD" />}
@@ -45,7 +47,7 @@ export function Table<TData extends GenericData>(props: TableProps<TData>) {
   return (
     <FlatList
       data={items}
-      renderItem={({ item }) => <TableRow item={item} columns={columns} />}
+      renderItem={({ item }) => <TableRow item={item} columns={columns} onPress={() => onRowPress?.(item)} />}
       ListHeaderComponent={() => !hideHeader && <TableHeader columns={columns} />}
       stickyHeaderIndices={[0]}
       keyExtractor={item => item.id.toString()}

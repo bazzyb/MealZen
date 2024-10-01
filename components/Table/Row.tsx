@@ -1,5 +1,5 @@
 import { PropsWithChildren } from "react";
-import { TouchableOpacity, View } from "react-native";
+import { Pressable, TouchableOpacity, View } from "react-native";
 
 import { ViewRow } from "@/components/Views/ViewRow";
 import { Text } from "@/components/core/Text";
@@ -14,6 +14,7 @@ type DraggableProps = {
 
 type SharedProps = {
   draggableProps?: DraggableProps;
+  onPress?: () => void;
 };
 
 type RowProps<TData extends GenericData> = {
@@ -21,11 +22,12 @@ type RowProps<TData extends GenericData> = {
   columns: Array<Column<TData>>;
 } & SharedProps;
 
-function DraggableWrapper({ draggableProps, children }: PropsWithChildren<SharedProps>) {
+function DraggableWrapper({ draggableProps, onPress, children }: PropsWithChildren<SharedProps>) {
   if (draggableProps) {
     return (
       <TouchableOpacity
         style={{ alignItems: "center" }}
+        onPress={onPress}
         onLongPress={draggableProps.drag}
         delayLongPress={300}
         disabled={draggableProps.isActive}
@@ -35,18 +37,19 @@ function DraggableWrapper({ draggableProps, children }: PropsWithChildren<Shared
     );
   }
 
-  return children;
+  return <Pressable onPress={onPress}>{children}</Pressable>;
 }
 
 export function TableRow<TData extends GenericData>({
   item,
   draggableProps,
+  onPress,
   columns,
 }: PropsWithChildren<RowProps<TData>>) {
   const { colors } = useAppTheme();
 
   return (
-    <DraggableWrapper draggableProps={draggableProps}>
+    <DraggableWrapper draggableProps={draggableProps} onPress={onPress}>
       <ViewRow
         width="100%"
         justifyContent="flex-start"

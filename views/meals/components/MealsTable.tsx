@@ -1,13 +1,17 @@
-import Entypo from "@expo/vector-icons/Entypo";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
-import { Pressable, View } from "react-native";
+import { View } from "react-native";
 
-import { Table, Text, ViewColumn, ViewRow } from "@/components";
+import { CloseButton, ExternalLink, Table, Text, ViewColumn, ViewRow } from "@/components";
 import { useDeleteMeal } from "@/db/mutations/useDeleteMeal";
 import { useGetMeals } from "@/db/queries/useGetMeals";
+import { MealRecord } from "@/db/schemas/meal";
 import { useAppTheme } from "@/styles/useAppTheme";
 
-export function MealsTable() {
+type Props = {
+  setSelectedMeal: (meal: MealRecord | null) => void;
+};
+
+export function MealsTable({ setSelectedMeal }: Props) {
   const { colors } = useAppTheme();
 
   const { data: meals, isLoading } = useGetMeals();
@@ -33,39 +37,27 @@ export function MealsTable() {
     <Table
       hideHeader
       data={meals}
+      onRowPress={setSelectedMeal}
       columns={[
         {
           id: "name",
-          accessorFn: item => (
+          accessorFn: ({ recipe_url, ...meal }) => (
             <ViewRow alignItems="center">
               <ViewColumn paddingRight={8}>
-                <Text>{item.name}</Text>
-                {item.recipe && (
-                  <Text size={11} color={colors.textSecondary}>
-                    {item.recipe}
-                  </Text>
+                <Text>{meal.name}</Text>
+                {!!recipe_url && (
+                  <ExternalLink url={recipe_url} size={11}>
+                    Recipe
+                  </ExternalLink>
                 )}
               </ViewColumn>
-              {item.easyMeal && <FontAwesome5 name="umbrella-beach" size={12} color={colors.success} />}
+              {!!meal.is_simple && <FontAwesome5 name="umbrella-beach" size={12} color={colors.success} />}
             </ViewRow>
           ),
         },
         {
           id: "delete-row",
-          accessorFn: item => (
-            <Pressable
-              style={({ pressed }) => ({
-                backgroundColor: pressed ? colors.errorDark : colors.error,
-                borderRadius: 4,
-                width: "100%",
-                paddingVertical: 2,
-              })}
-              onPress={async () => deleteMeal(item.id)}
-              disabled={isDeletingMeal}
-            >
-              <Entypo name="cross" size={24} color={colors.white} style={{ textAlign: "center" }} />
-            </Pressable>
-          ),
+          accessorFn: meal => <CloseButton onPress={async () => deleteMeal(meal.id)} disabled={isDeletingMeal} />,
           width: 28,
         },
       ]}

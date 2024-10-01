@@ -22,6 +22,7 @@ export type Column<TData extends GenericData> = {
 export type TableProps<TData extends GenericData> = {
   data: TData[];
   columns: Array<Column<TData>>;
+  onRowPress?: (data: TData) => void;
   isSortable?: boolean;
   hideHeader?: boolean;
 };

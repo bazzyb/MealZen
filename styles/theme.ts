@@ -10,7 +10,7 @@ export const lightColors = {
   tabsActiveText: colors.white,
 
   text: colors.black,
-  textSecondary: colors.gray[6],
+  textSecondary: colors.gray[7],
   link: colors.blue[5],
   label: colors.gray[7],
 
@@ -41,7 +41,7 @@ export const darkColors: typeof lightColors = {
   tabsActiveText: colors.white,
 
   text: colors.white,
-  textSecondary: colors.gray[1],
+  textSecondary: colors.gray[2],
   link: colors.blue[1],
   label: colors.gray[1],
 

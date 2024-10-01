@@ -4,12 +4,15 @@ import { CloseButton, Table, Text, ViewColumn, ViewRow } from "@/components";
 import { useDeleteBook } from "@/db/mutations/useDeleteBook";
 import { useGetBooks } from "@/db/queries/useGetBooks";
 import { BookRecord } from "@/db/schemas/book";
+import { useAppTheme } from "@/styles/useAppTheme";
 
 type Props = {
   setSelectedBook: (meal: BookRecord | null) => void;
 };
 
 export function BooksTable({ setSelectedBook }: Props) {
+  const { colors } = useAppTheme();
+
   const { data: books, isLoading } = useGetBooks();
   const { mutate: deleteBook, isMutating: isDeletingBook } = useDeleteBook();
 
@@ -42,7 +45,7 @@ export function BooksTable({ setSelectedBook }: Props) {
               <ViewColumn paddingRight={8}>
                 <Text>{book.name}</Text>
                 {book.author && (
-                  <Text color="gray" size={11}>
+                  <Text color={colors.textSecondary} size={11}>
                     {book.author}
                   </Text>
                 )}

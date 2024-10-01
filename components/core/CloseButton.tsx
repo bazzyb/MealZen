@@ -10,13 +10,13 @@ type Props = {
 };
 
 export function CloseButton({ disabled, onPress, width }: Props) {
-  const { colors } = useAppTheme();
+  const { colors, borderRadius } = useAppTheme();
 
   return (
     <Pressable
       style={({ pressed }) => ({
         backgroundColor: pressed ? colors.errorDark : colors.error,
-        borderRadius: 4,
+        borderRadius,
         width: width || "100%",
         paddingVertical: 2,
       })}

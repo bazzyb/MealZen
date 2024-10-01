@@ -9,13 +9,15 @@ const updateQuery = `
   UPDATE ${MEAL_TABLE}
   SET 
     name = ?,
-    recipe_url = ?
+    recipe_url = ?,
+    book_id = ?,
+    page = ?
   WHERE id = ? AND user_id = ?
   RETURNING *
 `;
 
 const updateMeal = async (meal: Omit<MealRecord, "user_id">, userId: string | null, db: AbstractPowerSyncDatabase) => {
-  const res = await db.execute(updateQuery, [meal.name, meal.recipe_url, meal.id, userId]);
+  const res = await db.execute(updateQuery, [meal.name, meal.recipe_url, meal.book_id, meal.page, meal.id, userId]);
 
   const resultRecord = res.rows?.item(0);
   if (!resultRecord) {

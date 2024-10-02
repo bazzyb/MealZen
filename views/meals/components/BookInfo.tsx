@@ -3,10 +3,7 @@ import { useMemo } from "react";
 import { Text } from "@/components";
 import { BookRecord } from "@/db/schemas/book";
 import { useAppTheme } from "@/styles/useAppTheme";
-
-function getBookOnMeal(bookId: string, books: BookRecord[]) {
-  return books.find(b => b.id === bookId);
-}
+import { findBookInArray } from "@/utils/find";
 
 type Props = {
   bookId: string;
@@ -17,7 +14,7 @@ type Props = {
 export function BookInfo({ bookId, page, books }: Props) {
   const { colors } = useAppTheme();
 
-  const book = useMemo(() => getBookOnMeal(bookId, books), [bookId, books]);
+  const book = useMemo(() => findBookInArray(bookId, books), [bookId, books]);
 
   return (
     <>

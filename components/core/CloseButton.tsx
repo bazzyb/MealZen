@@ -20,7 +20,10 @@ export function CloseButton({ disabled, onPress, width }: Props) {
         width: width || "100%",
         paddingVertical: 2,
       })}
-      onPress={onPress}
+      onPress={e => {
+        e.stopPropagation();
+        onPress();
+      }}
       disabled={disabled}
     >
       <Entypo name="cross" size={24} color={colors.white} style={{ textAlign: "center" }} />

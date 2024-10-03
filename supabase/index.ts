@@ -1,4 +1,4 @@
-import { POWERSYNC_URL, SUPABASE_ANON_KEY, SUPABASE_URL, TEST_EMAIL, TEST_PASSWORD } from "../config";
+import { LOCAL_USER_ID, POWERSYNC_URL, SUPABASE_ANON_KEY, SUPABASE_URL, TEST_EMAIL, TEST_PASSWORD } from "../config";
 import { AbstractPowerSyncDatabase, CrudEntry, PowerSyncBackendConnector, UpdateType } from "@powersync/react-native";
 import { SupabaseClient, createClient } from "@supabase/supabase-js";
 
@@ -72,8 +72,8 @@ export class SupabaseConnector implements PowerSyncBackendConnector {
   async getUserId() {
     const user = await this.fetchCredentials();
 
-    if (!user) {
-      return null;
+    if (!user?.userID) {
+      return LOCAL_USER_ID;
     }
 
     return user.userID;

@@ -4,11 +4,11 @@ import { PowerSyncDatabase } from "@powersync/react-native";
 
 import { Logger } from "@/utils/logger";
 
-import { appSchema } from "./schemas";
+import { buildSchema } from "./schemas/buildSchema";
 
 export const supabase = new SupabaseConnector();
 export const db = new PowerSyncDatabase({
-  schema: appSchema,
+  schema: buildSchema(true),
   database: {
     dbFilename: "sqlite.db",
   },

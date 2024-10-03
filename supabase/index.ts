@@ -1,4 +1,4 @@
-import { LOCAL_USER_ID, POWERSYNC_URL, SUPABASE_ANON_KEY, SUPABASE_URL, TEST_EMAIL, TEST_PASSWORD } from "../config";
+import { LOCAL_USER_ID, POWERSYNC_URL, SUPABASE_ANON_KEY, SUPABASE_URL } from "../config";
 import { AbstractPowerSyncDatabase, CrudEntry, PowerSyncBackendConnector, UpdateType } from "@powersync/react-native";
 import { SupabaseClient, createClient } from "@supabase/supabase-js";
 
@@ -29,25 +29,29 @@ export class SupabaseConnector implements PowerSyncBackendConnector {
 
   async login(email: string, password: string) {
     // TODO: won't be needed once we have a proper login flow
-    const currentSesh = await this.supabaseClient.auth.getSession();
-    if (currentSesh.data.session?.user) {
-      return;
-    }
+    const session = await this.fetchCredentials();
 
-    const { error } = await this.supabaseClient.auth.signInWithPassword({
-      email,
-      password,
-    });
+    if (!session?.userID) {
+      const { data, error } = await this.supabaseClient.auth.signInWithPassword({
+        email,
+        password,
+      });
 
-    if (error) {
-      throw error;
+      if (error) {
+        throw error;
+      }
+
+      if (!data.session) {
+        throw new Error("Could not login to Supabase");
+      }
+
+      return data.session.user.id;
+    } else {
+      return session.userID;
     }
   }
 
   async fetchCredentials() {
-    // TODO: replace this with a proper login flow
-    await this.login(TEST_EMAIL, TEST_PASSWORD);
-
     const {
       data: { session },
       error,

@@ -6,35 +6,28 @@ import { Stack } from "expo-router";
 import { useEffect, useState } from "react";
 
 import { ThemeProvider } from "@/components/Providers/ThemeProvider";
-import { TEST_EMAIL, TEST_PASSWORD } from "@/config";
-import { db, init, supabase } from "@/db";
+import { db, init } from "@/db";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const [sessionChecked, setSessionChecked] = useState(false);
+  const [appReady, setAppReady] = useState(false);
 
-  const [loaded] = useFonts({
+  const [fontsLoaded] = useFonts({
     NotoSerif_400Regular,
     NotoSans_400Regular,
     NotoSans_700Bold,
   });
 
   useEffect(() => {
-    if (loaded && sessionChecked) {
+    init().then(() => {
+      setAppReady(true);
       SplashScreen.hideAsync();
-      init();
-    }
-  }, [loaded, sessionChecked]);
-
-  useEffect(() => {
-    supabase.login(TEST_EMAIL, TEST_PASSWORD).then(() => {
-      setSessionChecked(true);
     });
   }, []);
 
-  if (!loaded) {
+  if (!fontsLoaded || !appReady) {
     return null;
   }
 

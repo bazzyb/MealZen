@@ -1,12 +1,43 @@
 import Entypo from "@expo/vector-icons/Entypo";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { usePowerSync } from "@powersync/react-native";
 import { Tabs } from "expo-router";
+import { useEffect, useState } from "react";
 
+import { Button } from "@/components";
+import { switchToLocalSchema, switchToSyncedSchema } from "@/db/sync/switchTables";
+import { getSyncEnabled } from "@/db/sync/utils";
 import { useAppTheme } from "@/styles/useAppTheme";
+import { Logger } from "@/utils/logger";
 
 export default function TabsLayout() {
   const theme = useAppTheme();
+  const powerSync = usePowerSync();
+  const [isEnabled, setIsEnabled] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    getSyncEnabled().then(setIsEnabled);
+  }, []);
+
+  async function handleSyncPress() {
+    try {
+      const isSynced = await getSyncEnabled();
+      if (isSynced) {
+        await switchToLocalSchema(powerSync);
+        setIsEnabled(false);
+      } else {
+        await switchToSyncedSchema(powerSync);
+        setIsEnabled(true);
+      }
+    } catch (err) {
+      Logger.log(err);
+    }
+  }
+
+  if (isEnabled === null) {
+    return null;
+  }
 
   return (
     <Tabs
@@ -20,6 +51,11 @@ export default function TabsLayout() {
         },
         headerTintColor: theme.colors.headerText,
         headerTitleAlign: "left",
+        headerRight: () => (
+          <Button onPress={handleSyncPress} color={isEnabled ? "green" : "red"}>
+            Sync
+          </Button>
+        ),
         headerTitleStyle: { fontFamily: theme.headerFontFamily },
         tabBarLabelStyle: { fontFamily: theme.headerFontFamily, paddingBottom: 4 },
       }}

@@ -8,9 +8,9 @@
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "##image": "./assets/images/splash.png",
+      "image": "./assets/images/mealzen-logo.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#5f3dc4"
     },
     "ios": {
       "supportsTablet": true,

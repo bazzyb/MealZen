@@ -2,7 +2,7 @@ import { SupabaseConnector } from "../supabase";
 import "@azure/core-asynciterator-polyfill";
 import { PowerSyncDatabase } from "@powersync/react-native";
 
-import { TEST_EMAIL, TEST_PASSWORD } from "@/config";
+import { TEST_EMAIL, TEST_PASSWORD } from "@/consts";
 import { Logger } from "@/utils/logger";
 
 import { buildSchema } from "./schemas/buildSchema";

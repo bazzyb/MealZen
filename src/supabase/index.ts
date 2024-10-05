@@ -1,7 +1,7 @@
-import { LOCAL_USER_ID, POWERSYNC_URL, SUPABASE_ANON_KEY, SUPABASE_URL } from "../config";
 import { AbstractPowerSyncDatabase, CrudEntry, PowerSyncBackendConnector, UpdateType } from "@powersync/react-native";
 import { SupabaseClient, createClient } from "@supabase/supabase-js";
 
+import { LOCAL_USER_ID, POWERSYNC_URL, SUPABASE_ANON_KEY, SUPABASE_URL } from "@/consts";
 import { Logger } from "@/utils/logger";
 
 /// Postgres Response codes that we cannot recover from by retrying.

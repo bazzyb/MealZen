@@ -5,8 +5,8 @@ import { PowerSyncContext } from "@powersync/react-native";
 import { Stack } from "expo-router";
 import { useEffect, useState } from "react";
 
-import { ThemeProvider } from "@/components/Providers/ThemeProvider";
 import { db, init } from "@/db";
+import { ThemeProvider } from "@/providers/ThemeProvider";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();

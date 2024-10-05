@@ -1,12 +1,14 @@
-import { supabase } from "..";
 import { BOOK_TABLE } from "../schemas/book";
 import { AbstractPowerSyncDatabase, usePowerSync } from "@powersync/react-native";
 import { useState } from "react";
 
-const createBook = async (name: string, userId: string | null, db: AbstractPowerSyncDatabase) => {
+import { LOCAL_USER_ID } from "@/consts";
+import { useAuth } from "@/providers/AuthProvider";
+
+const createBook = async (name: string, db: AbstractPowerSyncDatabase, userId?: string) => {
   const res = await db.execute(`INSERT INTO ${BOOK_TABLE} (id, name, user_id) VALUES (uuid(), ?, ?) RETURNING *`, [
     name,
-    userId,
+    userId || LOCAL_USER_ID,
   ]);
 
   const resultRecord = res.rows?.item(0);
@@ -18,13 +20,13 @@ const createBook = async (name: string, userId: string | null, db: AbstractPower
 
 export function useCreateBook() {
   const [isMutating, setIsMutating] = useState(false);
+  const { user } = useAuth();
 
   const db = usePowerSync();
 
   async function mutate(name: string) {
     setIsMutating(true);
-    const userId = await supabase.getUserId();
-    const result = await createBook(name, userId, db);
+    const result = await createBook(name, db, user?.id);
     setIsMutating(false);
     return result;
   }

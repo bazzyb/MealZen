@@ -6,6 +6,7 @@ import { Stack } from "expo-router";
 import { useEffect, useState } from "react";
 
 import { db, init } from "@/db";
+import { AuthProvider } from "@/providers/AuthProvider";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -34,9 +35,11 @@ export default function RootLayout() {
   return (
     <ThemeProvider>
       <PowerSyncContext.Provider value={db}>
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        </Stack>
+        <AuthProvider>
+          <Stack>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          </Stack>
+        </AuthProvider>
       </PowerSyncContext.Provider>
     </ThemeProvider>
   );

@@ -2,7 +2,6 @@ import { SupabaseConnector } from "../supabase";
 import "@azure/core-asynciterator-polyfill";
 import { PowerSyncDatabase } from "@powersync/react-native";
 
-import { TEST_EMAIL, TEST_PASSWORD } from "@/consts";
 import { Logger } from "@/utils/logger";
 
 import { buildSchema } from "./schemas/buildSchema";
@@ -29,8 +28,6 @@ export async function init() {
       // connect enables syncing between local sqlite db and remote supabase db
       await db.connect(supabase);
     }
-
-    await supabase.login(TEST_EMAIL, TEST_PASSWORD);
   } catch (err) {
     Logger.error("Failed to initialize database", err);
   }

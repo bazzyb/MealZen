@@ -1,7 +1,7 @@
 import { AbstractPowerSyncDatabase, CrudEntry, PowerSyncBackendConnector, UpdateType } from "@powersync/react-native";
 import { SupabaseClient, createClient } from "@supabase/supabase-js";
 
-import { LOCAL_USER_ID, POWERSYNC_URL, SUPABASE_ANON_KEY, SUPABASE_URL } from "@/consts";
+import { POWERSYNC_URL, SUPABASE_ANON_KEY, SUPABASE_URL } from "@/consts";
 import { Logger } from "@/utils/logger";
 
 /// Postgres Response codes that we cannot recover from by retrying.
@@ -44,10 +44,6 @@ export class SupabaseConnector implements PowerSyncBackendConnector {
       if (!data.session) {
         throw new Error("Could not login to Supabase");
       }
-
-      return data.session.user.id;
-    } else {
-      return session.userID;
     }
   }
 
@@ -71,16 +67,6 @@ export class SupabaseConnector implements PowerSyncBackendConnector {
       expiresAt: session.expires_at ? new Date(session.expires_at * 1000 + 10000000) : undefined,
       userID: session.user.id,
     };
-  }
-
-  async getUserId() {
-    const user = await this.fetchCredentials();
-
-    if (!user?.userID) {
-      return LOCAL_USER_ID;
-    }
-
-    return user.userID;
   }
 
   async uploadData(database: AbstractPowerSyncDatabase): Promise<void> {

@@ -1,8 +1,9 @@
-import { supabase } from "..";
 import { MEAL_TABLE, MealRecord } from "../schemas/meal";
 import { AbstractPowerSyncDatabase, usePowerSync } from "@powersync/react-native";
 import { useState } from "react";
 
+import { LOCAL_USER_ID } from "@/consts";
+import { useAuth } from "@/providers/AuthProvider";
 import { Logger } from "@/utils/logger";
 
 const updateQuery = `
@@ -16,8 +17,15 @@ const updateQuery = `
   RETURNING *
 `;
 
-const updateMeal = async (meal: Omit<MealRecord, "user_id">, userId: string | null, db: AbstractPowerSyncDatabase) => {
-  const res = await db.execute(updateQuery, [meal.name, meal.recipe_url, meal.book_id, meal.page, meal.id, userId]);
+const updateMeal = async (meal: Omit<MealRecord, "user_id">, db: AbstractPowerSyncDatabase, userId?: string) => {
+  const res = await db.execute(updateQuery, [
+    meal.name,
+    meal.recipe_url,
+    meal.book_id,
+    meal.page,
+    meal.id,
+    userId || LOCAL_USER_ID,
+  ]);
 
   const resultRecord = res.rows?.item(0);
   if (!resultRecord) {
@@ -28,14 +36,14 @@ const updateMeal = async (meal: Omit<MealRecord, "user_id">, userId: string | nu
 
 export function useUpdateMeal() {
   const [isMutating, setIsMutating] = useState(false);
+  const { user } = useAuth();
 
   const db = usePowerSync();
 
   async function mutate(meal: Omit<MealRecord, "user_id">) {
     setIsMutating(true);
-    const userId = await supabase.getUserId();
     try {
-      const result = await updateMeal(meal, userId, db);
+      const result = await updateMeal(meal, db, user?.id);
       setIsMutating(false);
       return result;
     } catch (err) {

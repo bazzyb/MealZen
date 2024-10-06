@@ -129,3 +129,5 @@ export class SupabaseConnector implements PowerSyncBackendConnector {
     }
   }
 }
+
+export const supabase = new SupabaseConnector();

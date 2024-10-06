@@ -3,7 +3,9 @@ import { ReactNode, createContext, useContext, useEffect, useState } from "react
 
 import { LoadingIcon } from "@/components/LoadingIcon";
 import { TEST_EMAIL, TEST_PASSWORD } from "@/consts";
-import { supabase } from "@/db";
+import { getSyncEnabled } from "@/db/sync/utils";
+import { supabase } from "@/supabase";
+import { Logger } from "@/utils/logger";
 
 export const AuthContext = createContext<{
   session: AuthSession | null;
@@ -29,23 +31,27 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<AuthSession | null>(null);
   const [user, setUser] = useState<AuthUser | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [isSyncEnabled, setIsSyncEnabled] = useState(true);
+  const [isSyncEnabled, setIsSyncEnabled] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    getSyncEnabled().then(setIsSyncEnabled);
+  }, []);
 
   async function signIn({ session, user }: { session: AuthSession | null; user: AuthUser | null }) {
-    console.log("signIn");
+    Logger.log("signIn");
     setSession(session);
     setUser(user);
   }
 
   async function signOut() {
-    console.log("signOut");
+    Logger.log("signOut");
     const { error } = await supabase.supabaseClient.auth.signOut();
 
     setSession(null);
     setUser(null);
 
     if (error) {
-      console.error(error);
+      Logger.error(error);
     }
   }
 
@@ -67,7 +73,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     // if (session && !user) getUser();
   }, [session, user]);
 
-  if (isLoading) {
+  if (isSyncEnabled === null || isLoading) {
     return <LoadingIcon />;
   }
 

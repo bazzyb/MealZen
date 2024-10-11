@@ -5,6 +5,7 @@ import { MEALPLAN_TABLE, mealplanTableLocalToSyncStatement } from "../schemas/me
 import { AbstractPowerSyncDatabase } from "@powersync/react-native";
 
 export async function syncLocalChangesToSyncedTable(db: AbstractPowerSyncDatabase, userId: string) {
+  await db.disconnect();
   await db.updateSchema(buildSchema(true));
 
   await db.writeTransaction(async tx => {

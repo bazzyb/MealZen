@@ -1,30 +1,30 @@
 import type { AuthSession, AuthUser } from "@supabase/supabase-js";
-import { ReactNode, createContext, useContext, useEffect, useState } from "react";
+import { ReactNode, createContext, useContext, useEffect, useMemo, useState } from "react";
 
 import { LoadingIcon } from "@/components/LoadingIcon";
-import { TEST_EMAIL, TEST_PASSWORD } from "@/consts";
-import { getSyncEnabled } from "@/db/sync/utils";
+import { getSyncEnabled, setSyncEnabled } from "@/db/sync/utils";
 import { supabase } from "@/supabase";
 import { Logger } from "@/utils/logger";
 
-export const AuthContext = createContext<{
+type AuthContextType = {
   session: AuthSession | null;
   user: AuthUser | null;
-  signIn: ({ session, user }: { session: AuthSession | null; user: AuthUser | null }) => void;
-  signOut: () => void;
-  isSyncEnabled: boolean;
-  setIsSyncEnabled: (isSyncEnabled: boolean) => void;
-}>({
-  session: null,
-  user: null,
-  signIn: () => {},
-  signOut: () => {},
-  isSyncEnabled: true,
-  setIsSyncEnabled: () => {},
-});
+  signIn: (email: string, password: string) => Promise<AuthUser>;
+  signOut: () => Promise<void>;
+  isSyncEnabled: boolean | null;
+  toggleSync: () => Promise<void>;
+};
+
+export const AuthContext = createContext<AuthContextType | null>(null);
 
 export function useAuth() {
-  return useContext(AuthContext);
+  const context = useContext(AuthContext);
+
+  if (!context) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+
+  return context;
 }
 
 export function AuthProvider({ children }: { children: ReactNode }) {
@@ -37,15 +37,31 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     getSyncEnabled().then(setIsSyncEnabled);
   }, []);
 
-  async function signIn({ session, user }: { session: AuthSession | null; user: AuthUser | null }) {
+  async function signIn(email: string, password: string) {
     Logger.log("signIn");
-    setSession(session);
-    setUser(user);
+
+    const { data, error } = await supabase.client.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (error) {
+      throw error;
+    }
+
+    if (!data.session || !data.user) {
+      throw new Error("Could not signIn to Supabase");
+    }
+
+    setSession(data.session);
+    setUser(data.user);
+
+    return data.user;
   }
 
   async function signOut() {
     Logger.log("signOut");
-    const { error } = await supabase.supabaseClient.auth.signOut();
+    const { error } = await supabase.client.auth.signOut();
 
     setSession(null);
     setUser(null);
@@ -56,9 +72,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   async function getSession() {
-    // should be called elsewhere once we have login flow
-    await supabase.login(TEST_EMAIL, TEST_PASSWORD);
-    const { data } = await supabase.supabaseClient.auth.getSession();
+    const { data } = await supabase.client.auth.getSession();
 
     if (data.session) {
       setSession(data.session);
@@ -68,27 +82,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setIsLoading(false);
   }
 
-  useEffect(() => {
-    if (!session) getSession();
-    // if (session && !user) getUser();
-  }, [session, user]);
+  async function toggleSync() {
+    await setSyncEnabled(!isSyncEnabled);
+    setIsSyncEnabled(!isSyncEnabled);
+  }
 
-  if (isSyncEnabled === null || isLoading) {
+  useEffect(() => {
+    getSession();
+  }, []);
+
+  const value = useMemo(
+    () => ({ session, user, signIn, signOut, isSyncEnabled, toggleSync }),
+    [session, user, isSyncEnabled],
+  );
+
+  if (value.isSyncEnabled === null || isLoading) {
     return <LoadingIcon />;
   }
 
-  return (
-    <AuthContext.Provider
-      value={{
-        session,
-        user,
-        signIn,
-        signOut,
-        isSyncEnabled,
-        setIsSyncEnabled,
-      }}
-    >
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

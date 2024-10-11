@@ -1,4 +1,5 @@
 import { AbstractPowerSyncDatabase, CrudEntry, PowerSyncBackendConnector, UpdateType } from "@powersync/react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { SupabaseClient, createClient } from "@supabase/supabase-js";
 
 import { POWERSYNC_URL, SUPABASE_ANON_KEY, SUPABASE_URL } from "@/consts";
@@ -17,41 +18,24 @@ const FATAL_RESPONSE_CODES = [
 ];
 
 export class SupabaseConnector implements PowerSyncBackendConnector {
-  supabaseClient: SupabaseClient;
+  client: SupabaseClient;
 
   constructor() {
-    this.supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+    this.client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
       auth: {
         persistSession: true,
+        storage: AsyncStorage,
+        detectSessionInUrl: false,
+        autoRefreshToken: true,
       },
     });
-  }
-
-  async login(email: string, password: string) {
-    // TODO: won't be needed once we have a proper login flow
-    const session = await this.fetchCredentials();
-
-    if (!session?.userID) {
-      const { data, error } = await this.supabaseClient.auth.signInWithPassword({
-        email,
-        password,
-      });
-
-      if (error) {
-        throw error;
-      }
-
-      if (!data.session) {
-        throw new Error("Could not login to Supabase");
-      }
-    }
   }
 
   async fetchCredentials() {
     const {
       data: { session },
       error,
-    } = await this.supabaseClient.auth.getSession();
+    } = await this.client.auth.getSession();
 
     if (error) {
       throw new Error(`Could not fetch Supabase credentials: ${error}`);
@@ -82,7 +66,7 @@ export class SupabaseConnector implements PowerSyncBackendConnector {
       // or edge functions to process the entire transaction in a single call.
       for (const op of transaction.crud) {
         lastOp = op;
-        const table = this.supabaseClient.from(op.table);
+        const table = this.client.from(op.table);
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         let result: any = null;
         switch (op.op) {

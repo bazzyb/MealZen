@@ -1,36 +1,13 @@
 import Entypo from "@expo/vector-icons/Entypo";
+import Feather from "@expo/vector-icons/Feather";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { usePowerSync } from "@powersync/react-native";
 import { Tabs } from "expo-router";
 
-import { Button } from "@/components";
-import { syncLocalChangesToSyncedTable } from "@/db/sync/switchTables";
-import { getSyncEnabled, setSyncEnabled } from "@/db/sync/utils";
-import { useAuth } from "@/providers/AuthProvider";
 import { useAppTheme } from "@/styles/useAppTheme";
-import { Logger } from "@/utils/logger";
 
 export default function TabsLayout() {
   const theme = useAppTheme();
-  const powerSync = usePowerSync();
-  const { isSyncEnabled, setIsSyncEnabled, user } = useAuth();
-
-  async function handleSyncPress() {
-    try {
-      const isSynced = await getSyncEnabled();
-      if (isSynced) {
-        await setSyncEnabled(false);
-        setIsSyncEnabled(false);
-      } else {
-        await syncLocalChangesToSyncedTable(powerSync, user!.id);
-        await setSyncEnabled(true);
-        setIsSyncEnabled(true);
-      }
-    } catch (err) {
-      Logger.log(err);
-    }
-  }
 
   return (
     <Tabs
@@ -44,11 +21,6 @@ export default function TabsLayout() {
         },
         headerTintColor: theme.colors.headerText,
         headerTitleAlign: "left",
-        headerRight: () => (
-          <Button onPress={handleSyncPress} color={isSyncEnabled ? "green" : "red"}>
-            Sync
-          </Button>
-        ),
         headerTitleStyle: { fontFamily: theme.headerFontFamily },
         tabBarLabelStyle: { fontFamily: theme.headerFontFamily, paddingBottom: 4 },
       }}
@@ -72,6 +44,13 @@ export default function TabsLayout() {
         options={{
           title: "Books",
           tabBarIcon: ({ color, size }) => <Entypo name="book" size={size} color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="settings"
+        options={{
+          title: "Settings",
+          tabBarIcon: ({ color, size }) => <Feather name="settings" size={size} color={color} />,
         }}
       />
     </Tabs>

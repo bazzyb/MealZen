@@ -1,4 +1,4 @@
-import { ViewColumn } from "../Views/ViewColumn";
+import { ViewColumn } from "../Layout/ViewColumn";
 import { PropsWithChildren } from "react";
 import { TextStyle } from "react-native";
 import { Dropdown as DropdownBase } from "react-native-element-dropdown";

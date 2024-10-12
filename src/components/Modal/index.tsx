@@ -1,5 +1,5 @@
-import { ViewColumn } from "../Views/ViewColumn";
-import { ViewRow } from "../Views/ViewRow";
+import { ViewColumn } from "../Layout/ViewColumn";
+import { ViewRow } from "../Layout/ViewRow";
 import { CloseButton } from "../core/CloseButton";
 import { Text } from "../core/Text";
 import { PropsWithChildren } from "react";

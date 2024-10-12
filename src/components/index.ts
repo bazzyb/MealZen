@@ -6,5 +6,5 @@ export { Text } from "./core/Text";
 export { TextInput } from "./core/TextInput";
 export { Modal } from "./Modal";
 export { Table } from "./Table";
-export { ViewColumn } from "./Views/ViewColumn";
-export { ViewRow } from "./Views/ViewRow";
+export { ViewColumn } from "./Layout/ViewColumn";
+export { ViewRow } from "./Layout/ViewRow";

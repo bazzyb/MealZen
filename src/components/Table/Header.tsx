@@ -1,4 +1,4 @@
-import { ViewRow } from "@/components/Views/ViewRow";
+import { ViewRow } from "@/components/Layout/ViewRow";
 import { Text } from "@/components/core/Text";
 import { useAppTheme } from "@/styles/useAppTheme";
 

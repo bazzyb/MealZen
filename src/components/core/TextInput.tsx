@@ -1,4 +1,4 @@
-import { ViewColumn } from "../Views/ViewColumn";
+import { ViewColumn } from "../Layout/ViewColumn";
 import { PropsWithChildren, forwardRef } from "react";
 import { TextInput as TextInputBase, TextInputProps, TextStyle } from "react-native";
 

@@ -11,7 +11,7 @@ type AuthContextType = {
   user: AuthUser | null;
   signIn: (email: string, password: string) => Promise<AuthUser>;
   signOut: () => Promise<void>;
-  isSyncEnabled: boolean | null;
+  isSyncEnabled: boolean;
   toggleSync: () => Promise<void>;
 };
 
@@ -100,5 +100,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return <LoadingIcon />;
   }
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ ...value, isSyncEnabled: value.isSyncEnabled }}>{children}</AuthContext.Provider>
+  );
 }

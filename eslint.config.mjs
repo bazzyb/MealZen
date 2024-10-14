@@ -4,6 +4,7 @@ import tsParser from "@typescript-eslint/parser";
 // import eslintReact from "eslint-plugin-react";
 // import eslintReactHooks from "eslint-plugin-react-hooks";
 import eslintA11y from "eslint-plugin-jsx-a11y";
+import eslintTestingLibrary from "eslint-plugin-testing-library";
 
 const filesToIgnore = [
   // default
@@ -72,7 +73,7 @@ const config = (async () => {
     },
     {
       files: ["**/__tests__/**/*.[jt]s?(x)", "**/?(*.)+(spec|test).[jt]s?(x)"],
-      extends: ["plugin:testing-library/react"],
+      ...eslintTestingLibrary.configs["flat/dom"],
     },
   ];
   return config;

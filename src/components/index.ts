@@ -1,5 +1,6 @@
 export { Button } from "./core/Button";
 export { CloseButton } from "./core/CloseButton";
+export { DeleteButton } from "./core/DeleteButton";
 export { Dropdown } from "./core/Dropdown";
 export { ExternalLink } from "./core/ExternalLink";
 export { Text } from "./core/Text";

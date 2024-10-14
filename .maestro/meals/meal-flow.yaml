@@ -1,0 +1,19 @@
+appId: com.anonymous.MealZen
+name: Meal Flow
+---
+- launchApp
+
+# Go to meals tab
+- tapOn: "Meals, tab, 2 of 4"
+
+# Create a meal
+- tapOn: "Meal name"
+- inputText: "Hello World"
+- tapOn: "Create Meal"
+
+# Assert meal is created
+- assertVisible: "Meal name"
+- assertVisible: "Hello World"
+
+# Delete the meal
+- tapOn: "Delete Hello World Button"

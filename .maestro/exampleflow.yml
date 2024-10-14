@@ -1,0 +1,51 @@
+# https://maestro.mobile.dev/api-reference/configuration/flow-configuration
+
+# ID of the app as defined in app.json - ios.bundleIdentifier or android.package
+appId: com.anonymous.MealZen
+name: Add Meal
+
+# Used to run a subset of tests in certain scenarios, using the --includeTags or --excludeTags flag
+tags:
+  - ios
+  - passing
+  - advanced
+
+env:
+  - USERNAME: "testuser"
+  - PASSWORD: "testpassword"
+
+onFlowStart:
+  - runFlow: subflows/onboarding-ios.yaml
+  - runScript: setup.ts
+
+onFlowComplete:
+  - runFlow: subflows/onboarding-ios.yaml
+  - runScript: setup.ts
+
+---
+- launchApp
+
+# Optional flow is something is visible
+# https://maestro.mobile.dev/advanced/conditions#conditions
+- runFlow:
+    when:
+      visible: "Can See This Text"
+
+    file: subflows/launch-clearstate-ios.yaml
+    # OR
+    commands:
+      - tapOn:
+          text: "Continue without logging in"
+
+- tapOn: Search Wikipedia
+- runScript: scripts/getSearchQuery.js
+- inputText: ${USERNAME} # env defined above
+- eraseText
+- assertVisible: ${PASSWORD}
+- runScript:
+    file: script.js
+    env:
+      # https://maestro.mobile.dev/advanced/javascript/run-javascript#passing-parameters
+      myParameter: Parameter
+# https://maestro.mobile.dev/advanced/javascript/outputs#output
+- inputText: ${output.email}

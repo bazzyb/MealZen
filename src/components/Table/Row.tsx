@@ -43,7 +43,12 @@ function DraggableWrapper({ draggableProps, onPress, children }: PropsWithChildr
 
   if (onPress) {
     return (
-      <TouchableHighlight activeOpacity={0.2} underlayColor={colors.rowActiveBackground} onPress={onPress}>
+      <TouchableHighlight
+        activeOpacity={0.2}
+        underlayColor={colors.rowActiveBackground}
+        onPress={onPress}
+        accessible={false} // ensure buttons on row are accessible, and clickable in maestro
+      >
         {children}
       </TouchableHighlight>
     );

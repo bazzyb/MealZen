@@ -7,39 +7,39 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		04E78368D21A4D4C9EF72212 /* NotoSans_700Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C5BD7C04EB804243BDFF5DEE /* NotoSans_700Bold.ttf */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		1A6157C78AF94F93BDCA7F39 /* NotoSans_400Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 480BFC967E6A4750A3F3BC5D /* NotoSans_400Regular.ttf */; };
-		285502E27D22E914E4D8388E /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = F44642A0B2502CC422BBDEF0 /* PrivacyInfo.xcprivacy */; };
+		22700C33AF3B45208E6726B1 /* NotoSerif_400Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1948DFDAFFCB4D5F995AD4F7 /* NotoSerif_400Regular.ttf */; };
+		346094F5245D440AA86ACECA /* NotoSans_400Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B8B217FCAF7D465A9968C481 /* NotoSans_400Regular.ttf */; };
+		34DAC3D196A8FF19A69DF68F /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = DAF239C23BF710C9DA7069C6 /* PrivacyInfo.xcprivacy */; };
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
+		5E74525BE4CA4E2AA29C8EEB /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024B95A89DE640688E110BB4 /* noop-file.swift */; };
+		7F317278025C425E92FC7AA2 /* NotoSans_700Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9D56292A873944FA8408AFA6 /* NotoSans_700Bold.ttf */; };
 		96905EF65AED1B983A6B3ABC /* libPods-MealZen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58EEBF8E8E6FB1BC6CAF49B5 /* libPods-MealZen.a */; };
 		B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
-		EE5406DD3988418DBA03EF48 /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E14513BE4EF419F81AC4257 /* noop-file.swift */; };
-		EFDF8AA68ED345158E44BCF8 /* NotoSerif_400Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 64C28046AE084D1DA75EEE2E /* NotoSerif_400Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		024B95A89DE640688E110BB4 /* noop-file.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = "noop-file.swift"; path = "MealZen/noop-file.swift"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* MealZen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MealZen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = MealZen/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = MealZen/AppDelegate.mm; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = MealZen/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = MealZen/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = MealZen/main.m; sourceTree = "<group>"; };
-		1E14513BE4EF419F81AC4257 /* noop-file.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = "noop-file.swift"; path = "MealZen/noop-file.swift"; sourceTree = "<group>"; };
-		3BE29A09B2EF43378D3AAB1A /* MealZen-Bridging-Header.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = "MealZen-Bridging-Header.h"; path = "MealZen/MealZen-Bridging-Header.h"; sourceTree = "<group>"; };
-		480BFC967E6A4750A3F3BC5D /* NotoSans_400Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = NotoSans_400Regular.ttf; path = "../node_modules/@expo-google-fonts/noto-sans/NotoSans_400Regular.ttf"; sourceTree = "<group>"; };
+		1948DFDAFFCB4D5F995AD4F7 /* NotoSerif_400Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = NotoSerif_400Regular.ttf; path = "../node_modules/@expo-google-fonts/noto-serif/NotoSerif_400Regular.ttf"; sourceTree = "<group>"; };
 		58EEBF8E8E6FB1BC6CAF49B5 /* libPods-MealZen.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MealZen.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		64C28046AE084D1DA75EEE2E /* NotoSerif_400Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = NotoSerif_400Regular.ttf; path = "../node_modules/@expo-google-fonts/noto-serif/NotoSerif_400Regular.ttf"; sourceTree = "<group>"; };
 		6C2E3173556A471DD304B334 /* Pods-MealZen.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MealZen.debug.xcconfig"; path = "Target Support Files/Pods-MealZen/Pods-MealZen.debug.xcconfig"; sourceTree = "<group>"; };
 		7A4D352CD337FB3A3BF06240 /* Pods-MealZen.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MealZen.release.xcconfig"; path = "Target Support Files/Pods-MealZen/Pods-MealZen.release.xcconfig"; sourceTree = "<group>"; };
+		8218A034444E45DAB17B324C /* MealZen-Bridging-Header.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = "MealZen-Bridging-Header.h"; path = "MealZen/MealZen-Bridging-Header.h"; sourceTree = "<group>"; };
+		9D56292A873944FA8408AFA6 /* NotoSans_700Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = NotoSans_700Bold.ttf; path = "../node_modules/@expo-google-fonts/noto-sans/NotoSans_700Bold.ttf"; sourceTree = "<group>"; };
 		AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = MealZen/SplashScreen.storyboard; sourceTree = "<group>"; };
+		B8B217FCAF7D465A9968C481 /* NotoSans_400Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = NotoSans_400Regular.ttf; path = "../node_modules/@expo-google-fonts/noto-sans/NotoSans_400Regular.ttf"; sourceTree = "<group>"; };
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
-		C5BD7C04EB804243BDFF5DEE /* NotoSans_700Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = NotoSans_700Bold.ttf; path = "../node_modules/@expo-google-fonts/noto-sans/NotoSans_700Bold.ttf"; sourceTree = "<group>"; };
+		DAF239C23BF710C9DA7069C6 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = MealZen/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		F44642A0B2502CC422BBDEF0 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = MealZen/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-MealZen/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -65,9 +65,9 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */,
-				1E14513BE4EF419F81AC4257 /* noop-file.swift */,
-				3BE29A09B2EF43378D3AAB1A /* MealZen-Bridging-Header.h */,
-				F44642A0B2502CC422BBDEF0 /* PrivacyInfo.xcprivacy */,
+				024B95A89DE640688E110BB4 /* noop-file.swift */,
+				8218A034444E45DAB17B324C /* MealZen-Bridging-Header.h */,
+				DAF239C23BF710C9DA7069C6 /* PrivacyInfo.xcprivacy */,
 			);
 			name = MealZen;
 			sourceTree = "<group>";
@@ -79,17 +79,6 @@
 				58EEBF8E8E6FB1BC6CAF49B5 /* libPods-MealZen.a */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		7B37B31C4E8F45C29EDC2D4A /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				64C28046AE084D1DA75EEE2E /* NotoSerif_400Regular.ttf */,
-				480BFC967E6A4750A3F3BC5D /* NotoSans_400Regular.ttf */,
-				C5BD7C04EB804243BDFF5DEE /* NotoSans_700Bold.ttf */,
-			);
-			name = Resources;
-			path = "";
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -108,7 +97,7 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				D65327D7A22EEC0BE12398D9 /* Pods */,
 				D7E4C46ADA2E9064B798F356 /* ExpoModulesProviders */,
-				7B37B31C4E8F45C29EDC2D4A /* Resources */,
+				D13C4DE13F1B402EA9E5FD80 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -140,6 +129,17 @@
 			path = MealZen/Supporting;
 			sourceTree = "<group>";
 		};
+		D13C4DE13F1B402EA9E5FD80 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				1948DFDAFFCB4D5F995AD4F7 /* NotoSerif_400Regular.ttf */,
+				B8B217FCAF7D465A9968C481 /* NotoSans_400Regular.ttf */,
+				9D56292A873944FA8408AFA6 /* NotoSans_700Bold.ttf */,
+			);
+			name = Resources;
+			path = "";
+			sourceTree = "<group>";
+		};
 		D65327D7A22EEC0BE12398D9 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -165,13 +165,13 @@
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "MealZen" */;
 			buildPhases = (
 				08A4A3CD28434E44B6B9DE2E /* [CP] Check Pods Manifest.lock */,
-				DA10B4D6672E7581E04206FF /* [Expo] Configure project */,
+				4D69FC1B079B9AE9F7E5BA0D /* [Expo] Configure project */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */,
-				688A9C9FB361398F4F7D6E37 /* [CP] Embed Pods Frameworks */,
+				9618A560D8380F325E7EDFB9 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -221,10 +221,10 @@
 				BB2F792D24A3F905000567C9 /* Expo.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
-				EFDF8AA68ED345158E44BCF8 /* NotoSerif_400Regular.ttf in Resources */,
-				1A6157C78AF94F93BDCA7F39 /* NotoSans_400Regular.ttf in Resources */,
-				04E78368D21A4D4C9EF72212 /* NotoSans_700Bold.ttf in Resources */,
-				285502E27D22E914E4D8388E /* PrivacyInfo.xcprivacy in Resources */,
+				22700C33AF3B45208E6726B1 /* NotoSerif_400Regular.ttf in Resources */,
+				346094F5245D440AA86ACECA /* NotoSans_400Regular.ttf in Resources */,
+				7F317278025C425E92FC7AA2 /* NotoSans_700Bold.ttf in Resources */,
+				34DAC3D196A8FF19A69DF68F /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,25 +268,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		688A9C9FB361398F4F7D6E37 /* [CP] Embed Pods Frameworks */ = {
+		4D69FC1B079B9AE9F7E5BA0D /* [Expo] Configure project */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MealZen/Pods-MealZen-frameworks.sh",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/hermes-engine/Pre-built/hermes.framework/hermes",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/powersync-sqlite-core/powersync-sqlite-core.framework/powersync-sqlite-core",
+			inputFileListPaths = (
 			);
-			name = "[CP] Embed Pods Frameworks";
+			inputPaths = (
+			);
+			name = "[Expo] Configure project";
+			outputFileListPaths = (
+			);
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hermes.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/powersync-sqlite-core.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MealZen/Pods-MealZen-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
+			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-MealZen/expo-configure-project.sh\"\n";
 		};
 		800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -316,24 +315,25 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MealZen/Pods-MealZen-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		DA10B4D6672E7581E04206FF /* [Expo] Configure project */ = {
+		9618A560D8380F325E7EDFB9 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MealZen/Pods-MealZen-frameworks.sh",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/hermes-engine/Pre-built/hermes.framework/hermes",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/powersync-sqlite-core/powersync-sqlite-core.framework/powersync-sqlite-core",
 			);
-			name = "[Expo] Configure project";
-			outputFileListPaths = (
-			);
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hermes.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/powersync-sqlite-core.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-MealZen/expo-configure-project.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MealZen/Pods-MealZen-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -345,7 +345,7 @@
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */,
-				EE5406DD3988418DBA03EF48 /* noop-file.swift in Sources */,
+				5E74525BE4CA4E2AA29C8EEB /* noop-file.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

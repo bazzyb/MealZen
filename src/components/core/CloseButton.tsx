@@ -3,17 +3,19 @@ import { Pressable } from "react-native";
 
 import { useAppTheme } from "@/styles/useAppTheme";
 
-type Props = {
+export type CloseButtonProps = {
+  id?: string;
   disabled?: boolean;
   onPress: () => void;
   width?: number;
 };
 
-export function CloseButton({ disabled, onPress, width }: Props) {
+export function CloseButton({ id, disabled, onPress, width }: CloseButtonProps) {
   const { colors, borderRadius } = useAppTheme();
 
   return (
     <Pressable
+      accessibilityLabel={id || "Close Button"}
       style={({ pressed }) => ({
         backgroundColor: pressed ? colors.errorDark : colors.error,
         borderRadius,

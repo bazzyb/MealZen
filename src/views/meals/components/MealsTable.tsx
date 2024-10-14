@@ -1,7 +1,7 @@
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import { View } from "react-native";
 
-import { CloseButton, ExternalLink, Table, Text, ViewColumn, ViewRow } from "@/components";
+import { DeleteButton, ExternalLink, Table, Text, ViewColumn } from "@/components";
 import { useDeleteMeal } from "@/db/mutations/useDeleteMeal";
 import { useGetBooks } from "@/db/queries/useGetBooks";
 import { useGetMeals } from "@/db/queries/useGetMeals";
@@ -46,7 +46,7 @@ export function MealsTable({ setSelectedMeal }: Props) {
         {
           id: "name",
           accessorFn: meal => (
-            <ViewRow alignItems="center">
+            <>
               <ViewColumn paddingRight={8}>
                 <Text>{meal.name}</Text>
                 {!!meal.recipe_url && (
@@ -57,12 +57,14 @@ export function MealsTable({ setSelectedMeal }: Props) {
                 {!!meal.book_id && <BookInfo books={books} bookId={meal.book_id} page={meal.page} />}
               </ViewColumn>
               {!!meal.is_simple && <FontAwesome5 name="umbrella-beach" size={12} color={colors.success} />}
-            </ViewRow>
+            </>
           ),
         },
         {
           id: "delete-row",
-          accessorFn: meal => <CloseButton onPress={async () => deleteMeal(meal.id)} disabled={isDeletingMeal} />,
+          accessorFn: meal => (
+            <DeleteButton deleteId={meal.name} onPress={async () => deleteMeal(meal.id)} disabled={isDeletingMeal} />
+          ),
           width: 28,
         },
       ]}

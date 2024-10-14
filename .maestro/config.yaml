@@ -1,0 +1,13 @@
+# common folder not included as we don't want to run those as tests
+#   they are utility flows for the tests
+flows:
+  - auth/*
+  - books/*
+  - mealplan/*
+  - meals/*
+# optionally include/exclude tags for tests
+# includeTags:
+#  - ios
+
+# excludeTags:
+#  - ios

@@ -1,11 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { usePowerSync } from "@powersync/react-native";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button, Modal, Text, TextInput } from "@/components";
-import { syncLocalChangesToSyncedTable } from "@/db/sync/switchTables";
 import { useAuth } from "@/providers/AuthProvider";
 
 type Props = {
@@ -20,7 +18,6 @@ const SignInSchema = z.object({
 type SignInFields = z.infer<typeof SignInSchema>;
 
 export function SignInModal({ isVisible, handleClose }: Props) {
-  const powerSync = usePowerSync();
   const { signIn, toggleSync } = useAuth();
   const [isSigningIn, setIsSigningIn] = useState(false);
   const [signInError, setSignInError] = useState<string | null>(null);
@@ -34,9 +31,8 @@ export function SignInModal({ isVisible, handleClose }: Props) {
     setIsSigningIn(true);
     setSignInError(null);
     try {
-      const user = await signIn(email, password);
-      await syncLocalChangesToSyncedTable(powerSync, user.id);
-      await toggleSync();
+      await signIn(email, password);
+      toggleSync();
       resetField("email");
       resetField("password");
       handleClose();

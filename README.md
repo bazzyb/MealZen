@@ -76,7 +76,13 @@ You'll need to run the required device, before running the e2e tests
 ## Known Issues
 
 - If a user logs out, then logs in, without restarting the app, powersync doesn't connect.
-  It will connect when the app is closed and reopened.
+  - It will connect when the app is closed and reopened.
+- ps_crud table fills up with transactions until user syncs.
+  - If user uses app for long time without syncing, this could accrue too many transactions
+  - see: https://docs.powersync.com/usage/use-case-examples/offline-only-usage
+  - might be best to find a way to look for duplicate jobs, and remove them?
+  - if delete exists for id, which also has creates and edits, remove them all from ps_crud
+  - if delete exists for id, which also has edits but no create, remove the edits
 
 ## Prod release TODO steps
 

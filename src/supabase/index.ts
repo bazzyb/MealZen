@@ -2,7 +2,7 @@ import { AbstractPowerSyncDatabase, CrudEntry, PowerSyncBackendConnector, Update
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { SupabaseClient, createClient } from "@supabase/supabase-js";
 
-import { POWERSYNC_URL, SUPABASE_ANON_KEY, SUPABASE_URL } from "@/consts";
+import { LOCAL_USER_ID, POWERSYNC_URL, SUPABASE_ANON_KEY, SUPABASE_URL } from "@/consts";
 import { Logger } from "@/utils/logger";
 
 /// Postgres Response codes that we cannot recover from by retrying.
@@ -54,6 +54,9 @@ export class SupabaseConnector implements PowerSyncBackendConnector {
   }
 
   async uploadData(database: AbstractPowerSyncDatabase): Promise<void> {
+    const { data } = await this.client.auth.getUser();
+    if (!data.user) return;
+
     const transaction = await database.getNextCrudTransaction();
 
     if (!transaction) {
@@ -71,9 +74,12 @@ export class SupabaseConnector implements PowerSyncBackendConnector {
         let result: any = null;
         switch (op.op) {
           case UpdateType.PUT:
+            // supabase rules require that the user_id matches the authenticated user
+            // all local data will have a user_id of LOCAL_USER_ID,
+            //    so this needs to be updated before writing to supabase.
             // eslint-disable-next-line no-case-declarations
-            const record = { ...op.opData, id: op.id };
-            result = await table.upsert(record);
+            const record = { ...op.opData, id: op.id, user_id: data.user.id };
+            result = await table.upsert(record).eq("user_id", LOCAL_USER_ID);
             break;
           case UpdateType.PATCH:
             result = await table.update(op.opData).eq("id", op.id);

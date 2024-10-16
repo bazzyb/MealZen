@@ -2,7 +2,6 @@ import type { AuthSession, AuthUser } from "@supabase/supabase-js";
 import { ReactNode, createContext, useContext, useEffect, useMemo, useState } from "react";
 
 import { LoadingIcon } from "@/components/LoadingIcon";
-import { getSyncEnabled, setSyncEnabled } from "@/db/sync/utils";
 import { supabase } from "@/supabase";
 import { Logger } from "@/utils/logger";
 
@@ -12,7 +11,7 @@ type AuthContextType = {
   signIn: (email: string, password: string) => Promise<AuthUser>;
   signOut: () => Promise<void>;
   isSyncEnabled: boolean;
-  toggleSync: () => Promise<void>;
+  toggleSync: () => void;
 };
 
 export const AuthContext = createContext<AuthContextType | null>(null);
@@ -32,10 +31,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<AuthUser | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isSyncEnabled, setIsSyncEnabled] = useState<boolean | null>(null);
-
-  useEffect(() => {
-    getSyncEnabled().then(setIsSyncEnabled);
-  }, []);
 
   async function signIn(email: string, password: string) {
     Logger.log("signIn");
@@ -79,11 +74,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setUser(data.session.user);
     }
 
+    setIsSyncEnabled(!!data.session);
     setIsLoading(false);
   }
 
-  async function toggleSync() {
-    await setSyncEnabled(!isSyncEnabled);
+  function toggleSync() {
     setIsSyncEnabled(!isSyncEnabled);
   }
 

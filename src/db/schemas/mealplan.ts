@@ -10,13 +10,6 @@ export const mealplanSchema = {
   notes: column.text,
 } satisfies ColumnsType;
 
-// Overwrites the local-only owner_id value with the logged-in user's id.
-export const mealplanTableLocalToSyncStatement = `
-  INSERT INTO ${MEALPLAN_TABLE} (id, user_id, meal_id, date, notes)
-  SELECT id, ?, meal_id, date, notes
-  FROM inactive_local_${MEALPLAN_TABLE}
-`;
-
 export const MealplanZodSchema = z.object({
   id: z.string().uuid(),
   user_id: z.string().uuid(),

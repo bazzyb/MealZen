@@ -22,7 +22,7 @@ export default function SettingsView() {
             option: user ? "Sign Out" : "Sign In",
             onPress: async () => {
               if (user) {
-                await toggleSync();
+                toggleSync();
                 await signOut();
               } else {
                 setSignInModalOpen(true);

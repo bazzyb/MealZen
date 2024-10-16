@@ -3,11 +3,13 @@ import Feather from "@expo/vector-icons/Feather";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Tabs } from "expo-router";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { useAppTheme } from "@/styles/useAppTheme";
 
 export default function TabsLayout() {
   const theme = useAppTheme();
+  const insets = useSafeAreaInsets();
 
   return (
     <Tabs
@@ -17,7 +19,7 @@ export default function TabsLayout() {
         tabBarActiveTintColor: theme.colors.tabsActiveText,
         tabBarInactiveTintColor: theme.colors.text,
         tabBarStyle: {
-          height: 60,
+          height: 60 + insets.bottom,
         },
         headerTintColor: theme.colors.headerText,
         headerTitleAlign: "left",

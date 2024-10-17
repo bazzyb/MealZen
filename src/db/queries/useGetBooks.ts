@@ -3,6 +3,7 @@ import { useQuery } from "@powersync/react-native";
 
 const BookQuery = `
   SELECT * FROM ${BOOK_TABLE}
+  ORDER BY name ASC
 `;
 
 export function useGetBooks() {

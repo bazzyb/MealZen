@@ -3,7 +3,7 @@ import { ViewRow } from "../Layout/ViewRow";
 import { CloseButton } from "../core/CloseButton";
 import { Text } from "../core/Text";
 import { PropsWithChildren } from "react";
-import { Modal as ModalBase, View } from "react-native";
+import { KeyboardAvoidingView, Modal as ModalBase, Platform, ScrollView, View } from "react-native";
 
 import { useAppTheme } from "@/styles/useAppTheme";
 
@@ -28,10 +28,12 @@ function ModalBody({ handleClose, title, children }: PropsWithChildren<BodyProps
         alignItems: "center",
       }}
     >
-      <View
+      <KeyboardAvoidingView
+        behavior="position"
         style={{
           width: "90%",
           maxWidth: 600,
+          maxHeight: Platform.OS === "ios" ? "50%" : "80%",
         }}
       >
         <ViewRow
@@ -50,15 +52,20 @@ function ModalBody({ handleClose, title, children }: PropsWithChildren<BodyProps
         </ViewRow>
         <ViewColumn
           padding={16}
-          alignItems="flex-start"
-          gap={8}
           backgroundColor={colors.background}
           borderBottomLeftRadius={8}
           borderBottomRightRadius={8}
         >
-          {children}
+          <ScrollView
+            contentContainerStyle={{
+              alignItems: "flex-start",
+              gap: 8,
+            }}
+          >
+            {children}
+          </ScrollView>
         </ViewColumn>
-      </View>
+      </KeyboardAvoidingView>
     </View>
   );
 }

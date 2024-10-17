@@ -1,0 +1,29 @@
+appId: com.anonymous.MealZen
+name: Meal Flow
+---
+- launchApp
+
+# Go to settings tab
+- tapOn: "Settings, tab, 4 of 4"
+
+# Sign in
+- tapOn: "Sign In"
+- assertVisible: "Email"
+- tapOn: "Email input"
+- inputText: ${EMAIL}
+- tapOn: "Password input"
+- inputText: ${PASSWORD}
+- tapOn: "Sign In Button"
+
+# Redirected to mealplan tab
+- assertVisible: "Meal Plan"
+
+# Revisit settings tab
+- tapOn: "Settings, tab, 4 of 4"
+
+# Check signed in
+- assertVisible: Sign Out ${EMAIL}
+
+# Sign out
+- tapOn: "Sign Out ${EMAIL}"
+- assertVisible: "Sign In"

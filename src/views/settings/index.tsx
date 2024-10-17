@@ -1,3 +1,4 @@
+import { usePowerSync } from "@powersync/react-native";
 import { useState } from "react";
 import { FlatList, Pressable } from "react-native";
 
@@ -10,6 +11,7 @@ import { SignInModal } from "./SignInModal";
 export default function SettingsView() {
   const { signOut, user, toggleSync } = useAuth();
   const { colors } = useAppTheme();
+  const powerSync = usePowerSync();
 
   const [signInModalOpen, setSignInModalOpen] = useState(false);
 
@@ -22,6 +24,7 @@ export default function SettingsView() {
             option: user ? "Sign Out" : "Sign In",
             onPress: async () => {
               if (user) {
+                await powerSync.disconnectAndClear();
                 toggleSync();
                 await signOut();
               } else {

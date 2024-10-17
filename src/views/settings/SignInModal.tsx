@@ -27,15 +27,18 @@ export function SignInModal({ isVisible, handleClose }: Props) {
     resolver: zodResolver(SignInSchema),
   });
 
+  function onClose() {
+    handleClose();
+    reset();
+  }
+
   async function handleSignIn({ email, password }: SignInFields) {
     setIsSigningIn(true);
     setSignInError(null);
     try {
       await signIn(email, password);
       toggleSync();
-      resetField("email");
-      resetField("password");
-      handleClose();
+      onClose();
     } catch (error) {
       if (error instanceof Error) {
         setSignInError(error.message);
@@ -47,7 +50,7 @@ export function SignInModal({ isVisible, handleClose }: Props) {
   }
 
   return (
-    <Modal handleClose={handleClose} isVisible={isVisible} title="">
+    <Modal handleClose={onClose} isVisible={isVisible} title="">
       <Text>Sign In</Text>
       <Controller
         name="email"
@@ -83,6 +86,7 @@ export function SignInModal({ isVisible, handleClose }: Props) {
         style={{ marginTop: 16, width: "auto" }}
         disabled={isSigningIn}
         onPress={handleSubmit(handleSignIn)}
+        accessibilityLabel="Sign In Button"
       >
         Sign In
       </Button>

@@ -32,7 +32,7 @@ export const PowerSyncProvider = ({ children }: { children: ReactNode }) => {
       await powerSync.connect(supabase);
       Logger.log("connected", powerSync.connected);
     } else {
-      await powerSync.disconnectAndClear();
+      await powerSync.disconnect();
       Logger.log("not connected", powerSync.connected);
     }
   }, [powerSync, isSyncEnabled]);

@@ -46,7 +46,7 @@ export const darkColors: typeof lightColors = {
   label: colors.gray[1],
 
   background: colors.black,
-  modalBlurBackground: `${colors.white}3`,
+  modalBlurBackground: `${colors.black}A`,
 
   rowActiveBackground: colors.gray[6],
   rowDragBackground: colors.blue[6],

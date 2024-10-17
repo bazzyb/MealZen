@@ -8,6 +8,7 @@
     "start": "expo start",
     "android": "expo run:android --device 'Local_Pixel_8_API_35'",
     "android:tablet": "expo run:android --device 'Local_Pixel_Tablet_API_35'",
+    "android:last": "expo run:android",
     "android:e2e": "expo run:ios --device 'E2E_Pixel_8_API_35'",
     "ios": "expo run:ios --device 'Local iphone 16 ios 18'",
     "ios:tablet": "expo run:ios --device 'Local ipad air ios 18'",

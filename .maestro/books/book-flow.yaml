@@ -3,34 +3,34 @@ name: Book Flow
 ---
 - launchApp
 
-# Go to meals tab
+# Go to books tab
 - tapOn: "Books, tab, 3 of 4"
 
-# Create a meal
+# Create a book
 - tapOn: "Book name"
 - inputText: "Test Book"
 - tapOn: "Create Book"
 
-# Assert meal is created
+# Assert book is created
 - assertVisible: "Book name"
 - assertVisible: "Test Book"
 
-# Open modal to edit meal
+# Open modal to edit book
 - tapOn: "Test Book"
 - assertVisible: "Edit Book"
 
-# Edit the meal
+# Edit the book
 - tapOn: "Name input"
 - inputText: " Edited"
 - tapOn: "Author input"
 - inputText: "Test Author"
 - tapOn: "Save"
 
-# Assert meal is edited
+# Assert book is edited
 - assertNotVisible: "Edit Book"
 - assertVisible: "Test Book Edited"
-- assertVisible: "TTest Author"
+- assertVisible: "Test Author"
 
-# Delete the meal
+# Delete the book
 - tapOn: "Delete Test Book Edited Button"
 - assertNotVisible: "Test Book Edited"

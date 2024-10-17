@@ -1,0 +1,36 @@
+appId: com.anonymous.MealZen
+name: Book Flow
+---
+- launchApp
+
+# Go to meals tab
+- tapOn: "Books, tab, 3 of 4"
+
+# Create a meal
+- tapOn: "Book name"
+- inputText: "Test Book"
+- tapOn: "Create Book"
+
+# Assert meal is created
+- assertVisible: "Book name"
+- assertVisible: "Test Book"
+
+# Open modal to edit meal
+- tapOn: "Test Book"
+- assertVisible: "Edit Book"
+
+# Edit the meal
+- tapOn: "Name input"
+- inputText: " Edited"
+- tapOn: "Author input"
+- inputText: "Test Author"
+- tapOn: "Save"
+
+# Assert meal is edited
+- assertNotVisible: "Edit Book"
+- assertVisible: "Test Book Edited"
+- assertVisible: "TTest Author"
+
+# Delete the meal
+- tapOn: "Delete Test Book Edited Button"
+- assertNotVisible: "Test Book Edited"

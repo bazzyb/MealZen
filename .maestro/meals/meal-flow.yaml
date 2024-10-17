@@ -8,12 +8,29 @@ name: Meal Flow
 
 # Create a meal
 - tapOn: "Meal name"
-- inputText: "Hello World"
+- inputText: "Test Meal"
 - tapOn: "Create Meal"
 
 # Assert meal is created
 - assertVisible: "Meal name"
-- assertVisible: "Hello World"
+- assertVisible: "Test Meal"
+
+# Open modal to edit meal
+- tapOn: "Test Meal"
+- assertVisible: "Edit Meal"
+
+# Edit the meal
+- tapOn: "Name input"
+- inputText: " Edited"
+- tapOn: "Recipe URL input"
+- inputText: "https://www.mealzen.co.uk"
+- tapOn: "Save"
+
+# Assert meal is edited
+- assertNotVisible: "Edit Meal"
+- assertVisible: "Test Meal Edited"
+- assertVisible: "Link to recipe"
 
 # Delete the meal
-- tapOn: "Delete Hello World Button"
+- tapOn: "Delete Test Meal Edited Button"
+- assertNotVisible: "Test Meal Edited"

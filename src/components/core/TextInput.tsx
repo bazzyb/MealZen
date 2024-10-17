@@ -31,6 +31,7 @@ export const TextInput = forwardRef<TextInputBase, PropsWithChildren<Props>>((pr
       <TextInputBase
         ref={ref}
         value={value || ""}
+        accessibilityLabel={`${label} input`}
         style={{
           fontFamily: bold ? fontBold : fontFamily,
           color: color || colors.black,

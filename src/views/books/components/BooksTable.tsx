@@ -1,6 +1,6 @@
 import { View } from "react-native";
 
-import { CloseButton, Table, Text, ViewColumn, ViewRow } from "@/components";
+import { DeleteButton, Table, Text, ViewColumn, ViewRow } from "@/components";
 import { useDeleteBook } from "@/db/mutations/useDeleteBook";
 import { useGetBooks } from "@/db/queries/useGetBooks";
 import { BookRecord } from "@/db/schemas/book";
@@ -55,7 +55,9 @@ export function BooksTable({ setSelectedBook }: Props) {
         },
         {
           id: "delete-row",
-          accessorFn: book => <CloseButton onPress={async () => deleteBook(book.id)} disabled={isDeletingBook} />,
+          accessorFn: book => (
+            <DeleteButton deleteId={book.name} onPress={async () => deleteBook(book.id)} disabled={isDeletingBook} />
+          ),
           width: 28,
         },
       ]}

@@ -81,7 +81,7 @@ function ModalBody({ selectedMeal, setSelectedMeal }: ModalBodyProps) {
             onChangeText={val => field.onChange(parseInt(val))}
             keyboardType="numeric"
             value={field.value?.toString()}
-            error={formState.errors.recipe_url?.message}
+            error={formState.errors.page?.message}
           />
         )}
       />

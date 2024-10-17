@@ -4,6 +4,7 @@ export { DeleteButton } from "./core/DeleteButton";
 export { Dropdown } from "./core/Dropdown";
 export { ExternalLink } from "./core/ExternalLink";
 export { Text } from "./core/Text";
+export { Switch } from "./core/Switch";
 export { TextInput } from "./core/TextInput";
 export { Modal } from "./Modal";
 export { Table } from "./Table";

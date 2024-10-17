@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 
-import { Button, Dropdown, Modal, TextInput } from "@/components";
+import { Button, Dropdown, Modal, Switch, TextInput, ViewRow } from "@/components";
 import { useUpdateMeal } from "@/db/mutations/useUpdateMeal";
 import { useGetBooks } from "@/db/queries/useGetBooks";
 import { MealRecord, MealZodSchema } from "@/db/schemas/meal";
@@ -85,6 +85,69 @@ function ModalBody({ selectedMeal, setSelectedMeal }: ModalBodyProps) {
           />
         )}
       />
+
+      <ViewRow justifyContent="space-between" width="100%" marginTop={8}>
+        <Controller
+          name="is_simple"
+          control={control}
+          render={({ field }) => (
+            <Switch
+              label="Simple"
+              trackColor={{ false: "#767577", true: "#81b0ff" }}
+              thumbColor={field.value ? "#f5dd4b" : "#f4f3f4"}
+              ios_backgroundColor="#3e3e3e"
+              onValueChange={val => field.onChange(val ? 1 : 0)}
+              value={!!field.value}
+              alignLabel="center"
+            />
+          )}
+        />
+        <Controller
+          name="is_overnight"
+          control={control}
+          render={({ field }) => (
+            <Switch
+              label="Overnight"
+              trackColor={{ false: "#767577", true: "#81b0ff" }}
+              thumbColor={field.value ? "#f5dd4b" : "#f4f3f4"}
+              ios_backgroundColor="#3e3e3e"
+              onValueChange={val => field.onChange(val ? 1 : 0)}
+              value={!!field.value}
+              alignLabel="center"
+            />
+          )}
+        />
+        <Controller
+          name="is_long_cook"
+          control={control}
+          render={({ field }) => (
+            <Switch
+              label="Long Cook"
+              trackColor={{ false: "#767577", true: "#81b0ff" }}
+              thumbColor={field.value ? "#f5dd4b" : "#f4f3f4"}
+              ios_backgroundColor="#3e3e3e"
+              onValueChange={val => field.onChange(val ? 1 : 0)}
+              value={!!field.value}
+              alignLabel="center"
+            />
+          )}
+        />
+        <Controller
+          name="is_long_prep"
+          control={control}
+          render={({ field }) => (
+            <Switch
+              label="Long Prep"
+              trackColor={{ false: "#767577", true: "#81b0ff" }}
+              thumbColor={field.value ? "#f5dd4b" : "#f4f3f4"}
+              ios_backgroundColor="#3e3e3e"
+              onValueChange={val => field.onChange(val ? 1 : 0)}
+              value={!!field.value}
+              alignLabel="center"
+            />
+          )}
+        />
+      </ViewRow>
 
       <Button
         color="green"

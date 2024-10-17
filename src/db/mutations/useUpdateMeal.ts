@@ -12,7 +12,11 @@ const updateQuery = `
     name = ?,
     recipe_url = ?,
     book_id = ?,
-    page = ?
+    page = ?,
+    is_simple = ?,
+    is_overnight = ?,
+    is_long_cook = ?,
+    is_long_prep = ?
   WHERE id = ? AND user_id = ?
   RETURNING *
 `;
@@ -23,6 +27,10 @@ const updateMeal = async (meal: Omit<MealRecord, "user_id">, db: AbstractPowerSy
     meal.recipe_url,
     meal.book_id,
     meal.page,
+    meal.is_simple,
+    meal.is_overnight,
+    meal.is_long_cook,
+    meal.is_long_prep,
     meal.id,
     userId || LOCAL_USER_ID,
   ]);

@@ -6,10 +6,13 @@ import { LOCAL_USER_ID } from "@/consts";
 import { useAuth } from "@/providers/AuthProvider";
 
 const createMeal = async (name: string, db: AbstractPowerSyncDatabase, userId?: string) => {
-  const res = await db.execute(`INSERT INTO ${MEAL_TABLE} (id, name, user_id) VALUES (uuid(), ?, ?) RETURNING *`, [
-    name,
-    userId || LOCAL_USER_ID,
-  ]);
+  const res = await db.execute(
+    `INSERT INTO ${MEAL_TABLE} (
+    id, name, user_id, is_simple, is_overnight, is_long_prep, is_long_cook)
+    VALUES (uuid(), ?, ?, 0, 0, 0, 0)
+    RETURNING *`,
+    [name, userId || LOCAL_USER_ID],
+  );
 
   const resultRecord = res.rows?.item(0);
   if (!resultRecord) {

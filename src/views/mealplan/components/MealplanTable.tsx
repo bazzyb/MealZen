@@ -54,7 +54,7 @@ export function MealplanTable({ setSelectedMealplanEntry }: Props) {
                 </Text>
               </ViewColumn>
             ),
-            width: 60,
+            width: 50,
           },
           {
             label: "Name",
@@ -74,7 +74,7 @@ export function MealplanTable({ setSelectedMealplanEntry }: Props) {
                 )}
               </ViewColumn>
             ),
-            width: 100,
+            width: 120,
           },
           { label: "Notes", accessorFn: row => <Text size={12}>{row.notes}</Text> },
         ]}

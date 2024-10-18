@@ -20,7 +20,8 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "lint": "eslint .",
-    "prettify": "prettier --write --cache --ignore-unknown --log-level error ."
+    "prettify": "prettier --write --cache --ignore-unknown --log-level error .",
+    "build:preview": "eas build --platform all --profile preview"
   },
   "lint-staged": {
     "*.{ts,js,tsx,jsx,css,md}": "prettier --write --cache --ignore-unknown --log-level error"

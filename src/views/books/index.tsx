@@ -37,7 +37,7 @@ export default function BooksView() {
         </ViewRow>
         <BooksTable setSelectedBook={setSelectedBook} />
       </ViewColumn>
-      <EditBookModal selectedBook={selectedBook} setSelectedBook={setSelectedBook} />
+      <EditBookModal selectedBook={selectedBook} handleClose={() => setSelectedBook(null)} />
     </>
   );
 }

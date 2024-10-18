@@ -37,7 +37,7 @@ export default function MealsView() {
         </ViewRow>
         <MealsTable setSelectedMeal={setSelectedMeal} />
       </ViewColumn>
-      <EditMealModal selectedMeal={selectedMeal} setSelectedMeal={setSelectedMeal} />
+      <EditMealModal selectedMeal={selectedMeal} handleClose={() => setSelectedMeal(null)} />
     </>
   );
 }

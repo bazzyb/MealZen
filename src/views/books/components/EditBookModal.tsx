@@ -7,11 +7,11 @@ import { BookRecord, BookZodSchema } from "@/db/schemas/book";
 
 type ModalBodyProps = {
   selectedBook: BookRecord;
-  setSelectedBook: (book: BookRecord | null) => void;
+  handleClose: () => void;
 };
 
-function ModalBody({ selectedBook, setSelectedBook }: ModalBodyProps) {
-  const { control, handleSubmit, formState } = useForm({
+function ModalBody({ selectedBook, handleClose }: ModalBodyProps) {
+  const { control, handleSubmit, formState } = useForm<BookRecord>({
     defaultValues: { ...selectedBook },
     resolver: zodResolver(BookZodSchema),
   });
@@ -20,7 +20,7 @@ function ModalBody({ selectedBook, setSelectedBook }: ModalBodyProps) {
 
   const handleSave = async (data: BookRecord) => {
     await mutate(data);
-    setSelectedBook(null);
+    handleClose();
   };
 
   return (
@@ -65,13 +65,13 @@ function ModalBody({ selectedBook, setSelectedBook }: ModalBodyProps) {
 
 type Props = {
   selectedBook: BookRecord | null;
-  setSelectedBook: (book: BookRecord | null) => void;
+  handleClose: () => void;
 };
 
-export function EditBookModal({ selectedBook, setSelectedBook }: Props) {
+export function EditBookModal({ selectedBook, handleClose }: Props) {
   return (
-    <Modal isVisible={!!selectedBook} handleClose={() => setSelectedBook(null)} title="Edit Book">
-      <ModalBody selectedBook={selectedBook!} setSelectedBook={setSelectedBook} />
+    <Modal isVisible={!!selectedBook} handleClose={handleClose} title="Edit Book">
+      <ModalBody selectedBook={selectedBook!} handleClose={handleClose} />
     </Modal>
   );
 }

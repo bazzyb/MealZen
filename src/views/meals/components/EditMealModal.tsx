@@ -8,11 +8,11 @@ import { MealRecord, MealZodSchema } from "@/db/schemas/meal";
 
 type ModalBodyProps = {
   selectedMeal: MealRecord;
-  setSelectedMeal: (meal: MealRecord | null) => void;
+  handleClose: () => void;
 };
 
-function ModalBody({ selectedMeal, setSelectedMeal }: ModalBodyProps) {
-  const { control, handleSubmit, formState } = useForm({
+function ModalBody({ selectedMeal, handleClose }: ModalBodyProps) {
+  const { control, handleSubmit, formState } = useForm<MealRecord>({
     defaultValues: { ...selectedMeal },
     resolver: zodResolver(MealZodSchema),
   });
@@ -22,7 +22,7 @@ function ModalBody({ selectedMeal, setSelectedMeal }: ModalBodyProps) {
 
   const handleSave = async (data: MealRecord) => {
     await mutate(data);
-    setSelectedMeal(null);
+    handleClose();
   };
 
   return (
@@ -163,13 +163,13 @@ function ModalBody({ selectedMeal, setSelectedMeal }: ModalBodyProps) {
 
 type Props = {
   selectedMeal: MealRecord | null;
-  setSelectedMeal: (meal: MealRecord | null) => void;
+  handleClose: () => void;
 };
 
-export function EditMealModal({ selectedMeal, setSelectedMeal }: Props) {
+export function EditMealModal({ selectedMeal, handleClose }: Props) {
   return (
-    <Modal isVisible={!!selectedMeal} handleClose={() => setSelectedMeal(null)} title="Edit Meal">
-      <ModalBody selectedMeal={selectedMeal!} setSelectedMeal={setSelectedMeal} />
+    <Modal isVisible={!!selectedMeal} handleClose={handleClose} title="Edit Meal">
+      <ModalBody selectedMeal={selectedMeal!} handleClose={handleClose} />
     </Modal>
   );
 }

@@ -14,7 +14,7 @@ export const MealplanZodSchema = z.object({
   id: z.string().uuid(),
   user_id: z.string().uuid(),
   meal_id: z.string().uuid().nullable(),
-  date: z.string().datetime(),
+  date: z.string(),
   notes: z.string().nullable(),
 });
 export type MealplanRecord = z.infer<typeof MealplanZodSchema>;

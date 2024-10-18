@@ -1,12 +1,9 @@
-import { MEALPLAN_TABLE } from "../schemas/mealplan";
+import { MEALPLAN_TABLE, MealplanRecord } from "../schemas/mealplan";
 import { useQuery } from "@powersync/react-native";
 
-export type Mealplan = {
-  id: string;
-  date: string;
+export type Mealplan = MealplanRecord & {
   book?: string;
   meal: string;
-  notes?: string;
 };
 
 export const MealplanQuery = `

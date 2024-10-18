@@ -19,7 +19,7 @@ type ModalBodyProps = {
 };
 
 function ModalBody({ handleClose }: ModalBodyProps) {
-  const { control, handleSubmit, formState } = useForm({
+  const { control, handleSubmit, formState } = useForm<GenerateFields>({
     defaultValues: {
       generateFrom: getNoonToday().toDate(),
       generateTo: getNoonToday().add(1, "week").toDate(),

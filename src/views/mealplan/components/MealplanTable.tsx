@@ -1,7 +1,8 @@
 import { reorderMealPlan } from "../utils/dates";
+import { FontAwesome5 } from "@expo/vector-icons";
 import dayjs from "dayjs";
 
-import { Table, Text, ViewColumn } from "@/components";
+import { Table, Text, ViewColumn, ViewRow } from "@/components";
 import { useReorderMealplan } from "@/db/mutations/useReorderMealplan";
 import { Mealplan, useGetMealplan } from "@/db/queries/useGetMealplan";
 import { useAppTheme } from "@/styles/useAppTheme";
@@ -59,9 +60,13 @@ export function MealplanTable({ setSelectedMealplanEntry }: Props) {
             label: "Name",
             accessorFn: row => (
               <ViewColumn>
-                <Text size={14} color={colors.text}>
-                  {row.meal || row.name}
-                </Text>
+                <ViewRow gap={4} alignItems="center">
+                  <Text size={14} color={colors.text}>
+                    {row.meal || row.name}
+                  </Text>
+                  {!!row.isSimple && <FontAwesome5 name="umbrella-beach" size={12} color={colors.success} />}
+                </ViewRow>
+
                 {row.book && (
                   <Text size={12} color={colors.textSecondary}>
                     {row.book}

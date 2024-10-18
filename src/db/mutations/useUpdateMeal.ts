@@ -24,9 +24,9 @@ const updateQuery = `
 const updateMeal = async (meal: Omit<MealRecord, "user_id">, db: AbstractPowerSyncDatabase, userId?: string) => {
   const res = await db.execute(updateQuery, [
     meal.name,
-    meal.recipe_url,
-    meal.book_id,
-    meal.page,
+    meal.recipe_url || null,
+    meal.book_id || null,
+    meal.page || null,
     meal.is_simple,
     meal.is_overnight,
     meal.is_long_cook,

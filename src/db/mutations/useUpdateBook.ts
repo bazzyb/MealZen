@@ -16,7 +16,7 @@ const updateQuery = `
 `;
 
 const updateBook = async (book: Omit<BookRecord, "user_id">, db: AbstractPowerSyncDatabase, userId?: string) => {
-  const res = await db.execute(updateQuery, [book.name, book.author, book.id, userId || LOCAL_USER_ID]);
+  const res = await db.execute(updateQuery, [book.name, book.author || null, book.id, userId || LOCAL_USER_ID]);
 
   const resultRecord = res.rows?.item(0);
   if (!resultRecord) {

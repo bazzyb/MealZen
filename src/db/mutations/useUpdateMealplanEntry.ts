@@ -21,8 +21,8 @@ const updateMealplanEntry = async (
   userId?: string,
 ) => {
   const res = await db.execute(updateQuery, [
-    mealplanEntry.meal_id,
-    mealplanEntry.notes,
+    mealplanEntry.meal_id || null,
+    mealplanEntry.notes || null,
     mealplanEntry.id,
     userId || LOCAL_USER_ID,
   ]);

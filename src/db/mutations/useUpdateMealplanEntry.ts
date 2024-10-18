@@ -10,6 +10,7 @@ const updateQuery = `
   UPDATE ${MEALPLAN_TABLE}
   SET 
     meal_id = ?,
+    name = ?,
     notes = ?
   WHERE id = ? AND user_id = ?
   RETURNING *
@@ -22,6 +23,7 @@ const updateMealplanEntry = async (
 ) => {
   const res = await db.execute(updateQuery, [
     mealplanEntry.meal_id || null,
+    mealplanEntry.name || null,
     mealplanEntry.notes || null,
     mealplanEntry.id,
     userId || LOCAL_USER_ID,

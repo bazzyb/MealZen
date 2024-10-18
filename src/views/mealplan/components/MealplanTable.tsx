@@ -60,7 +60,7 @@ export function MealplanTable({ setSelectedMealplanEntry }: Props) {
             accessorFn: row => (
               <ViewColumn>
                 <Text size={14} color={colors.text}>
-                  {row.meal}
+                  {row.meal || row.name}
                 </Text>
                 {row.book && (
                   <Text size={12} color={colors.textSecondary}>

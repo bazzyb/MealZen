@@ -1,9 +1,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 
-import { Button, Modal, TextInput } from "@/components";
+import { Button, Dropdown, Modal, TextInput } from "@/components";
 import { useUpdateMealplanEntry } from "@/db/mutations/useUpdateMealplanEntry";
 import { Mealplan } from "@/db/queries/useGetMealplan";
+import { useGetMeals } from "@/db/queries/useGetMeals";
 import { MealplanRecord, MealplanZodSchema } from "@/db/schemas/mealplan";
 
 type ModalBodyProps = {
@@ -17,6 +18,7 @@ function ModalBody({ selectedMealplanEntry, handleClose }: ModalBodyProps) {
     resolver: zodResolver(MealplanZodSchema),
   });
 
+  const { data: meals, isLoading: isLoadingMeals } = useGetMeals();
   const { mutate, isMutating } = useUpdateMealplanEntry();
 
   async function handleSave(data: MealplanRecord) {
@@ -26,6 +28,25 @@ function ModalBody({ selectedMealplanEntry, handleClose }: ModalBodyProps) {
 
   return (
     <>
+      <Controller
+        name="meal_id"
+        control={control}
+        render={({ field }) => (
+          <Dropdown
+            label="Select Meal"
+            onChange={item => {
+              field.onChange(item.id);
+            }}
+            labelField={"name"}
+            valueField={"id"}
+            data={meals.map(meal => ({ id: meal.id, name: meal.name }))}
+            search={!isLoadingMeals}
+            value={field.value}
+            error={formState.errors.meal_id?.message}
+          />
+        )}
+      />
+
       <Controller
         name="notes"
         control={control}

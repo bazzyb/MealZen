@@ -9,6 +9,7 @@ import { Logger } from "@/utils/logger";
 const updateQuery = `
   UPDATE ${MEALPLAN_TABLE}
   SET 
+    meal_id = ?,
     notes = ?
   WHERE id = ? AND user_id = ?
   RETURNING *
@@ -19,7 +20,12 @@ const updateMealplanEntry = async (
   db: AbstractPowerSyncDatabase,
   userId?: string,
 ) => {
-  const res = await db.execute(updateQuery, [mealplanEntry.notes, mealplanEntry.id, userId || LOCAL_USER_ID]);
+  const res = await db.execute(updateQuery, [
+    mealplanEntry.meal_id,
+    mealplanEntry.notes,
+    mealplanEntry.id,
+    userId || LOCAL_USER_ID,
+  ]);
 
   const resultRecord = res.rows?.item(0);
   if (!resultRecord) {

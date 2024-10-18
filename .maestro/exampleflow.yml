@@ -1,7 +1,7 @@
 # https://maestro.mobile.dev/api-reference/configuration/flow-configuration
 
 # ID of the app as defined in app.json - ios.bundleIdentifier or android.package
-appId: com.anonymous.MealZen
+appId: uk.co.mealzen.app
 name: Add Meal
 
 # Used to run a subset of tests in certain scenarios, using the --includeTags or --excludeTags flag

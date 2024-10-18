@@ -2,7 +2,7 @@
   "expo": {
     "name": "MealZen",
     "slug": "MealZen",
-    "version": "1.0.0",
+    "version": "0.0.1",
     "orientation": "portrait",
     "##icon": "./assets/images/icon.png",
     "scheme": "myapp",
@@ -14,14 +14,14 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.anonymous.MealZen"
+      "bundleIdentifier": "uk.co.mealzen.app"
     },
     "android": {
       "adaptiveIcon": {
         "##foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.anonymous.MealZen"
+      "package": "uk.co.mealzen.app"
     },
     "web": {
       "bundler": "metro",

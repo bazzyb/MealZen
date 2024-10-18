@@ -10,15 +10,15 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		29652BBAD8574AD9AEB79F78 /* NotoSans_700Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D5D28416950F41C186E5C219 /* NotoSans_700Bold.ttf */; };
+		32AEEA23838543F786F9EB85 /* NotoSerif_400Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9A0529E098E442F0BD0D06AF /* NotoSerif_400Regular.ttf */; };
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
-		5A7CC21971E546C1ADE414B6 /* NotoSerif_400Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 33D43AED1E64498B9A2168B1 /* NotoSerif_400Regular.ttf */; };
-		891404BBAEE74333875DE545 /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EF6CCB0E164267AB9B82D3 /* noop-file.swift */; };
+		7DCF6EF3A8B94A6084F2C7F5 /* NotoSans_400Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D5DEC842C65C4A15A148C6A0 /* NotoSans_400Regular.ttf */; };
 		96905EF65AED1B983A6B3ABC /* libPods-MealZen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58EEBF8E8E6FB1BC6CAF49B5 /* libPods-MealZen.a */; };
+		9BE75EF7EDFF410C820020F8 /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6FD725EBE4418F9DD9AB61 /* noop-file.swift */; };
+		AF684577307C0B7FF5567C68 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = A532BE1AD5432F634774B2D9 /* PrivacyInfo.xcprivacy */; };
 		B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
-		BD32538DBBBCD052B5945869 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = D6930A9017792387A90C83F1 /* PrivacyInfo.xcprivacy */; };
-		BDE8A51829E04A1998EA2622 /* NotoSans_700Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CCD022599E324EB391CC0C77 /* NotoSans_700Bold.ttf */; };
-		FDDB3262E8704FF68AD08C7D /* NotoSans_400Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B30D4197A3B3477B92CB7E20 /* NotoSans_400Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,17 +28,17 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = MealZen/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = MealZen/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = MealZen/main.m; sourceTree = "<group>"; };
-		33D43AED1E64498B9A2168B1 /* NotoSerif_400Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = NotoSerif_400Regular.ttf; path = "../node_modules/@expo-google-fonts/noto-serif/NotoSerif_400Regular.ttf"; sourceTree = "<group>"; };
-		45EF6CCB0E164267AB9B82D3 /* noop-file.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = "noop-file.swift"; path = "MealZen/noop-file.swift"; sourceTree = "<group>"; };
+		2B6FD725EBE4418F9DD9AB61 /* noop-file.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = "noop-file.swift"; path = "MealZen/noop-file.swift"; sourceTree = "<group>"; };
 		58EEBF8E8E6FB1BC6CAF49B5 /* libPods-MealZen.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MealZen.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C2E3173556A471DD304B334 /* Pods-MealZen.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MealZen.debug.xcconfig"; path = "Target Support Files/Pods-MealZen/Pods-MealZen.debug.xcconfig"; sourceTree = "<group>"; };
 		7A4D352CD337FB3A3BF06240 /* Pods-MealZen.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MealZen.release.xcconfig"; path = "Target Support Files/Pods-MealZen/Pods-MealZen.release.xcconfig"; sourceTree = "<group>"; };
-		A9C8D9B1EF9648359377F03A /* MealZen-Bridging-Header.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = "MealZen-Bridging-Header.h"; path = "MealZen/MealZen-Bridging-Header.h"; sourceTree = "<group>"; };
+		7C8C38A485DD4A7998B99F25 /* MealZen-Bridging-Header.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = "MealZen-Bridging-Header.h"; path = "MealZen/MealZen-Bridging-Header.h"; sourceTree = "<group>"; };
+		9A0529E098E442F0BD0D06AF /* NotoSerif_400Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = NotoSerif_400Regular.ttf; path = "../node_modules/@expo-google-fonts/noto-serif/NotoSerif_400Regular.ttf"; sourceTree = "<group>"; };
+		A532BE1AD5432F634774B2D9 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = MealZen/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = MealZen/SplashScreen.storyboard; sourceTree = "<group>"; };
-		B30D4197A3B3477B92CB7E20 /* NotoSans_400Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = NotoSans_400Regular.ttf; path = "../node_modules/@expo-google-fonts/noto-sans/NotoSans_400Regular.ttf"; sourceTree = "<group>"; };
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
-		CCD022599E324EB391CC0C77 /* NotoSans_700Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = NotoSans_700Bold.ttf; path = "../node_modules/@expo-google-fonts/noto-sans/NotoSans_700Bold.ttf"; sourceTree = "<group>"; };
-		D6930A9017792387A90C83F1 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = MealZen/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		D5D28416950F41C186E5C219 /* NotoSans_700Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = NotoSans_700Bold.ttf; path = "../node_modules/@expo-google-fonts/noto-sans/NotoSans_700Bold.ttf"; sourceTree = "<group>"; };
+		D5DEC842C65C4A15A148C6A0 /* NotoSans_400Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = NotoSans_400Regular.ttf; path = "../node_modules/@expo-google-fonts/noto-sans/NotoSans_400Regular.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-MealZen/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -65,9 +65,9 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */,
-				45EF6CCB0E164267AB9B82D3 /* noop-file.swift */,
-				A9C8D9B1EF9648359377F03A /* MealZen-Bridging-Header.h */,
-				D6930A9017792387A90C83F1 /* PrivacyInfo.xcprivacy */,
+				2B6FD725EBE4418F9DD9AB61 /* noop-file.swift */,
+				7C8C38A485DD4A7998B99F25 /* MealZen-Bridging-Header.h */,
+				A532BE1AD5432F634774B2D9 /* PrivacyInfo.xcprivacy */,
 			);
 			name = MealZen;
 			sourceTree = "<group>";
@@ -79,6 +79,17 @@
 				58EEBF8E8E6FB1BC6CAF49B5 /* libPods-MealZen.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		751DF09DB08A464980AADC6A /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				9A0529E098E442F0BD0D06AF /* NotoSerif_400Regular.ttf */,
+				D5DEC842C65C4A15A148C6A0 /* NotoSans_400Regular.ttf */,
+				D5D28416950F41C186E5C219 /* NotoSans_700Bold.ttf */,
+			);
+			name = Resources;
+			path = "";
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -97,7 +108,7 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				D65327D7A22EEC0BE12398D9 /* Pods */,
 				D7E4C46ADA2E9064B798F356 /* ExpoModulesProviders */,
-				D8B98EB596FC4DC081CD7A5E /* Resources */,
+				751DF09DB08A464980AADC6A /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -146,17 +157,6 @@
 			name = ExpoModulesProviders;
 			sourceTree = "<group>";
 		};
-		D8B98EB596FC4DC081CD7A5E /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				33D43AED1E64498B9A2168B1 /* NotoSerif_400Regular.ttf */,
-				B30D4197A3B3477B92CB7E20 /* NotoSans_400Regular.ttf */,
-				CCD022599E324EB391CC0C77 /* NotoSans_700Bold.ttf */,
-			);
-			name = Resources;
-			path = "";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -165,13 +165,13 @@
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "MealZen" */;
 			buildPhases = (
 				08A4A3CD28434E44B6B9DE2E /* [CP] Check Pods Manifest.lock */,
-				2CF769FDBEFFAC11CFFC182B /* [Expo] Configure project */,
+				E0B2D6A6D359BA1A59CE782D /* [Expo] Configure project */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */,
-				3D5CD565E57B2AA35528A8F9 /* [CP] Embed Pods Frameworks */,
+				1CAF2D7A1B4F055072A68AA3 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -221,10 +221,10 @@
 				BB2F792D24A3F905000567C9 /* Expo.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
-				5A7CC21971E546C1ADE414B6 /* NotoSerif_400Regular.ttf in Resources */,
-				FDDB3262E8704FF68AD08C7D /* NotoSans_400Regular.ttf in Resources */,
-				BDE8A51829E04A1998EA2622 /* NotoSans_700Bold.ttf in Resources */,
-				BD32538DBBBCD052B5945869 /* PrivacyInfo.xcprivacy in Resources */,
+				32AEEA23838543F786F9EB85 /* NotoSerif_400Regular.ttf in Resources */,
+				7DCF6EF3A8B94A6084F2C7F5 /* NotoSans_400Regular.ttf in Resources */,
+				29652BBAD8574AD9AEB79F78 /* NotoSans_700Bold.ttf in Resources */,
+				AF684577307C0B7FF5567C68 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,26 +268,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		2CF769FDBEFFAC11CFFC182B /* [Expo] Configure project */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "[Expo] Configure project";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-MealZen/expo-configure-project.sh\"\n";
-		};
-		3D5CD565E57B2AA35528A8F9 /* [CP] Embed Pods Frameworks */ = {
+		1CAF2D7A1B4F055072A68AA3 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -335,6 +316,25 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MealZen/Pods-MealZen-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		E0B2D6A6D359BA1A59CE782D /* [Expo] Configure project */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "[Expo] Configure project";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-MealZen/expo-configure-project.sh\"\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -345,7 +345,7 @@
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */,
-				891404BBAEE74333875DE545 /* noop-file.swift in Sources */,
+				9BE75EF7EDFF410C820020F8 /* noop-file.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -375,7 +375,7 @@
 					"-lc++",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = com.anonymous.MealZen;
+				PRODUCT_BUNDLE_IDENTIFIER = uk.co.mealzen.app;
 				PRODUCT_NAME = MealZen;
 				SWIFT_OBJC_BRIDGING_HEADER = "MealZen/MealZen-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -403,7 +403,7 @@
 					"-lc++",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
-				PRODUCT_BUNDLE_IDENTIFIER = com.anonymous.MealZen;
+				PRODUCT_BUNDLE_IDENTIFIER = uk.co.mealzen.app;
 				PRODUCT_NAME = MealZen;
 				SWIFT_OBJC_BRIDGING_HEADER = "MealZen/MealZen-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;

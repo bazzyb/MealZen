@@ -1,4 +1,4 @@
-package com.anonymous.MealZen
+package uk.co.mealzen.app
 
 import android.app.Application
 import android.content.res.Configuration

@@ -9,7 +9,7 @@ import { TableRow } from "./Row";
 import { GenericData, TableProps } from "./types";
 
 export function Table<TData extends GenericData>(props: TableProps<TData>) {
-  const { data, columns, onRowPress, isSortable, hideHeader } = props;
+  const { data, columns, onRowPress, isSortable, hideHeader, onOrderChange } = props;
 
   const [items, setItems] = useState<TData[]>(data);
 
@@ -18,8 +18,10 @@ export function Table<TData extends GenericData>(props: TableProps<TData>) {
     setItems(data);
   }, [data]);
 
-  const onOrderChange = useCallback(({ data: reorderedItems }: DragEndParams<TData>) => {
-    setItems(reorderedItems);
+  const handleOrderChange = useCallback(({ data: reorderedItems }: DragEndParams<TData>) => {
+    if (onOrderChange) {
+      onOrderChange(reorderedItems, setItems);
+    }
   }, []);
 
   if (isSortable) {
@@ -38,7 +40,7 @@ export function Table<TData extends GenericData>(props: TableProps<TData>) {
         renderPlaceholder={() => <ViewColumn alignItems="center" backgroundColor="#DDD" />}
         stickyHeaderIndices={[0]}
         keyExtractor={item => item.id.toString()}
-        onDragEnd={onOrderChange}
+        onDragEnd={handleOrderChange}
         initialNumToRender={items.length}
       />
     );

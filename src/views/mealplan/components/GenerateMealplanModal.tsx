@@ -77,7 +77,7 @@ type Props = {
 
 export function GenerateMealplanModal({ isVisible, handleClose }: Props) {
   return (
-    <Modal isVisible={isVisible} handleClose={handleClose} title="Edit Meal">
+    <Modal isVisible={isVisible} handleClose={handleClose} title="Generate Mealplan">
       <ModalBody handleClose={handleClose} />
     </Modal>
   );

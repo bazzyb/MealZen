@@ -1,6 +1,7 @@
 import { AbstractPowerSyncDatabase } from "@powersync/react-native";
 import dayjs from "dayjs";
 
+import { Mealplan } from "@/db/queries/useGetMealplan";
 import { getMeals } from "@/db/queries/useGetMeals";
 
 type BuildParams = {
@@ -22,11 +23,11 @@ export async function buildMealPlan(db: AbstractPowerSyncDatabase, params: Build
   }));
 }
 
-// export function reorderMealPlan(meals: Array<MealPlan>) {
-//   const startDate = dayjs(meals.map((meal) => meal.date).sort()[0]);
+export function reorderMealPlan(meals: Array<Mealplan>): Array<Mealplan> {
+  const startDate = dayjs(meals.map(meal => meal.date).sort()[0]);
 
-//   return meals.map((meal, idx) => ({
-//     ...meal,
-//     date: startDate.add(idx, "days").toDate(),
-//   }));
-// }
+  return meals.map((meal, idx) => ({
+    ...meal,
+    date: startDate.add(idx, "days").toISOString(),
+  }));
+}

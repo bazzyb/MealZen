@@ -4,7 +4,7 @@
     "slug": "MealZen",
     "version": "0.0.1",
     "orientation": "portrait",
-    "##icon": "./assets/images/icon.png",
+    "icon": "./assets/images/mealzen-icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
@@ -18,8 +18,8 @@
     },
     "android": {
       "adaptiveIcon": {
-        "##foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/images/mealzen-adaptive-icon.png",
+        "backgroundColor": "#7950F2"
       },
       "package": "uk.co.mealzen.app"
     },

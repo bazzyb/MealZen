@@ -73,6 +73,6 @@ export function getTheme(theme: ColorSchemeName) {
     borderRadius: 4,
     fontFamily: "NotoSans_400Regular",
     fontBold: "NotoSans_700Bold",
-    headerFontFamily: "NotoSerif_400Regular",
+    headerFontFamily: "Wittgenstein",
   };
 }

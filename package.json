@@ -33,7 +33,6 @@
   "dependencies": {
     "@azure/core-asynciterator-polyfill": "^1.0.2",
     "@expo-google-fonts/noto-sans": "^0.2.3",
-    "@expo-google-fonts/noto-serif": "^0.2.3",
     "@expo/vector-icons": "^14.0.2",
     "@hookform/resolvers": "^3.9.0",
     "@journeyapps/react-native-quick-sqlite": "^2.0.0",

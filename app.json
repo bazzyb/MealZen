@@ -34,9 +34,9 @@
         "expo-font",
         {
           "fonts": [
-            "node_modules/@expo-google-fonts/noto-serif/NotoSerif_400Regular.ttf",
             "node_modules/@expo-google-fonts/noto-sans/NotoSans_400Regular.ttf",
-            "node_modules/@expo-google-fonts/noto-sans/NotoSans_700Bold.ttf"
+            "node_modules/@expo-google-fonts/noto-sans/NotoSans_700Bold.ttf",
+            "./assets/fonts/Wittgenstein-VariableFont_wght.ttf"
           ]
         }
       ]

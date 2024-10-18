@@ -1,6 +1,5 @@
 import * as SplashScreen from "expo-splash-screen";
 import { NotoSans_400Regular, NotoSans_700Bold, useFonts } from "@expo-google-fonts/noto-sans";
-import { NotoSerif_400Regular } from "@expo-google-fonts/noto-serif";
 import { Stack } from "expo-router";
 import { useEffect } from "react";
 
@@ -13,9 +12,9 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
-    NotoSerif_400Regular,
     NotoSans_400Regular,
     NotoSans_700Bold,
+    Wittgenstein: require("../../assets/fonts/Wittgenstein-VariableFont_wght.ttf"),
   });
 
   useEffect(() => {

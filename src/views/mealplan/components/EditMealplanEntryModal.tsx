@@ -1,8 +1,9 @@
+import Entypo from "@expo/vector-icons/Entypo";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 
-import { Button, Dropdown, Modal, TextInput, ViewRow } from "@/components";
+import { Button, Dropdown, Modal, TextInput, ViewColumn, ViewRow } from "@/components";
 import { useUpdateMealplanEntry } from "@/db/mutations/useUpdateMealplanEntry";
 import { Mealplan } from "@/db/queries/useGetMealplan";
 import { useGetMeals } from "@/db/queries/useGetMeals";
@@ -20,7 +21,7 @@ function ModalBody({ selectedMealplanEntry, handleClose }: ModalBodyProps) {
     resolver: zodResolver(MealplanZodSchema),
   });
 
-  const { borderRadius } = useAppTheme();
+  const { borderRadius, colors } = useAppTheme();
 
   const [mealSelector, setMealSelector] = useState<"select" | "custom">(() => {
     return selectedMealplanEntry.meal_id ? "select" : "custom";
@@ -39,6 +40,11 @@ function ModalBody({ selectedMealplanEntry, handleClose }: ModalBodyProps) {
     setValue("meal_id", null);
     setValue("name", selectedMealplanEntry.name);
     setMealSelector("custom");
+  }
+
+  function pickRandomMeal() {
+    const randomMeal = meals[Math.floor(Math.random() * meals.length)];
+    setValue("meal_id", randomMeal.id);
   }
 
   async function handleSave(data: MealplanRecord) {
@@ -68,24 +74,35 @@ function ModalBody({ selectedMealplanEntry, handleClose }: ModalBodyProps) {
       </ViewRow>
 
       {mealSelector === "select" && (
-        <Controller
-          name="meal_id"
-          control={control}
-          render={({ field }) => (
-            <Dropdown
-              label="Select Meal"
-              onChange={item => {
-                field.onChange(item.id);
-              }}
-              labelField={"name"}
-              valueField={"id"}
-              data={meals.map(meal => ({ id: meal.id, name: meal.name }))}
-              search={!isLoadingMeals}
-              value={field.value}
-              error={formState.errors.meal_id?.message}
-            />
-          )}
-        />
+        <ViewColumn width="100%" gap={4}>
+          <Controller
+            name="meal_id"
+            control={control}
+            render={({ field }) => (
+              <Dropdown
+                label="Select Meal"
+                onChange={item => {
+                  field.onChange(item.id);
+                }}
+                labelField={"name"}
+                valueField={"id"}
+                data={meals.map(meal => ({ id: meal.id, name: meal.name }))}
+                search={!isLoadingMeals}
+                value={field.value}
+                error={formState.errors.meal_id?.message}
+              />
+            )}
+          />
+          <Button
+            onPress={pickRandomMeal}
+            color="white"
+            textColor={colors.success}
+            style={{ paddingVertical: 4, borderWidth: 1, borderColor: colors.success }}
+            textStyle={{ fontSize: 10, textAlign: "center" }}
+          >
+            <Entypo name="shuffle" size={10} color={colors.success} /> Pick Random
+          </Button>
+        </ViewColumn>
       )}
 
       {mealSelector === "custom" && (
@@ -112,6 +129,8 @@ function ModalBody({ selectedMealplanEntry, handleClose }: ModalBodyProps) {
             onChangeText={field.onChange}
             value={field.value}
             error={formState.errors.notes?.message}
+            multiline
+            style={{ minHeight: 80 }}
           />
         )}
       />

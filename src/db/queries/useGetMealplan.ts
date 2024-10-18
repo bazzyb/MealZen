@@ -3,6 +3,7 @@ import { useQuery } from "@powersync/react-native";
 
 export type Mealplan = MealplanRecord & {
   book?: string;
+  page?: number;
   meal: string;
   isSimple: boolean;
 };
@@ -12,6 +13,7 @@ export const MealplanQuery = `
     mealplan.*,
     meal.name AS meal,
     meal.is_simple AS "isSimple",
+    meal.page,
     book.name AS book
   FROM ${MEALPLAN_TABLE}
   LEFT JOIN meal ON meal.id = mealplan.meal_id

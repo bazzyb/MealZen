@@ -69,7 +69,7 @@ export function MealplanTable({ setSelectedMealplanEntry }: Props) {
 
                 {row.book && (
                   <Text size={12} color={colors.textSecondary}>
-                    {row.book}
+                    {row.book} {row.page && `| p${row.page}`}
                   </Text>
                 )}
               </ViewColumn>

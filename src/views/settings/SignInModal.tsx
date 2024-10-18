@@ -22,7 +22,7 @@ export function SignInModal({ isVisible, handleClose }: Props) {
   const [isSigningIn, setIsSigningIn] = useState(false);
   const [signInError, setSignInError] = useState<string | null>(null);
 
-  const { control, handleSubmit, formState, resetField } = useForm({
+  const { control, handleSubmit, formState, reset } = useForm({
     defaultValues: { email: "", password: "" },
     resolver: zodResolver(SignInSchema),
   });

@@ -16,7 +16,7 @@ type ModalBodyProps = {
 };
 
 function ModalBody({ selectedMealplanEntry, handleClose }: ModalBodyProps) {
-  const { control, handleSubmit, formState, setValue } = useForm<MealplanRecord>({
+  const { control, handleSubmit, formState, setValue, clearErrors } = useForm<MealplanRecord>({
     defaultValues: { ...selectedMealplanEntry },
     resolver: zodResolver(MealplanZodSchema),
   });
@@ -31,12 +31,14 @@ function ModalBody({ selectedMealplanEntry, handleClose }: ModalBodyProps) {
   const { mutate, isMutating } = useUpdateMealplanEntry();
 
   function handleSetSelect() {
+    clearErrors();
     setValue("name", null);
     setValue("meal_id", selectedMealplanEntry.meal_id);
     setMealSelector("select");
   }
 
   function handleSetCustom() {
+    clearErrors();
     setValue("meal_id", null);
     setValue("name", selectedMealplanEntry.name);
     setMealSelector("custom");

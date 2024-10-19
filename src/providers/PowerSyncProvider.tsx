@@ -1,6 +1,7 @@
 import "@azure/core-asynciterator-polyfill";
 import { PowerSyncContext, PowerSyncDatabase, SyncStatus } from "@powersync/react-native";
 import { ReactNode, useCallback, useEffect, useMemo, useState } from "react";
+import Toast from "react-native-toast-message";
 
 import { LoadingSplash } from "@/components/LoadingSplash";
 import { schema } from "@/db/schemas";
@@ -23,17 +24,34 @@ export const PowerSyncProvider = ({ children }: { children: ReactNode }) => {
       database: { dbFilename: "sqlite.db" },
     });
 
-    db.init();
+    db.init().catch(error => {
+      Toast.show({
+        type: "error",
+        text1: "PowerSyncDatabase init error",
+        text2: error.message,
+      });
+      Logger.error("PowerSyncDatabase init error", error);
+    });
+
     return db;
   }, []);
 
   const handleDBConnect = useCallback(async () => {
-    if (isSyncEnabled) {
-      await powerSync.connect(supabase);
-      Logger.log("connected", powerSync.connected);
-    } else {
-      await powerSync.disconnect();
-      Logger.log("not connected", powerSync.connected);
+    try {
+      if (isSyncEnabled) {
+        await powerSync.connect(supabase);
+        Logger.log("connected", powerSync.connected);
+      } else {
+        await powerSync.disconnect();
+        Logger.log("not connected", powerSync.connected);
+      }
+    } catch (error) {
+      Toast.show({
+        type: "error",
+        text1: `PowerSyncDatabase ${isSyncEnabled ? "connection" : "disconnect"} error`,
+        text2: String(error),
+      });
+      Logger.error("PowerSyncDatabase connection error", error);
     }
   }, [powerSync, isSyncEnabled]);
 

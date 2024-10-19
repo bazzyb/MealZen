@@ -1,5 +1,6 @@
-import type { AuthSession, AuthUser } from "@supabase/supabase-js";
+import { AuthError, type AuthSession, type AuthUser } from "@supabase/supabase-js";
 import { ReactNode, createContext, useContext, useEffect, useMemo, useState } from "react";
+import Toast from "react-native-toast-message";
 
 import { LoadingSplash } from "@/components/LoadingSplash";
 import { supabase } from "@/supabase";
@@ -67,15 +68,30 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   async function getSession() {
-    const { data } = await supabase.client.auth.getSession();
+    try {
+      const { data, error } = await supabase.client.auth.getSession();
 
-    if (data.session) {
-      setSession(data.session);
-      setUser(data.session.user);
+      if (error) {
+        throw error;
+      }
+
+      if (data.session) {
+        setSession(data.session);
+        setUser(data.session.user);
+      }
+
+      setIsSyncEnabled(!!data.session);
+      setIsLoading(false);
+    } catch (error) {
+      Toast.show({
+        type: "error",
+        text1: "Failed to establish session",
+        text2: error instanceof AuthError ? error.message : "",
+      });
+      Logger.error(error);
+      setIsSyncEnabled(false);
+      setIsLoading(false);
     }
-
-    setIsSyncEnabled(!!data.session);
-    setIsLoading(false);
   }
 
   function toggleSync() {

@@ -27,14 +27,18 @@ export function Button({
 }: PropsWithChildren<Props>) {
   const { colors, fontFamily, borderRadius } = useAppTheme();
 
+  function getColor(dark?: boolean) {
+    return colors[`${color || "primary"}${dark ? "Dark" : ""}`];
+  }
+
   function getBackgroundColor(pressed?: boolean) {
     if (pressed) {
-      return colors[`${color || "primary"}Dark`];
+      return variant === "outlined" ? colors.gray[8] : getColor(true);
     }
     if (loading) {
       return colors.disabled;
     }
-    return colors[color || "primary"];
+    return variant === "outlined" ? colors.white : getColor();
   }
 
   return (
@@ -44,7 +48,7 @@ export function Button({
         paddingVertical: 8,
         paddingHorizontal: 16,
         borderRadius,
-        backgroundColor: variant === "outlined" ? colors.white : getBackgroundColor(pressed),
+        backgroundColor: getBackgroundColor(pressed),
         borderWidth: variant === "outlined" ? 1 : 0,
         borderColor: variant === "outlined" ? getBackgroundColor(pressed) : undefined,
         ...style,
@@ -55,9 +59,7 @@ export function Button({
         <ActivityIndicator color={colors.white} />
       ) : (
         <Text
-          color={
-            loading ? colors.disabled : variant === "outlined" ? getBackgroundColor() : textColor || colors.buttonText
-          }
+          color={loading ? colors.disabled : variant === "outlined" ? getColor() : textColor || colors.buttonText}
           style={textStyle}
         >
           {children}

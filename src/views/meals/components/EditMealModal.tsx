@@ -59,9 +59,8 @@ function ModalBody({ selectedMeal, handleClose }: ModalBodyProps) {
         render={({ field }) => (
           <Dropdown
             label="Book"
-            onChange={item => {
-              field.onChange(item.id);
-            }}
+            onChange={field.onChange}
+            clearable
             placeholder="Select a book"
             labelField={"name"}
             valueField={"id"}

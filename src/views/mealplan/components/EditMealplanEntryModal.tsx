@@ -81,9 +81,7 @@ function ModalBody({ selectedMealplanEntry, handleClose }: ModalBodyProps) {
             render={({ field }) => (
               <Dropdown
                 label="Select Meal"
-                onChange={item => {
-                  field.onChange(item.id);
-                }}
+                onChange={field.onChange}
                 placeholder="Select a meal"
                 labelField={"name"}
                 valueField={"id"}

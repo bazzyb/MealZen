@@ -13,7 +13,7 @@ export default function MealPlanView() {
 
   return (
     <>
-      <ViewColumn>
+      <ViewColumn height="100%">
         <Button style={{ width: "auto", margin: 16 }} onPress={() => setGenerateModalOpen(true)}>
           Generate New Meal Plan
         </Button>

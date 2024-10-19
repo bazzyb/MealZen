@@ -40,7 +40,7 @@ const lightBackgroundColors = {
   tabsBackground: colors.white,
   tabsActiveBackground: colorSet.primary,
   modalBlurBackground: `${colors.black}AA`,
-  rowActiveBackground: colors.gray[2],
+  rowActiveBackground: colors.gray[7],
   rowDragBackground: colors.blue[1],
 };
 
@@ -67,7 +67,7 @@ const darkBackgroundColors = {
   tabsBackground: colors.black,
   tabsActiveBackground: colorSet.primary,
   modalBlurBackground: `${colors.black}AA`,
-  rowActiveBackground: colors.gray[6],
+  rowActiveBackground: colors.gray[1],
   rowDragBackground: colors.blue[6],
 };
 

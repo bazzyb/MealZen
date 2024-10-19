@@ -26,23 +26,25 @@ export function Table<TData extends GenericData>(props: TableProps<TData>) {
 
   if (isSortable) {
     return (
-      <DraggableFlatList
-        data={items}
-        renderItem={({ item, drag, isActive }) => (
-          <TableRow
-            item={item}
-            columns={columns}
-            onPress={() => onRowPress?.(item)}
-            draggableProps={{ drag, isActive }}
-          />
-        )}
-        ListHeaderComponent={() => !hideHeader && <TableHeader columns={columns} />}
-        renderPlaceholder={() => <ViewColumn alignItems="center" backgroundColor="#DDD" />}
-        stickyHeaderIndices={[0]}
-        keyExtractor={item => item.id.toString()}
-        onDragEnd={handleOrderChange}
-        initialNumToRender={items.length}
-      />
+      <ViewColumn flex={1}>
+        <DraggableFlatList
+          data={items}
+          renderItem={({ item, drag, isActive }) => (
+            <TableRow
+              item={item}
+              columns={columns}
+              onPress={() => onRowPress?.(item)}
+              draggableProps={{ drag, isActive }}
+            />
+          )}
+          ListHeaderComponent={() => !hideHeader && <TableHeader columns={columns} />}
+          renderPlaceholder={() => <ViewColumn alignItems="center" backgroundColor="#DDD" />}
+          stickyHeaderIndices={[0]}
+          keyExtractor={item => item.id.toString()}
+          onDragEnd={handleOrderChange}
+          initialNumToRender={items.length}
+        />
+      </ViewColumn>
     );
   }
 

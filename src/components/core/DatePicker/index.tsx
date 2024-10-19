@@ -26,7 +26,7 @@ export function DatePicker({ label, value, handleChangeDate, error }: Props) {
         <AndroidDatePicker value={value} handleChangeDate={handleChangeDate} />
       )}
       {error && (
-        <Text style={{ marginLeft: 8, fontSize: 12, color: colors.error }} bold>
+        <Text style={{ marginLeft: 8, fontSize: 12, color: colors.formErrorText }} bold>
           {error}
         </Text>
       )}

@@ -32,6 +32,7 @@ const lightTextColors = {
   link: colors.blue[4],
   linkLight: colors.blue[5],
   linkDark: colors.blue[3],
+  formErrorText: colorSet.error,
 };
 
 const lightBackgroundColors = {
@@ -59,6 +60,7 @@ const darkTextColors = {
   link: colors.blue[5],
   linkLight: colors.blue[6],
   linkDark: colors.blue[4],
+  formErrorText: colorSet.errorLight,
 };
 
 const darkBackgroundColors = {

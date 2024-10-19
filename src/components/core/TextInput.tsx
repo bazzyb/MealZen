@@ -40,7 +40,7 @@ export const TextInput = forwardRef<TextInputBase, PropsWithChildren<Props>>((pr
           paddingHorizontal: 16,
           borderRadius,
           borderWidth: error ? 2 : 1,
-          borderColor: error ? colors.errorLight : colors.gray[2],
+          borderColor: error ? colors.formErrorText : colors.gray[2],
           backgroundColor: colors.white,
           ...style,
         }}
@@ -50,7 +50,7 @@ export const TextInput = forwardRef<TextInputBase, PropsWithChildren<Props>>((pr
         {children}
       </TextInputBase>
       {error && (
-        <Text style={{ marginLeft: 8, fontSize: 12, color: colors.error }} bold>
+        <Text style={{ marginLeft: 8, fontSize: 12, color: colors.formErrorText }} bold>
           {error}
         </Text>
       )}

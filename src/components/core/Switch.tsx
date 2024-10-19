@@ -10,12 +10,11 @@ type Props = Omit<SwitchProps, "style" | "value"> & {
   label?: string;
   value?: boolean;
   style?: ViewStyle;
-  error?: string;
   alignLabel?: FlexAlignType;
 };
 
 export const Switch = forwardRef<SwitchBase, PropsWithChildren<Props>>((props, ref) => {
-  const { children, label, value, error, style, alignLabel, ...switchProps } = props;
+  const { children, label, value, style, alignLabel, ...switchProps } = props;
   const { width, ...switchStyle } = style || {};
 
   const { colors } = useAppTheme();
@@ -36,11 +35,6 @@ export const Switch = forwardRef<SwitchBase, PropsWithChildren<Props>>((props, r
       >
         {children}
       </SwitchBase>
-      {error && (
-        <Text style={{ marginLeft: 8, fontSize: 12, color: colors.error }} bold>
-          {error}
-        </Text>
-      )}
     </ViewColumn>
   );
 });

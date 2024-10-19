@@ -10,13 +10,13 @@ const colorSet = {
   secondaryLight: colors.yellow[5],
   secondaryDark: colors.yellow[3],
   success: colors.green[4],
-  successLight: colors.green[5],
+  successLight: colors.green[7],
   successDark: colors.green[3],
   error: colors.red[4],
   errorLight: colors.red[5],
   errorDark: colors.red[3],
   disabled: colors.gray[3],
-  disabledLight: colors.gray[4],
+  disabledLight: colors.gray[8],
   disabledDark: colors.gray[2],
 };
 

@@ -92,60 +92,28 @@ function ModalBody({ selectedMeal, handleClose }: ModalBodyProps) {
           name="is_simple"
           control={control}
           render={({ field }) => (
-            <Switch
-              label="Simple"
-              trackColor={{ false: "#767577", true: "#81b0ff" }}
-              thumbColor={field.value ? "#f5dd4b" : "#f4f3f4"}
-              ios_backgroundColor="#3e3e3e"
-              onValueChange={val => field.onChange(val ? 1 : 0)}
-              value={!!field.value}
-              alignLabel="center"
-            />
+            <Switch label="Simple" onValueChange={val => field.onChange(val ? 1 : 0)} value={!!field.value} />
           )}
         />
         <Controller
           name="is_overnight"
           control={control}
           render={({ field }) => (
-            <Switch
-              label="Overnight"
-              trackColor={{ false: "#767577", true: "#81b0ff" }}
-              thumbColor={field.value ? "#f5dd4b" : "#f4f3f4"}
-              ios_backgroundColor="#3e3e3e"
-              onValueChange={val => field.onChange(val ? 1 : 0)}
-              value={!!field.value}
-              alignLabel="center"
-            />
+            <Switch label="Overnight" onValueChange={val => field.onChange(val ? 1 : 0)} value={!!field.value} />
           )}
         />
         <Controller
           name="is_long_cook"
           control={control}
           render={({ field }) => (
-            <Switch
-              label="Long Cook"
-              trackColor={{ false: "#767577", true: "#81b0ff" }}
-              thumbColor={field.value ? "#f5dd4b" : "#f4f3f4"}
-              ios_backgroundColor="#3e3e3e"
-              onValueChange={val => field.onChange(val ? 1 : 0)}
-              value={!!field.value}
-              alignLabel="center"
-            />
+            <Switch label="Long Cook" onValueChange={val => field.onChange(val ? 1 : 0)} value={!!field.value} />
           )}
         />
         <Controller
           name="is_long_prep"
           control={control}
           render={({ field }) => (
-            <Switch
-              label="Long Prep"
-              trackColor={{ false: "#767577", true: "#81b0ff" }}
-              thumbColor={field.value ? "#f5dd4b" : "#f4f3f4"}
-              ios_backgroundColor="#3e3e3e"
-              onValueChange={val => field.onChange(val ? 1 : 0)}
-              value={!!field.value}
-              alignLabel="center"
-            />
+            <Switch label="Long Prep" onValueChange={val => field.onChange(val ? 1 : 0)} value={!!field.value} />
           )}
         />
       </ViewRow>

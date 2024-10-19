@@ -3,7 +3,14 @@ import { ViewRow } from "../Layout/ViewRow";
 import { CloseButton } from "../core/CloseButton";
 import { Text } from "../core/Text";
 import { PropsWithChildren } from "react";
-import { KeyboardAvoidingView, Modal as ModalBase, Platform, ScrollView, View } from "react-native";
+import {
+  KeyboardAvoidingView,
+  Modal as ModalBase,
+  Platform,
+  ScrollView,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native";
 
 import { useAppTheme } from "@/styles/useAppTheme";
 
@@ -16,57 +23,57 @@ function ModalBody({ handleClose, title, children }: PropsWithChildren<BodyProps
   const { colors } = useAppTheme();
 
   return (
-    <View
-      style={{
-        backgroundColor: colors.modalBlurBackground,
-        position: "absolute",
-        bottom: 0,
-        top: 0,
-        width: "100%",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <KeyboardAvoidingView
-        behavior="position"
+    <TouchableWithoutFeedback onPressOut={handleClose}>
+      <View
         style={{
-          width: "90%",
-          maxWidth: 600,
-          maxHeight: Platform.OS === "ios" ? "50%" : "80%",
+          flex: 1,
+          backgroundColor: colors.modalBlurBackground,
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
-        <ViewRow
-          backgroundColor={colors.gray[5]}
-          borderTopLeftRadius={8}
-          borderTopRightRadius={8}
-          paddingVertical={8}
-          paddingHorizontal={16}
-          alignItems="center"
-          justifyContent="space-between"
-        >
-          <Text color={colors.white} bold>
-            {title}
-          </Text>
-          <CloseButton width={32} onPress={handleClose} />
-        </ViewRow>
-        <ViewColumn
-          padding={16}
-          backgroundColor={colors.background}
-          borderBottomLeftRadius={8}
-          borderBottomRightRadius={8}
-        >
-          <ScrollView
-            contentContainerStyle={{
-              alignItems: "flex-start",
-              gap: 8,
+        <TouchableWithoutFeedback>
+          <KeyboardAvoidingView
+            behavior="position"
+            style={{
+              width: "90%",
+              maxWidth: 600,
+              maxHeight: Platform.OS === "ios" ? "50%" : "80%",
             }}
           >
-            {children}
-          </ScrollView>
-        </ViewColumn>
-      </KeyboardAvoidingView>
-    </View>
+            <ViewRow
+              backgroundColor={colors.background}
+              borderTopLeftRadius={8}
+              borderTopRightRadius={8}
+              paddingTop={8}
+              paddingHorizontal={16}
+              alignItems="center"
+              justifyContent="space-between"
+            >
+              <Text color={colors.text} bold>
+                {title}
+              </Text>
+              <CloseButton width={32} onPress={handleClose} />
+            </ViewRow>
+            <ViewColumn
+              padding={16}
+              backgroundColor={colors.background}
+              borderBottomLeftRadius={8}
+              borderBottomRightRadius={8}
+            >
+              <ScrollView
+                contentContainerStyle={{
+                  alignItems: "flex-start",
+                  gap: 8,
+                }}
+              >
+                {children}
+              </ScrollView>
+            </ViewColumn>
+          </KeyboardAvoidingView>
+        </TouchableWithoutFeedback>
+      </View>
+    </TouchableWithoutFeedback>
   );
 }
 

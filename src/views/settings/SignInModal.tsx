@@ -82,7 +82,7 @@ export function SignInModal({ isVisible, handleClose }: Props) {
       />
       {signInError && <Text color="red">{signInError}</Text>}
       <Button
-        color="green"
+        color="success"
         style={{ marginTop: 16, width: "auto" }}
         disabled={isSigningIn}
         onPress={handleSubmit(handleSignIn)}

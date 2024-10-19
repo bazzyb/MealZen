@@ -22,7 +22,7 @@ export const Switch = forwardRef<SwitchBase, PropsWithChildren<Props>>((props, r
 
   return (
     <ViewColumn width={width} flex={style?.flex} gap={2} alignItems={alignLabel || "flex-start"}>
-      {label && <Text style={{ fontSize: 12, color: colors.label }}>{label}</Text>}
+      {label && <Text style={{ fontSize: 12, color: colors.textSecondary }}>{label}</Text>}
       <SwitchBase
         ref={ref}
         value={!!value}

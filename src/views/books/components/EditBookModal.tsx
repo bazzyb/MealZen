@@ -52,7 +52,7 @@ function ModalBody({ selectedBook, handleClose }: ModalBodyProps) {
       />
 
       <Button
-        color="green"
+        color="success"
         style={{ marginTop: 16, width: "auto" }}
         disabled={isMutating}
         onPress={handleSubmit(handleSave)}

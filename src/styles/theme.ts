@@ -1,74 +1,87 @@
 import { ColorSchemeName } from "react-native";
 
-import { PRIMARY_COLOR, colors } from "./colors";
+import { colors } from "./colors";
 
-export const lightColors = {
-  headerText: colors.white,
-  headerBackground: colors[PRIMARY_COLOR][4],
-  tabsBackground: colors.white,
-  tabsActiveBackground: colors[PRIMARY_COLOR][4],
-  tabsActiveText: colors.white,
-
-  text: colors.black,
-  textSecondary: colors.gray[7],
-  link: colors.blue[5],
-  label: colors.gray[7],
-
-  background: colors.white,
-  modalBlurBackground: `${colors.black}A`,
-
-  rowActiveBackground: colors.gray[2],
-  rowDragBackground: colors.blue[1],
-
-  primary: colors[PRIMARY_COLOR][3],
-  primaryLight: colors[PRIMARY_COLOR][2],
-  primaryDark: colors[PRIMARY_COLOR][5],
-
+const colorSet = {
+  primary: colors.purple[4],
+  primaryLight: colors.purple[5],
+  primaryDark: colors.purple[3],
+  secondary: colors.yellow[4],
+  secondaryLight: colors.yellow[5],
+  secondaryDark: colors.yellow[3],
   success: colors.green[4],
-  successLight: colors.green[2],
-  successDark: colors.green[5],
-
-  error: colors.red[3],
-  errorLight: colors.red[2],
-  errorDark: colors.red[4],
+  successLight: colors.green[5],
+  successDark: colors.green[3],
+  error: colors.red[4],
+  errorLight: colors.red[5],
+  errorDark: colors.red[3],
+  disabled: colors.gray[3],
+  disabledLight: colors.gray[4],
+  disabledDark: colors.gray[2],
 };
 
-export const darkColors: typeof lightColors = {
+export type ColorSet = "primary" | "secondary" | "success" | "error" | "disabled";
+
+const lightTextColors = {
+  text: colors.black,
+  textSecondary: colors.gray[1],
   headerText: colors.white,
-  headerBackground: colors[PRIMARY_COLOR][4],
-  tabsBackground: colors[PRIMARY_COLOR][4],
-  tabsActiveBackground: colors[PRIMARY_COLOR][6],
+  tabsText: colors.black,
   tabsActiveText: colors.white,
+  buttonText: colors.white,
+  link: colors.blue[4],
+  linkLight: colors.blue[5],
+  linkDark: colors.blue[3],
+};
 
+const lightBackgroundColors = {
+  background: colors.white,
+  headerBackground: colorSet.primary,
+  tabsBackground: colors.white,
+  tabsActiveBackground: colorSet.primary,
+  modalBlurBackground: `${colors.black}AA`,
+  rowActiveBackground: colors.gray[2],
+  rowDragBackground: colors.blue[1],
+};
+
+const lightColors = {
+  ...lightTextColors,
+  ...lightBackgroundColors,
+};
+
+const darkTextColors = {
   text: colors.white,
-  textSecondary: colors.gray[2],
-  link: colors.blue[1],
-  label: colors.gray[1],
+  textSecondary: colors.gray[6],
+  headerText: colors.white,
+  tabsText: colors.white,
+  tabsActiveText: colors.white,
+  buttonText: colors.white,
+  link: colors.blue[5],
+  linkLight: colors.blue[6],
+  linkDark: colors.blue[4],
+};
 
+const darkBackgroundColors = {
   background: colors.black,
-  modalBlurBackground: `${colors.black}A`,
-
+  headerBackground: colorSet.primary,
+  tabsBackground: colors.black,
+  tabsActiveBackground: colorSet.primary,
+  modalBlurBackground: `${colors.black}AA`,
   rowActiveBackground: colors.gray[6],
   rowDragBackground: colors.blue[6],
+};
 
-  primary: colors[PRIMARY_COLOR][3],
-  primaryLight: colors[PRIMARY_COLOR][2],
-  primaryDark: colors[PRIMARY_COLOR][5],
-
-  success: colors.green[2],
-  successLight: colors.green[1],
-  successDark: colors.green[3],
-
-  error: colors.red[2],
-  errorLight: colors.red[1],
-  errorDark: colors.red[3],
+const darkColors = {
+  ...darkTextColors,
+  ...darkBackgroundColors,
 };
 
 export function getTheme(theme: ColorSchemeName) {
   return {
     colors: {
-      ...(theme === "light" ? lightColors : darkColors),
+      ...colorSet,
       ...colors,
+      ...(theme === "light" ? lightColors : darkColors),
     },
     borderRadius: 4,
     fontFamily: "NotoSans_400Regular",

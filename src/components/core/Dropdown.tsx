@@ -23,7 +23,7 @@ export function Dropdown<T extends DrowndownItem>(props: PropsWithChildren<Props
 
   return (
     <ViewColumn width={style?.width || "100%"} flex={style?.flex} gap={2}>
-      {label && <Text style={{ marginLeft: 8, fontSize: 12, color: colors.label }}>{label}</Text>}
+      {label && <Text style={{ marginLeft: 8, fontSize: 12, color: colors.textSecondary }}>{label}</Text>}
       <DropdownBase
         {...dropdownProps}
         autoScroll={false}
@@ -34,7 +34,7 @@ export function Dropdown<T extends DrowndownItem>(props: PropsWithChildren<Props
               fontSize: 14,
               fontFamily: selected ? fontBold : fontFamily,
               color: colors.black,
-              backgroundColor: selected ? colors.gray[0] : colors.white,
+              backgroundColor: selected ? colors.gray[8] : colors.white,
             }}
           >
             {item[dropdownProps.labelField]}

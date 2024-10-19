@@ -19,7 +19,7 @@ export function DatePicker({ label, value, handleChangeDate, error }: Props) {
 
   return (
     <ViewColumn width={"100%"} gap={2}>
-      {label && <Text style={{ marginLeft: 8, fontSize: 12, color: colors.label }}>{label}</Text>}
+      {label && <Text style={{ marginLeft: 8, fontSize: 12, color: colors.textSecondary }}>{label}</Text>}
       {Platform.OS === "ios" ? (
         <IOSDatePicker value={value} handleChangeDate={handleChangeDate} />
       ) : (

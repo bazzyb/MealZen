@@ -31,7 +31,7 @@ export default function BooksView() {
       <ViewColumn gap={16} padding={0} flex={1}>
         <ViewRow justifyContent="center" gap={8} paddingHorizontal={16} paddingTop={16}>
           <TextInput placeholder="Book name" value={bookName} onChangeText={setBookName} style={{ flex: 1 }} />
-          <Button onPress={handleCreateBook} disabled={isCreatingBook} color="green">
+          <Button onPress={handleCreateBook} disabled={isCreatingBook} color="success">
             Create Book
           </Button>
         </ViewRow>

@@ -56,7 +56,7 @@ function ModalBody({ selectedMealplanEntry, handleClose }: ModalBodyProps) {
     <>
       <ViewRow gap={0} width="100%" borderRadius={borderRadius} overflow="hidden">
         <Button
-          color={mealSelector === "select" ? "purple" : "gray"}
+          color={mealSelector === "select" ? "primary" : "disabled"}
           onPress={handleSetSelect}
           textStyle={{ textAlign: "center" }}
           style={{ flex: 1, borderRadius: 0 }}
@@ -64,7 +64,7 @@ function ModalBody({ selectedMealplanEntry, handleClose }: ModalBodyProps) {
           Select
         </Button>
         <Button
-          color={mealSelector === "custom" ? "purple" : "gray"}
+          color={mealSelector === "custom" ? "primary" : "disabled"}
           onPress={handleSetCustom}
           textStyle={{ textAlign: "center" }}
           style={{ flex: 1, borderRadius: 0 }}
@@ -95,8 +95,8 @@ function ModalBody({ selectedMealplanEntry, handleClose }: ModalBodyProps) {
           />
           <Button
             onPress={pickRandomMeal}
-            color="white"
-            textColor={colors.success}
+            color="success"
+            variant="outlined"
             style={{ paddingVertical: 4, borderWidth: 1, borderColor: colors.success }}
             textStyle={{ fontSize: 10, textAlign: "center" }}
           >
@@ -136,7 +136,7 @@ function ModalBody({ selectedMealplanEntry, handleClose }: ModalBodyProps) {
       />
 
       <Button
-        color="green"
+        color="success"
         style={{ marginTop: 16, width: "auto" }}
         disabled={isMutating}
         onPress={handleSubmit(handleSave)}

@@ -150,7 +150,7 @@ function ModalBody({ selectedMeal, handleClose }: ModalBodyProps) {
       </ViewRow>
 
       <Button
-        color="green"
+        color="success"
         style={{ marginTop: 16, width: "auto" }}
         disabled={isMutating}
         onPress={handleSubmit(handleSave)}

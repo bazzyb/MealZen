@@ -2,14 +2,15 @@ import { LoadingIcon } from "../LoadingIcon";
 import { PropsWithChildren } from "react";
 import { Pressable, PressableProps, TextStyle, ViewStyle } from "react-native";
 
-import { Colors, PRIMARY_COLOR } from "@/styles/colors";
+import { ColorSet } from "@/styles/theme";
 import { useAppTheme } from "@/styles/useAppTheme";
 
 import { Text } from "./Text";
 
 type Props = Omit<PressableProps, "style"> & {
-  color?: Colors;
+  color?: ColorSet;
   textColor?: string;
+  variant?: "filled" | "outlined";
   style?: ViewStyle;
   textStyle?: TextStyle;
   loading?: boolean;
@@ -22,18 +23,19 @@ export function Button({
   textColor,
   textStyle,
   style,
+  variant,
   ...buttonProps
 }: PropsWithChildren<Props>) {
   const { colors, fontFamily, borderRadius } = useAppTheme();
 
-  function getBackgroundColor(pressed: boolean) {
+  function getBackgroundColor(pressed?: boolean) {
     if (pressed) {
-      return colors[color || PRIMARY_COLOR][5];
+      return colors[`${color || "primary"}Dark`];
     }
     if (loading) {
-      return colors.gray[0];
+      return colors.disabled;
     }
-    return colors[color || PRIMARY_COLOR][4];
+    return colors[color || "primary"];
   }
 
   return (
@@ -43,7 +45,9 @@ export function Button({
         paddingVertical: 8,
         paddingHorizontal: 16,
         borderRadius,
-        backgroundColor: getBackgroundColor(pressed),
+        backgroundColor: variant === "outlined" ? colors.white : getBackgroundColor(pressed),
+        borderWidth: variant === "outlined" ? 1 : 0,
+        borderColor: variant === "outlined" ? getBackgroundColor(pressed) : undefined,
         ...style,
       })}
       {...buttonProps}
@@ -51,7 +55,12 @@ export function Button({
       {loading ? (
         <LoadingIcon />
       ) : (
-        <Text color={textColor || colors.white} style={textStyle}>
+        <Text
+          color={
+            loading ? colors.disabled : variant === "outlined" ? getBackgroundColor() : textColor || colors.buttonText
+          }
+          style={textStyle}
+        >
           {children}
         </Text>
       )}

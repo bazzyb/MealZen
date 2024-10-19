@@ -24,7 +24,7 @@ export const TextInput = forwardRef<TextInputBase, PropsWithChildren<Props>>((pr
   return (
     <ViewColumn width={style?.width || "100%"} flex={style?.flex} gap={2}>
       {label && (
-        <Text style={{ marginLeft: 8, fontSize: 12, color: colors.label }} bold={bold}>
+        <Text style={{ marginLeft: 8, fontSize: 12, color: colors.textSecondary }} bold={bold}>
           {label}
         </Text>
       )}

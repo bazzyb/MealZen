@@ -31,7 +31,7 @@ export default function MealsView() {
       <ViewColumn gap={16} padding={0} flex={1}>
         <ViewRow justifyContent="center" gap={8} paddingHorizontal={16} paddingTop={16}>
           <TextInput placeholder="Meal name" value={mealName} onChangeText={setMealName} style={{ flex: 1 }} />
-          <Button onPress={handleCreateMeal} disabled={isCreatingMeal} color="green">
+          <Button onPress={handleCreateMeal} disabled={isCreatingMeal} color="success">
             Create Meal
           </Button>
         </ViewRow>

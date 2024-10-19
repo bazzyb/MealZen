@@ -1,7 +1,7 @@
 import type { AuthSession, AuthUser } from "@supabase/supabase-js";
 import { ReactNode, createContext, useContext, useEffect, useMemo, useState } from "react";
 
-import { LoadingIcon } from "@/components/LoadingIcon";
+import { LoadingSplash } from "@/components/LoadingSplash";
 import { supabase } from "@/supabase";
 import { Logger } from "@/utils/logger";
 
@@ -92,7 +92,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   );
 
   if (value.isSyncEnabled === null || isLoading) {
-    return <LoadingIcon />;
+    return <LoadingSplash />;
   }
 
   return (

@@ -7,10 +7,11 @@
     "icon": "./assets/images/mealzen-icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
+    "backgroundColor": "#673ab7",
     "splash": {
       "image": "./assets/images/mealzen-logo.png",
       "resizeMode": "contain",
-      "backgroundColor": "#5f3dc4"
+      "backgroundColor": "#673ab7"
     },
     "ios": {
       "supportsTablet": true,
@@ -19,7 +20,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/mealzen-adaptive-icon.png",
-        "backgroundColor": "#7950F2"
+        "backgroundColor": "#673ab7"
       },
       "package": "uk.co.mealzen.app"
     },

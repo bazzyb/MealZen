@@ -3,6 +3,7 @@ import { NotoSans_400Regular, NotoSans_700Bold, useFonts } from "@expo-google-fo
 import { Stack } from "expo-router";
 import { useEffect } from "react";
 
+import { LoadingSplash } from "@/components/LoadingSplash";
 import { AuthProvider } from "@/providers/AuthProvider";
 import { PowerSyncProvider } from "@/providers/PowerSyncProvider";
 import { ThemeProvider } from "@/providers/ThemeProvider";
@@ -24,7 +25,7 @@ export default function RootLayout() {
   }, [fontsLoaded]);
 
   if (!fontsLoaded) {
-    return null;
+    return <LoadingSplash />;
   }
 
   return (

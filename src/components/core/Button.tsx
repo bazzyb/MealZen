@@ -1,6 +1,5 @@
-import { LoadingIcon } from "../LoadingIcon";
 import { PropsWithChildren } from "react";
-import { Pressable, PressableProps, TextStyle, ViewStyle } from "react-native";
+import { ActivityIndicator, Pressable, PressableProps, TextStyle, ViewStyle } from "react-native";
 
 import { ColorSet } from "@/styles/theme";
 import { useAppTheme } from "@/styles/useAppTheme";
@@ -53,7 +52,7 @@ export function Button({
       {...buttonProps}
     >
       {loading ? (
-        <LoadingIcon />
+        <ActivityIndicator color={colors.white} />
       ) : (
         <Text
           color={

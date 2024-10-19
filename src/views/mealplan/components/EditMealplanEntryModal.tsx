@@ -84,6 +84,7 @@ function ModalBody({ selectedMealplanEntry, handleClose }: ModalBodyProps) {
                 onChange={item => {
                   field.onChange(item.id);
                 }}
+                placeholder="Select a meal"
                 labelField={"name"}
                 valueField={"id"}
                 data={meals.map(meal => ({ id: meal.id, name: meal.name }))}

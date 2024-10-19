@@ -27,6 +27,10 @@ export function Dropdown<T extends DrowndownItem>(props: PropsWithChildren<Props
       <DropdownBase
         {...dropdownProps}
         autoScroll={false}
+        placeholderStyle={{
+          fontSize: 14,
+          color: colors.gray[4],
+        }}
         renderItem={(item, selected) => (
           <Text
             style={{

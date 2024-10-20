@@ -68,7 +68,7 @@ const darkBackgroundColors = {
   headerBackground: colorSet.primary,
   tabsBackground: colors.black,
   tabsActiveBackground: colorSet.primary,
-  modalBlurBackground: `${colors.black}AA`,
+  modalBlurBackground: `${colors.gray[1]}AA`,
   rowActiveBackground: colors.gray[1],
   rowDragBackground: colors.blue[6],
 };

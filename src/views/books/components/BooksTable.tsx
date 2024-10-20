@@ -1,7 +1,6 @@
 import { View } from "react-native";
 
-import { DeleteButton, Table, Text, ViewColumn, ViewRow } from "@/components";
-import { useDeleteBook } from "@/db/mutations/useDeleteBook";
+import { Table, Text, ViewColumn, ViewRow } from "@/components";
 import { useGetBooks } from "@/db/queries/useGetBooks";
 import { BookRecord } from "@/db/schemas/book";
 import { useAppTheme } from "@/styles/useAppTheme";
@@ -14,7 +13,6 @@ export function BooksTable({ setSelectedBook }: Props) {
   const { colors } = useAppTheme();
 
   const { data: books, isLoading } = useGetBooks();
-  const { mutate: deleteBook, isMutating: isDeletingBook } = useDeleteBook();
 
   if (isLoading) {
     return (
@@ -52,13 +50,6 @@ export function BooksTable({ setSelectedBook }: Props) {
               </ViewColumn>
             </ViewRow>
           ),
-        },
-        {
-          id: "delete-row",
-          accessorFn: book => (
-            <DeleteButton deleteId={book.name} onPress={async () => deleteBook(book.id)} disabled={isDeletingBook} />
-          ),
-          width: 28,
         },
       ]}
     />

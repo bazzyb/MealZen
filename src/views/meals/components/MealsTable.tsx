@@ -1,8 +1,7 @@
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import { View } from "react-native";
 
-import { DeleteButton, ExternalLink, Table, Text, ViewColumn, ViewRow } from "@/components";
-import { useDeleteMeal } from "@/db/mutations/useDeleteMeal";
+import { ExternalLink, Table, Text, ViewColumn, ViewRow } from "@/components";
 import { useGetBooks } from "@/db/queries/useGetBooks";
 import { useGetMeals } from "@/db/queries/useGetMeals";
 import { MealRecord } from "@/db/schemas/meal";
@@ -18,7 +17,6 @@ export function MealsTable({ setSelectedMeal }: Props) {
   const { colors } = useAppTheme();
 
   const { data: meals, isLoading } = useGetMeals();
-  const { mutate: deleteMeal, isMutating: isDeletingMeal } = useDeleteMeal();
   const { data: books, isLoading: isLoadingBooks } = useGetBooks();
 
   if (isLoading || isLoadingBooks) {
@@ -61,13 +59,6 @@ export function MealsTable({ setSelectedMeal }: Props) {
               </ViewColumn>
             </>
           ),
-        },
-        {
-          id: "delete-row",
-          accessorFn: meal => (
-            <DeleteButton deleteId={meal.name} onPress={async () => deleteMeal(meal.id)} disabled={isDeletingMeal} />
-          ),
-          width: 28,
         },
       ]}
     />

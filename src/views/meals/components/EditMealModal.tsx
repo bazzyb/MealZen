@@ -1,7 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
+import { Alert } from "react-native";
 
-import { Button, Dropdown, Modal, Switch, TextInput, ViewRow } from "@/components";
+import { Button, DeleteButton, Dropdown, Modal, Switch, TextInput, ViewRow } from "@/components";
+import { useDeleteMeal } from "@/db/mutations/useDeleteMeal";
 import { useUpdateMeal } from "@/db/mutations/useUpdateMeal";
 import { useGetBooks } from "@/db/queries/useGetBooks";
 import { MealRecord, MealZodSchema } from "@/db/schemas/meal";
@@ -18,12 +20,32 @@ function ModalBody({ selectedMeal, handleClose }: ModalBodyProps) {
   });
 
   const { data: books, isLoading: isLoadingBooks } = useGetBooks();
-  const { mutate, isMutating } = useUpdateMeal();
+  const { mutate: updateMeal, isMutating: isUpdating } = useUpdateMeal();
+  const { mutate: deleteMeal, isMutating: isDeleting } = useDeleteMeal();
 
-  const handleSave = async (data: MealRecord) => {
-    await mutate(data);
+  function openDeleteAlert() {
+    Alert.alert("Delete Meal", "Are you sure you want to delete this meal?", [
+      {
+        text: "Cancel",
+        style: "cancel",
+      },
+      {
+        text: "Delete",
+        style: "destructive",
+        onPress: handleDeleteMeal,
+      },
+    ]);
+  }
+
+  async function handleDeleteMeal() {
+    await deleteMeal(selectedMeal.id);
     handleClose();
-  };
+  }
+
+  async function handleSave(data: MealRecord) {
+    await updateMeal(data);
+    handleClose();
+  }
 
   return (
     <>
@@ -117,14 +139,15 @@ function ModalBody({ selectedMeal, handleClose }: ModalBodyProps) {
         />
       </ViewRow>
 
-      <Button
-        color="success"
-        style={{ marginTop: 16, width: "auto" }}
-        disabled={isMutating}
-        onPress={handleSubmit(handleSave)}
-      >
-        Save
-      </Button>
+      <ViewRow justifyContent="space-between" alignItems="flex-end" width="100%" marginTop={8}>
+        <Button color="success" disabled={isDeleting || isUpdating} onPress={handleSubmit(handleSave)}>
+          Save
+        </Button>
+        <Button color="disabled" onPress={handleClose}>
+          Cancel
+        </Button>
+        <DeleteButton disabled={isDeleting || isUpdating} onPress={openDeleteAlert} style={{ marginLeft: "auto" }} />
+      </ViewRow>
     </>
   );
 }

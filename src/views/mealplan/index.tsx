@@ -1,7 +1,9 @@
 import { useState } from "react";
 
-import { Button, ViewColumn } from "@/components";
+import { Button, Text, ViewColumn } from "@/components";
+import { LinkButton } from "@/components/core/LinkButton";
 import { Mealplan } from "@/db/queries/useGetMealplan";
+import { useGetMeals } from "@/db/queries/useGetMeals";
 import { GenerateMealplanModal } from "@/views/mealplan/components/GenerateMealplanModal";
 
 import { EditMealplanEntryModal } from "./components/EditMealplanEntryModal";
@@ -10,6 +12,20 @@ import { MealplanTable } from "./components/MealplanTable";
 export default function MealPlanView() {
   const [generateModalOpen, setGenerateModalOpen] = useState(false);
   const [selectedMealplanEntry, setSelectedMealplanEntry] = useState<Mealplan | null>(null);
+
+  const { data: meals } = useGetMeals();
+
+  if (!meals.length) {
+    return (
+      <ViewColumn height="100%" alignItems="center" justifyContent="center">
+        <Text>No meals found.</Text>
+        <Text>Add some meals to generate a meal plan.</Text>
+        <LinkButton href="/meals" style={{ marginTop: 8 }}>
+          Go to meals
+        </LinkButton>
+      </ViewColumn>
+    );
+  }
 
   return (
     <>

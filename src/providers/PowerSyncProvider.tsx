@@ -41,9 +41,6 @@ export const PowerSyncProvider = ({ children }: { children: ReactNode }) => {
       if (isSyncEnabled) {
         await powerSync.connect(supabase);
         Logger.log("connected", powerSync.connected);
-      } else {
-        await powerSync.disconnect();
-        Logger.log("not connected", powerSync.connected);
       }
     } catch (error) {
       Toast.show({

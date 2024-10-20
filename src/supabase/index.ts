@@ -1,9 +1,10 @@
 import { AbstractPowerSyncDatabase, CrudEntry, PowerSyncBackendConnector, UpdateType } from "@powersync/react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { SupabaseClient, createClient } from "@supabase/supabase-js";
 
 import { LOCAL_USER_ID, POWERSYNC_URL, SUPABASE_ANON_KEY, SUPABASE_URL } from "@/consts";
 import { Logger } from "@/utils/logger";
+
+import { KVStorage } from "./KVStorage";
 
 /// Postgres Response codes that we cannot recover from by retrying.
 const FATAL_RESPONSE_CODES = [
@@ -24,7 +25,7 @@ export class SupabaseConnector implements PowerSyncBackendConnector {
     this.client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
       auth: {
         persistSession: true,
-        storage: AsyncStorage,
+        storage: new KVStorage(),
         detectSessionInUrl: false,
         autoRefreshToken: true,
       },

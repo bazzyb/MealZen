@@ -1,6 +1,5 @@
 import { ViewColumn } from "../Layout/ViewColumn";
 import { ViewRow } from "../Layout/ViewRow";
-import { CloseButton } from "../core/CloseButton";
 import { Text } from "../core/Text";
 import { PropsWithChildren } from "react";
 import {
@@ -53,7 +52,6 @@ function ModalBody({ handleClose, title, children }: PropsWithChildren<BodyProps
               <Text color={colors.text} bold>
                 {title}
               </Text>
-              <CloseButton width={32} onPress={handleClose} />
             </ViewRow>
             <ViewColumn
               padding={16}

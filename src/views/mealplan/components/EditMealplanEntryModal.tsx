@@ -136,14 +136,14 @@ function ModalBody({ selectedMealplanEntry, handleClose }: ModalBodyProps) {
         )}
       />
 
-      <Button
-        color="success"
-        style={{ marginTop: 16, width: "auto" }}
-        disabled={isMutating}
-        onPress={handleSubmit(handleSave)}
-      >
-        Save
-      </Button>
+      <ViewRow marginTop={8} justifyContent="space-between" width="100%">
+        <Button color="success" disabled={isMutating} onPress={handleSubmit(handleSave)}>
+          Save
+        </Button>
+        <Button color="disabled" disabled={isMutating} onPress={handleClose}>
+          Cancel
+        </Button>
+      </ViewRow>
     </>
   );
 }

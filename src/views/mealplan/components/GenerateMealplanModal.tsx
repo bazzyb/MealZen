@@ -4,7 +4,7 @@ import { usePowerSync } from "@powersync/react-native";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { Button, DatePicker, Modal } from "@/components";
+import { Button, DatePicker, Modal, ViewRow } from "@/components";
 import { useCreateMealplan } from "@/db/mutations/useCreateMealplan";
 import { getNoonToday } from "@/utils/dates";
 
@@ -63,9 +63,14 @@ function ModalBody({ handleClose }: ModalBodyProps) {
           />
         )}
       />
-      <Button disabled={isMutating} style={{ marginTop: 8 }} onPress={handleSubmit(onSubmit)}>
-        Generate
-      </Button>
+      <ViewRow marginTop={8} justifyContent="space-between" width="100%">
+        <Button disabled={isMutating} onPress={handleSubmit(onSubmit)}>
+          Generate
+        </Button>
+        <Button color="disabled" disabled={isMutating} onPress={handleClose}>
+          Cancel
+        </Button>
+      </ViewRow>
     </>
   );
 }

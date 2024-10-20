@@ -9,6 +9,7 @@ import { useAuth } from "@/providers/AuthProvider";
 type Props = {
   isVisible: boolean;
   handleClose: () => void;
+  setIsChangingAuth: (isChanging: boolean) => void;
 };
 
 const SignInSchema = z.object({
@@ -17,7 +18,7 @@ const SignInSchema = z.object({
 });
 type SignInFields = z.infer<typeof SignInSchema>;
 
-export function SignInModal({ isVisible, handleClose }: Props) {
+export function SignInModal({ isVisible, handleClose, setIsChangingAuth }: Props) {
   const { signIn, toggleSync } = useAuth();
   const [isSigningIn, setIsSigningIn] = useState(false);
   const [signInError, setSignInError] = useState<string | null>(null);
@@ -34,6 +35,7 @@ export function SignInModal({ isVisible, handleClose }: Props) {
 
   async function handleSignIn({ email, password }: SignInFields) {
     setIsSigningIn(true);
+    setIsChangingAuth(true);
     setSignInError(null);
     try {
       await signIn(email, password);
@@ -46,6 +48,7 @@ export function SignInModal({ isVisible, handleClose }: Props) {
         setSignInError("An unknown error occurred");
       }
     }
+    setIsChangingAuth(false);
     setIsSigningIn(false);
   }
 

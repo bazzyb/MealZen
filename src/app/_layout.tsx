@@ -2,7 +2,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { NotoSans_400Regular, NotoSans_700Bold, useFonts } from "@expo-google-fonts/noto-sans";
 import { Stack } from "expo-router";
 import { useEffect } from "react";
-import Toast from "react-native-toast-message";
+import Toast, { ErrorToast } from "react-native-toast-message";
 
 import { LoadingSplash } from "@/components/LoadingSplash";
 import { AuthProvider } from "@/providers/AuthProvider";
@@ -52,7 +52,22 @@ export default function RootLayout() {
           </PowerSyncProvider>
         </AuthProvider>
       </ThemeProvider>
-      <Toast />
+      <Toast
+        config={{
+          error: props => (
+            <ErrorToast
+              {...props}
+              style={{
+                height: "auto",
+                paddingVertical: 8,
+                borderLeftColor: "#C11",
+              }}
+              text1NumberOfLines={2}
+              text2NumberOfLines={5}
+            />
+          ),
+        }}
+      />
     </>
   );
 }

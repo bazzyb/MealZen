@@ -6,6 +6,7 @@ import Toast from "react-native-toast-message";
 import { Text, ViewColumn } from "@/components";
 import { useAuth } from "@/providers/AuthProvider";
 import { useAppTheme } from "@/styles/useAppTheme";
+import { Logger } from "@/utils/logger";
 
 import { SignInModal } from "./SignInModal";
 
@@ -34,7 +35,9 @@ export function Auth() {
   async function handleSignOut() {
     setIsChangingAuth(true);
     try {
-      await powerSync.disconnectAndClear();
+      await powerSync.disconnectAndClear().then(() => {
+        Logger.log("disconnected");
+      });
       toggleSync();
       await signOut();
     } catch (error) {

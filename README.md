@@ -73,6 +73,27 @@ E2E tests are run using [Maestro](https://maestro.mobile.dev/getting-started/ins
 
 You'll need to run the required device, before running the e2e tests
 
+## TODO
+
+### bugs/QOL
+
+- sync status (offline status?)
+- Allow opening app if no internet connection
+  - don't call db.connect if no internet
+  - test with usb debugging to turn on airplane mode
+  - AuthProvider -> getSession might be an issue, so might need to skip that??
+    - no wait, getSession should be local storage, so fine?
+- what to do with mealplan table when signing in
+  - overwrite whole synced table with local?
+  - ignore table
+  - modal to choose what to do?
+
+### testing
+
+- E2E test for adding book and page to meal
+- E2E test for mealplans
+- mobile accessibility (screen readers? tabbing equivalent? accessibility testing?)
+
 ## Known Issues
 
 - ps_crud table fills up with transactions until user syncs.

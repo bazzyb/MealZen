@@ -1,10 +1,10 @@
 import "@azure/core-asynciterator-polyfill";
-import { PowerSyncContext, PowerSyncDatabase, SyncStatus } from "@powersync/react-native";
-import { ReactNode, useCallback, useEffect, useMemo, useState } from "react";
+import { AbstractPowerSyncDatabase, PowerSyncContext, PowerSyncDatabase, SyncStatus } from "@powersync/react-native";
+import { ReactNode, useEffect, useState } from "react";
 import Toast from "react-native-toast-message";
 
 import { LoadingSplash } from "@/components/LoadingSplash";
-import { schema } from "@/db/schemas";
+import { buildSchema } from "@/db/schemas";
 import { supabase } from "@/supabase";
 import { Logger } from "@/utils/logger";
 
@@ -12,52 +12,49 @@ import { useAuth } from "./AuthProvider";
 
 export const PowerSyncProvider = ({ children }: { children: ReactNode }) => {
   const { isSyncEnabled } = useAuth();
-
+  const [powerSync, setPowersync] = useState<AbstractPowerSyncDatabase | null>(null);
   const [status, setStatus] = useState<SyncStatus | null>(null);
+  const [connector] = useState(supabase);
 
-  // create a new instance of PowerSyncDatabase should only be created once.
-  // examples of this setup in powerSync include the handleDBConnect logic in same useMemo
-  // however, this leads to issues reconnecting if user logs out and back in in the same session.
-  const powerSync = useMemo(() => {
+  const handleDBConnect = async (syncEnabled: boolean) => {
     const db = new PowerSyncDatabase({
-      schema,
-      database: { dbFilename: "sqlite.db" },
+      schema: buildSchema(syncEnabled),
+      database: { dbFilename: "mealzen.db" },
     });
 
-    db.init().catch(error => {
+    try {
+      await db.init();
+    } catch (error) {
       Toast.show({
         type: "error",
         text1: "PowerSyncDatabase init error",
         text2: error.message,
       });
       Logger.error("PowerSyncDatabase init error", error);
-    });
+    }
 
-    return db;
-  }, []);
-
-  const handleDBConnect = useCallback(async () => {
     try {
-      if (isSyncEnabled) {
-        await powerSync.connect(supabase);
-        Logger.log("connected", powerSync.connected);
+      if (syncEnabled) {
+        await db.connect(connector);
+        Logger.log("connected", db.connected);
       }
     } catch (error) {
       Toast.show({
         type: "error",
-        text1: `PowerSyncDatabase ${isSyncEnabled ? "connection" : "disconnect"} error`,
+        text1: `PowerSyncDatabase ${syncEnabled ? "connection" : "disconnect"} error`,
         text2: String(error),
       });
       Logger.error("PowerSyncDatabase connection error", error);
     }
-  }, [powerSync, isSyncEnabled]);
+
+    setStatus(db.currentStatus);
+    setPowersync(db);
+  };
 
   useEffect(() => {
     // connect/disconnect from supabase when sync is enabled/disabled
-    if (powerSync) {
-      handleDBConnect();
-    }
-  }, [powerSync, isSyncEnabled]);
+    handleDBConnect(isSyncEnabled);
+  }, [isSyncEnabled]);
 
   useEffect(() => {
     if (powerSync) {
@@ -69,7 +66,7 @@ export const PowerSyncProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [powerSync]);
 
-  if (status === null || (status.connected && !status.hasSynced)) {
+  if (powerSync === null || status === null) {
     return <LoadingSplash />;
   }
 

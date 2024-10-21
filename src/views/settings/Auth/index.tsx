@@ -4,6 +4,7 @@ import { Alert, Pressable } from "react-native";
 import Toast from "react-native-toast-message";
 
 import { Text, ViewColumn } from "@/components";
+import { buildSchema } from "@/db/schemas";
 import { useAuth } from "@/providers/AuthProvider";
 import { useAppTheme } from "@/styles/useAppTheme";
 import { Logger } from "@/utils/logger";
@@ -35,11 +36,16 @@ export function Auth() {
   async function handleSignOut() {
     setIsChangingAuth(true);
     try {
-      await powerSync.disconnectAndClear().then(() => {
-        Logger.log("disconnected");
-      });
-      toggleSync();
+      // Disconnect from supabase, and switch to local schema
+      await powerSync.disconnectAndClear();
+      await powerSync.updateSchema(buildSchema(false));
+      Logger.log("disconnected");
+
+      // Sign out of supabase auth
       await signOut();
+
+      // Turn off sync
+      toggleSync();
     } catch (error) {
       Toast.show({
         type: "error",

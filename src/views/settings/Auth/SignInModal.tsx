@@ -1,9 +1,11 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { usePowerSync } from "@powersync/react-native";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button, Modal, Text, TextInput } from "@/components";
+import { buildSchema, syncLocalChangesToSyncedTable } from "@/db/schemas";
 import { useAuth } from "@/providers/AuthProvider";
 
 type Props = {
@@ -23,6 +25,8 @@ export function SignInModal({ isVisible, handleClose, setIsChangingAuth }: Props
   const [isSigningIn, setIsSigningIn] = useState(false);
   const [signInError, setSignInError] = useState<string | null>(null);
 
+  const powerSync = usePowerSync();
+
   const { control, handleSubmit, formState, reset } = useForm({
     defaultValues: { email: "", password: "" },
     resolver: zodResolver(SignInSchema),
@@ -38,8 +42,19 @@ export function SignInModal({ isVisible, handleClose, setIsChangingAuth }: Props
     setIsChangingAuth(true);
     setSignInError(null);
     try {
-      await signIn(email, password);
+      // Sign in to supabase auth
+      const { id } = await signIn(email, password);
+
+      // Update schema to use synced tables
+      await powerSync.updateSchema(buildSchema(true));
+
+      // Copy local data to synced tables
+      await syncLocalChangesToSyncedTable(powerSync, id);
+
+      // Turn on sync
       toggleSync();
+
+      // Close modal
       onClose();
     } catch (error) {
       if (error instanceof Error) {

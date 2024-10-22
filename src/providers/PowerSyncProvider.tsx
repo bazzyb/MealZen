@@ -6,6 +6,7 @@ import Toast from "react-native-toast-message";
 import { LoadingSplash } from "@/components/LoadingSplash";
 import { buildSchema } from "@/db/schemas";
 import { supabase } from "@/supabase";
+import { parseError } from "@/utils/errors";
 import { Logger } from "@/utils/logger";
 
 import { useAuth } from "./AuthProvider";
@@ -28,7 +29,7 @@ export const PowerSyncProvider = ({ children }: { children: ReactNode }) => {
       Toast.show({
         type: "error",
         text1: "PowerSyncDatabase init error",
-        text2: error.message,
+        text2: parseError(error),
       });
       Logger.error("PowerSyncDatabase init error", error);
     }

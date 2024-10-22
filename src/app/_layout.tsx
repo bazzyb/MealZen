@@ -1,10 +1,10 @@
 import * as SplashScreen from "expo-splash-screen";
 import { NotoSans_400Regular, NotoSans_700Bold, useFonts } from "@expo-google-fonts/noto-sans";
-import { Stack } from "expo-router";
 import { useEffect } from "react";
 import Toast, { ErrorToast } from "react-native-toast-message";
 
 import { LoadingSplash } from "@/components/LoadingSplash";
+import { AppStack } from "@/components/Navigation/AppStack";
 import { AuthProvider } from "@/providers/AuthProvider";
 import { PowerSyncProvider } from "@/providers/PowerSyncProvider";
 import { ThemeProvider } from "@/providers/ThemeProvider";
@@ -46,9 +46,7 @@ export default function RootLayout() {
       <ThemeProvider>
         <AuthProvider>
           <PowerSyncProvider>
-            <Stack>
-              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            </Stack>
+            <AppStack />
           </PowerSyncProvider>
         </AuthProvider>
       </ThemeProvider>

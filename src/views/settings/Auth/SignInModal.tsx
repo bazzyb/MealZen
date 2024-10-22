@@ -41,6 +41,7 @@ export function SignInModal({ isVisible, handleClose, setIsChangingAuth }: Props
     setIsSigningIn(true);
     setIsChangingAuth(true);
     setSignInError(null);
+
     try {
       // Sign in to supabase auth
       const { id } = await signIn(email, password);

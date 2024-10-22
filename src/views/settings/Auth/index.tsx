@@ -1,9 +1,10 @@
+import { MenuItem } from "../components/MenuItem";
 import { usePowerSync } from "@powersync/react-native";
 import { useState } from "react";
-import { Alert, Pressable } from "react-native";
+import { Alert } from "react-native";
 import Toast from "react-native-toast-message";
 
-import { Text, ViewColumn } from "@/components";
+import { Text } from "@/components";
 import { buildSchema } from "@/db/schemas";
 import { useAuth } from "@/providers/AuthProvider";
 import { useAppTheme } from "@/styles/useAppTheme";
@@ -66,22 +67,14 @@ export function Auth() {
 
   return (
     <>
-      <Pressable
-        onPress={onPress}
-        style={({ pressed }) => ({
-          backgroundColor: pressed ? colors.rowActiveBackground : colors.background,
-        })}
-        disabled={isChangingAuth}
-      >
-        <ViewColumn padding={16} borderBottomColor={colors.text} borderBottomWidth={1}>
-          <Text>{user ? "Sign Out" : "Sign In"}</Text>
-          {user && (
-            <Text size={12} color={colors.textSecondary}>
-              {user.email}
-            </Text>
-          )}
-        </ViewColumn>
-      </Pressable>
+      <MenuItem onPress={onPress} disabled={isChangingAuth}>
+        <Text>{user ? "Sign Out" : "Sign In"}</Text>
+        {user && (
+          <Text size={12} color={colors.textSecondary}>
+            {user.email}
+          </Text>
+        )}
+      </MenuItem>
       <SignInModal
         isVisible={signInModalOpen}
         handleClose={() => setSignInModalOpen(false)}

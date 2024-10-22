@@ -1,4 +1,3 @@
-import Entypo from "@expo/vector-icons/Entypo";
 import Feather from "@expo/vector-icons/Feather";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -39,13 +38,6 @@ export default function TabsLayout() {
         options={{
           title: "Meals",
           tabBarIcon: ({ color, size }) => <Ionicons name="fast-food-outline" size={size} color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="books"
-        options={{
-          title: "Books",
-          tabBarIcon: ({ color, size }) => <Entypo name="book" size={size} color={color} />,
         }}
       />
       <Tabs.Screen

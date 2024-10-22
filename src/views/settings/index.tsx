@@ -15,6 +15,11 @@ export default function SettingsView() {
       <MenuItem role="link" onPress={() => router.navigate("/books")} style={{ paddingVertical: 4 }}>
         <Text>Books</Text>
       </MenuItem>
+      {__DEV__ && (
+        <MenuItem role="link" onPress={() => router.navigate("/dev-settings")} style={{ paddingVertical: 4 }}>
+          <Text>Dev Settings</Text>
+        </MenuItem>
+      )}
     </ViewColumn>
   );
 }

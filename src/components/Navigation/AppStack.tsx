@@ -38,7 +38,7 @@ export function AppStack() {
         headerBackTitleVisible: false,
       }}
     >
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      <Stack.Screen name="(tab-views)" options={{ headerShown: false }} />
     </Stack>
   );
 }

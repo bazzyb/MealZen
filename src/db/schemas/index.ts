@@ -2,7 +2,7 @@ import { AbstractPowerSyncDatabase, Schema, Table } from "@powersync/react-nativ
 
 import { BOOK_TABLE, bookSchema, bookTableLocalToSyncStatement } from "./book";
 import { MEAL_TABLE, mealSchema, mealTableLocalToSyncStatement } from "./meal";
-import { MEALPLAN_TABLE, mealplanSchema, mealplanTableLocalToSyncStatement } from "./mealplan";
+import { MEALPLAN_TABLE, mealplanSchema } from "./mealplan";
 
 export function buildSchema(isSynced: boolean) {
   const getSyncedTableName = (table: string): string => {
@@ -60,7 +60,9 @@ export async function syncLocalChangesToSyncedTable(db: AbstractPowerSyncDatabas
     // Move data from local to sync tables.
     await tx.execute(bookTableLocalToSyncStatement, [userId]); // NO DEPENDENCIES
     await tx.execute(mealTableLocalToSyncStatement, [userId]); // DEPENDS ON BOOKS
-    await tx.execute(mealplanTableLocalToSyncStatement, [userId]); // DEPENDS ON BOOKS AND MEALS
+
+    // TODO: ask user if they want to keep this one or the synced one
+    // await tx.execute(mealplanTableLocalToSyncStatement, [userId]); // DEPENDS ON BOOKS AND MEALS
 
     // Delete the local-only data.
     await tx.execute(`DELETE FROM inactive_local_${MEALPLAN_TABLE}`); // DEPENDS ON BOOKS AND MEALS

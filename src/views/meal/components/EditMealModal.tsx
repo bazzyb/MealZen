@@ -1,9 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
-import { Alert } from "react-native";
 
-import { Button, DeleteButton, Dropdown, Modal, Switch, TextInput, ViewRow } from "@/components";
-import { useDeleteMeal } from "@/db/mutations/useDeleteMeal";
+import { Button, Dropdown, Modal, Switch, TextInput, ViewRow } from "@/components";
 import { useUpdateMeal } from "@/db/mutations/useUpdateMeal";
 import { useGetBooks } from "@/db/queries/useGetBooks";
 import { MealRecord, MealZodSchema } from "@/db/schemas/meal";
@@ -21,26 +19,6 @@ function ModalBody({ selectedMeal, handleClose }: ModalBodyProps) {
 
   const { data: books, isLoading: isLoadingBooks } = useGetBooks();
   const { mutate: updateMeal, isMutating: isUpdating } = useUpdateMeal();
-  const { mutate: deleteMeal, isMutating: isDeleting } = useDeleteMeal();
-
-  function openDeleteAlert() {
-    Alert.alert("Delete Meal", "Are you sure you want to delete this meal?", [
-      {
-        text: "Cancel",
-        style: "cancel",
-      },
-      {
-        text: "Delete",
-        style: "destructive",
-        onPress: handleDeleteMeal,
-      },
-    ]);
-  }
-
-  async function handleDeleteMeal() {
-    await deleteMeal(selectedMeal.id);
-    handleClose();
-  }
 
   async function handleSave(data: MealRecord) {
     await updateMeal(data);
@@ -140,26 +118,26 @@ function ModalBody({ selectedMeal, handleClose }: ModalBodyProps) {
       </ViewRow>
 
       <ViewRow justifyContent="space-between" alignItems="flex-end" width="100%" marginTop={8}>
-        <Button color="success" disabled={isDeleting || isUpdating} onPress={handleSubmit(handleSave)}>
-          Save
-        </Button>
         <Button color="disabled" onPress={handleClose}>
           Cancel
         </Button>
-        <DeleteButton disabled={isDeleting || isUpdating} onPress={openDeleteAlert} style={{ marginLeft: "auto" }} />
+        <Button color="success" disabled={isUpdating} onPress={handleSubmit(handleSave)}>
+          Save
+        </Button>
       </ViewRow>
     </>
   );
 }
 
 type Props = {
+  show: boolean;
   selectedMeal: MealRecord | null;
   handleClose: () => void;
 };
 
-export function EditMealModal({ selectedMeal, handleClose }: Props) {
+export function EditMealModal({ show, selectedMeal, handleClose }: Props) {
   return (
-    <Modal isVisible={!!selectedMeal} handleClose={handleClose} title="Edit Meal">
+    <Modal isVisible={show} handleClose={handleClose} title="Edit Meal">
       <ModalBody selectedMeal={selectedMeal!} handleClose={handleClose} />
     </Modal>
   );

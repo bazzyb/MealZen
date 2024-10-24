@@ -1,15 +1,11 @@
+import { router } from "expo-router";
 import { View } from "react-native";
 
 import { Table, Text, ViewColumn, ViewRow } from "@/components";
 import { useGetBooks } from "@/db/queries/useGetBooks";
-import { BookRecord } from "@/db/schemas/book";
 import { useAppTheme } from "@/styles/useAppTheme";
 
-type Props = {
-  setSelectedBook: (meal: BookRecord | null) => void;
-};
-
-export function BooksTable({ setSelectedBook }: Props) {
+export function BooksTable() {
   const { colors } = useAppTheme();
 
   const { data: books, isLoading } = useGetBooks();
@@ -34,7 +30,7 @@ export function BooksTable({ setSelectedBook }: Props) {
     <Table
       hideHeader
       data={books}
-      onRowPress={setSelectedBook}
+      onRowPress={row => router.navigate({ pathname: "/(settings)/books/[id]", params: { id: row.id } })}
       columns={[
         {
           id: "name",

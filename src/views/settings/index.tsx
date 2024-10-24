@@ -12,7 +12,7 @@ export default function SettingsView() {
       <Auth />
 
       <Category />
-      <MenuItem role="link" onPress={() => router.navigate("/books")} style={{ paddingVertical: 4 }}>
+      <MenuItem role="link" onPress={() => router.navigate("/(settings)/books")} style={{ paddingVertical: 4 }}>
         <Text>Books</Text>
       </MenuItem>
       {__DEV__ && (

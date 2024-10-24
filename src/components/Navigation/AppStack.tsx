@@ -6,6 +6,9 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useAppTheme } from "@/styles/useAppTheme";
 
 function getTitle(route: string) {
+  if (route.endsWith("/books/[id]")) {
+    return "Book Details";
+  }
   if (route.endsWith("/index")) {
     return route.split("/").slice(-2)[0];
   }

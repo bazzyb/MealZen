@@ -33,7 +33,7 @@ export function buildMealQuery(options: Options) {
     book.name AS book,
     book.author AS author
     FROM ${MEAL_TABLE}
-    JOIN ${BOOK_TABLE} ON ${BOOK_TABLE}.id = ${MEAL_TABLE}.book_id
+    LEFT JOIN ${BOOK_TABLE} ON ${BOOK_TABLE}.id = ${MEAL_TABLE}.book_id
     ${buildWhereClause(options)}
     ORDER BY name ASC
   `;

@@ -63,7 +63,7 @@ export function Table<TData extends GenericData>(props: Props<TData>) {
   }
 
   return (
-    <>
+    <ViewColumn flex={1}>
       <SearchFilter onSearchChange={onSearchChange} />
       <FlatList
         data={items}
@@ -73,6 +73,6 @@ export function Table<TData extends GenericData>(props: Props<TData>) {
         keyExtractor={item => item.id.toString()}
         initialNumToRender={items.length}
       />
-    </>
+    </ViewColumn>
   );
 }

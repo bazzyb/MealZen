@@ -44,7 +44,7 @@ export function BookView() {
 
   return (
     <>
-      <ViewColumn width="100%">
+      <ViewColumn width="100%" height="100%">
         <ViewRow padding={16} borderBottomColor={colors.gray[5]} borderBottomWidth={1} gap={16} height="auto">
           <BookDetails book={book[0]} />
           <ViewColumn gap={8}>

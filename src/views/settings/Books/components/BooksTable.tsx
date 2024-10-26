@@ -1,4 +1,5 @@
 import { router } from "expo-router";
+import { useState } from "react";
 import { View } from "react-native";
 
 import { Table, Text, ViewColumn, ViewRow } from "@/components";
@@ -8,7 +9,8 @@ import { useAppTheme } from "@/styles/useAppTheme";
 export function BooksTable() {
   const { colors } = useAppTheme();
 
-  const { data: books, isLoading } = useGetBooks();
+  const [searchBooks, setSearchBooks] = useState("");
+  const { data: books, isLoading } = useGetBooks(searchBooks);
 
   if (isLoading) {
     return (
@@ -18,17 +20,10 @@ export function BooksTable() {
     );
   }
 
-  if (!books.length) {
-    return (
-      <View style={{ paddingHorizontal: 16 }}>
-        <Text>No books found</Text>
-      </View>
-    );
-  }
-
   return (
     <Table
       hideHeader
+      onSearchChange={setSearchBooks}
       data={books}
       onRowPress={row => router.navigate({ pathname: "/(settings)/books/[id]", params: { id: row.id } })}
       columns={[

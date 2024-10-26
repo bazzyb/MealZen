@@ -60,9 +60,10 @@ export function MealView() {
             </Text>
           )}
           {meal.recipe_url && (
-            <ExternalLink url={meal.recipe_url} size={11}>
-              {meal.recipe_url}
-            </ExternalLink>
+            <ViewRow gap={4} alignItems="center">
+              <Text style={{ fontFamily: fontBold }}>Link:</Text>
+              <ExternalLink url={meal.recipe_url}>{meal.recipe_url}</ExternalLink>
+            </ViewRow>
           )}
         </ViewColumn>
         <ViewColumn marginTop={32} gap={8}>

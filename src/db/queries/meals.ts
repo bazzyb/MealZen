@@ -1,19 +1,24 @@
 import { BOOK_TABLE } from "../schemas/book";
 import { MEAL_TABLE } from "../schemas/meal";
 
-type Options = {
+export type MealTableFilters = {
   mealId?: string;
   bookId?: string;
+  find?: string;
   // orderBy?: "meal";
 };
 
-function buildWhereClause(options: Options) {
-  if (!options.mealId && !options.bookId) {
+function buildWhereClause(options: MealTableFilters) {
+  if (Object.values(options).every(value => !value)) {
     return "";
   }
 
   let whereClause = "WHERE ";
   const conditions = [];
+
+  if (options.find) {
+    conditions.push(`LOWER(${MEAL_TABLE}.name) LIKE '%' || ? || '%'`);
+  }
 
   if (options.mealId) {
     conditions.push(`${MEAL_TABLE}.id = '${options.mealId}'`);
@@ -26,7 +31,7 @@ function buildWhereClause(options: Options) {
   return whereClause + conditions.join(" AND ");
 }
 
-export function buildMealQuery(options: Options) {
+export function buildMealQuery(options: MealTableFilters) {
   let getMealQuery = `
     SELECT
     ${MEAL_TABLE}.*,

@@ -1,3 +1,4 @@
+import { Text } from "../core/Text";
 import { useCallback, useEffect, useState } from "react";
 import { FlatList } from "react-native";
 import DraggableFlatList, { DragEndParams } from "react-native-draggable-flatlist";
@@ -6,10 +7,13 @@ import { ViewColumn } from "@/components/Layout/ViewColumn";
 
 import { TableHeader } from "./Header";
 import { TableRow } from "./Row";
+import { SearchFilter, SearchFilterProps } from "./SearchFilter";
 import { GenericData, TableProps } from "./types";
 
-export function Table<TData extends GenericData>(props: TableProps<TData>) {
-  const { data, columns, onRowPress, isSortable, hideHeader, onOrderChange } = props;
+type Props<TData extends GenericData> = TableProps<TData> & SearchFilterProps;
+
+export function Table<TData extends GenericData>(props: Props<TData>) {
+  const { data, columns, onRowPress, isSortable, hideHeader, onOrderChange, onSearchChange } = props;
 
   const [items, setItems] = useState<TData[]>(data);
 
@@ -24,9 +28,19 @@ export function Table<TData extends GenericData>(props: TableProps<TData>) {
     }
   }, []);
 
+  if (!items.length) {
+    return (
+      <ViewColumn flex={1}>
+        <SearchFilter onSearchChange={onSearchChange} />
+        <Text>No items found</Text>
+      </ViewColumn>
+    );
+  }
+
   if (isSortable) {
     return (
       <ViewColumn flex={1}>
+        <SearchFilter onSearchChange={onSearchChange} />
         <DraggableFlatList
           data={items}
           renderItem={({ item, drag, isActive }) => (
@@ -49,13 +63,16 @@ export function Table<TData extends GenericData>(props: TableProps<TData>) {
   }
 
   return (
-    <FlatList
-      data={items}
-      renderItem={({ item }) => <TableRow item={item} columns={columns} onPress={() => onRowPress?.(item)} />}
-      ListHeaderComponent={() => !hideHeader && <TableHeader columns={columns} />}
-      stickyHeaderIndices={[0]}
-      keyExtractor={item => item.id.toString()}
-      initialNumToRender={items.length}
-    />
+    <>
+      <SearchFilter onSearchChange={onSearchChange} />
+      <FlatList
+        data={items}
+        renderItem={({ item }) => <TableRow item={item} columns={columns} onPress={() => onRowPress?.(item)} />}
+        ListHeaderComponent={() => !hideHeader && <TableHeader columns={columns} />}
+        stickyHeaderIndices={[0]}
+        keyExtractor={item => item.id.toString()}
+        initialNumToRender={items.length}
+      />
+    </>
   );
 }

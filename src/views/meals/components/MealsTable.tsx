@@ -1,4 +1,5 @@
 import { router } from "expo-router";
+import { useState } from "react";
 import { View } from "react-native";
 
 import { ExternalLink, Table, Text, ViewColumn, ViewRow } from "@/components";
@@ -13,7 +14,9 @@ type Props = {
 };
 
 export function MealsTable({ bookId }: Props) {
-  const { data: meals, isLoading } = useGetMeals(bookId);
+  const [searchMeals, setSearchMeals] = useState("");
+
+  const { data: meals, isLoading } = useGetMeals({ bookId, find: searchMeals });
   const { data: books, isLoading: isLoadingBooks } = useGetBooks();
 
   if (isLoading || isLoadingBooks) {
@@ -24,17 +27,10 @@ export function MealsTable({ bookId }: Props) {
     );
   }
 
-  if (!meals.length) {
-    return (
-      <View style={{ paddingHorizontal: 16 }}>
-        <Text>No meals found</Text>
-      </View>
-    );
-  }
-
   return (
     <Table
       hideHeader
+      onSearchChange={setSearchMeals}
       data={meals}
       onRowPress={row =>
         router.navigate({

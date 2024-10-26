@@ -78,7 +78,7 @@ function ModalBody({ selectedMeal, handleClose }: ModalBodyProps) {
         render={({ field }) => (
           <TextInput
             label="Page Number"
-            onChangeText={val => field.onChange(parseInt(val))}
+            onChangeText={val => field.onChange(val ? parseInt(val) : null)}
             keyboardType="numeric"
             value={field.value?.toString()}
             error={formState.errors.page?.message}

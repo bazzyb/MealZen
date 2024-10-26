@@ -1,11 +1,10 @@
-import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import { router } from "expo-router";
 import { View } from "react-native";
 
 import { ExternalLink, Table, Text, ViewColumn, ViewRow } from "@/components";
+import { LongCookIcon, LongPrepIcon, OvernightIcon, SimpleMealIcon } from "@/components/Icons";
 import { useGetBooks } from "@/db/queries/useGetBooks";
 import { useGetMeals } from "@/db/queries/useGetMeals";
-import { useAppTheme } from "@/styles/useAppTheme";
 
 import { BookInfo } from "./BookInfo";
 
@@ -14,8 +13,6 @@ type Props = {
 };
 
 export function MealsTable({ bookId }: Props) {
-  const { colors } = useAppTheme();
-
   const { data: meals, isLoading } = useGetMeals(bookId);
   const { data: books, isLoading: isLoadingBooks } = useGetBooks();
 
@@ -49,20 +46,25 @@ export function MealsTable({ bookId }: Props) {
         {
           id: "name",
           accessorFn: meal => (
-            <>
+            <ViewRow alignItems="center" gap={8}>
               <ViewColumn paddingRight={8}>
                 <ViewRow alignItems="center" gap={4}>
                   <Text>{meal.name}</Text>
-                  {!!meal.is_simple && <FontAwesome5 name="umbrella-beach" size={12} color={colors.success} />}
                 </ViewRow>
                 {!!meal.recipe_url && (
                   <ExternalLink url={meal.recipe_url} size={11}>
-                    Link to recipe
+                    Go to recipe
                   </ExternalLink>
                 )}
                 {!!meal.book_id && <BookInfo books={books} bookId={meal.book_id} page={meal.page} />}
               </ViewColumn>
-            </>
+              <ViewRow marginLeft="auto" gap={4} alignItems="center">
+                {!!meal.is_simple && <SimpleMealIcon />}
+                {!!meal.is_overnight && <OvernightIcon />}
+                {!!meal.is_long_cook && <LongCookIcon />}
+                {!!meal.is_long_prep && <LongPrepIcon />}
+              </ViewRow>
+            </ViewRow>
           ),
         },
       ]}

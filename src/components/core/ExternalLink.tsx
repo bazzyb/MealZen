@@ -1,5 +1,5 @@
 import { PropsWithChildren } from "react";
-import { Linking, Text as TextBase, TextProps, TextStyle, TouchableOpacity, View } from "react-native";
+import { Linking, Text as TextBase, TextProps, TextStyle, TouchableOpacity } from "react-native";
 
 import { useAppTheme } from "@/styles/useAppTheme";
 
@@ -16,20 +16,18 @@ export function ExternalLink({ children, url, style, color, size, bold, ...textP
 
   return (
     <TouchableOpacity onPress={() => Linking.openURL(url)}>
-      <View>
-        <TextBase
-          style={{
-            fontFamily: bold ? fontBold : fontFamily,
-            color: color || colors.link,
-            fontSize: size,
-            textDecorationLine: "underline",
-            ...style,
-          }}
-          {...textProps}
-        >
-          {children}
-        </TextBase>
-      </View>
+      <TextBase
+        style={{
+          fontFamily: bold ? fontBold : fontFamily,
+          color: color || colors.link,
+          fontSize: size,
+          textDecorationLine: "underline",
+          ...style,
+        }}
+        {...textProps}
+      >
+        {children}
+      </TextBase>
     </TouchableOpacity>
   );
 }

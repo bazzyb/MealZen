@@ -7,28 +7,42 @@ type IconProps = {
   size?: number;
 };
 
-export function SimpleMealIcon({ disabled }: IconProps) {
-  const { colors } = useAppTheme();
-
-  return <FontAwesome5 name="umbrella-beach" size={16} color={disabled ? colors.gray[5] : colors.successLight} />;
-}
-
-export function OvernightIcon({ disabled }: IconProps) {
-  const { colors } = useAppTheme();
-
-  return <MaterialIcons name="nightlight-round" size={20} color={disabled ? colors.gray[5] : colors.secondaryDark} />;
-}
-
-export function LongCookIcon({ disabled }: IconProps) {
-  const { colors } = useAppTheme();
-
-  return <MaterialCommunityIcons name="pot-steam" size={20} color={disabled ? colors.gray[5] : colors.textSecondary} />;
-}
-
-export function LongPrepIcon({ disabled }: IconProps) {
+export function SimpleMealIcon({ size, disabled }: IconProps) {
   const { colors } = useAppTheme();
 
   return (
-    <MaterialCommunityIcons name="clock-time-eight" size={20} color={disabled ? colors.gray[5] : colors.primaryLight} />
+    <FontAwesome5 name="umbrella-beach" size={size || 16} color={disabled ? colors.gray[5] : colors.successLight} />
+  );
+}
+
+export function OvernightIcon({ size, disabled }: IconProps) {
+  const { colors } = useAppTheme();
+
+  return (
+    <MaterialIcons name="nightlight-round" size={size || 20} color={disabled ? colors.gray[5] : colors.secondaryDark} />
+  );
+}
+
+export function LongCookIcon({ size, disabled }: IconProps) {
+  const { colors } = useAppTheme();
+
+  return (
+    <MaterialCommunityIcons
+      name="pot-steam"
+      size={size || 20}
+      color={disabled ? colors.gray[5] : colors.textSecondary}
+    />
+  );
+}
+
+export function LongPrepIcon({ size, disabled }: IconProps) {
+  const { colors } = useAppTheme();
+
+  return (
+    <MaterialCommunityIcons
+      name="clock-time-eight"
+      size={size || 20}
+      color={disabled ? colors.gray[5] : colors.primaryLight}
+    />
   );
 }

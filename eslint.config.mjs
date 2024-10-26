@@ -67,8 +67,14 @@ const config = (async () => {
         "@typescript-eslint/no-non-null-asserted-optional-chain": "warn",
 
         // ERROR
-        "@typescript-eslint/no-unused-vars": "error",
         "no-console": "error",
+        "@typescript-eslint/no-unused-vars": [
+          "error",
+          {
+            varsIgnorePattern: "_",
+            argsIgnorePattern: "_",
+          },
+        ],
       },
     },
     {

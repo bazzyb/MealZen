@@ -1,4 +1,4 @@
-import { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
+import { DateTimePickerAndroid, DateTimePickerEvent } from "@react-native-community/datetimepicker";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { PickerButton } from "./PickerButton";
@@ -9,7 +9,7 @@ type Props = {
 };
 
 export function AndroidDatePicker({ value, handleChangeDate }: Props) {
-  const onChange = (_, selectedDate?: Date) => {
+  const onChange = (_: DateTimePickerEvent, selectedDate?: Date) => {
     if (selectedDate) {
       handleChangeDate(selectedDate);
     }

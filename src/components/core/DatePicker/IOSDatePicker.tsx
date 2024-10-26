@@ -1,4 +1,4 @@
-import DateTimePicker from "@react-native-community/datetimepicker";
+import DateTimePicker, { DateTimePickerEvent } from "@react-native-community/datetimepicker";
 import { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -14,7 +14,7 @@ type Props = {
 export function IOSDatePicker({ value, handleChangeDate }: Props) {
   const [showDatePicker, setShowDatePicker] = useState(false);
 
-  const onChange = (_, selectedDate?: Date) => {
+  const onChange = (_: DateTimePickerEvent, selectedDate?: Date) => {
     if (selectedDate) {
       handleChangeDate(selectedDate);
     }

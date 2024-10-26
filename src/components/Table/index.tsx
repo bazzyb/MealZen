@@ -1,4 +1,3 @@
-import { Text } from "../core/Text";
 import { useCallback, useEffect, useState } from "react";
 import { FlatList } from "react-native";
 import DraggableFlatList, { DragEndParams } from "react-native-draggable-flatlist";
@@ -6,6 +5,7 @@ import DraggableFlatList, { DragEndParams } from "react-native-draggable-flatlis
 import { ViewColumn } from "@/components/Layout/ViewColumn";
 
 import { TableHeader } from "./Header";
+import { NoItemsFound } from "./NoItemsFound";
 import { TableRow } from "./Row";
 import { SearchFilter, SearchFilterProps } from "./SearchFilter";
 import { GenericData, TableProps } from "./types";
@@ -30,9 +30,9 @@ export function Table<TData extends GenericData>(props: Props<TData>) {
 
   if (!items.length) {
     return (
-      <ViewColumn flex={1}>
+      <ViewColumn flex={1} height="100%">
         <SearchFilter onSearchChange={onSearchChange} />
-        <Text>No items found</Text>
+        <NoItemsFound />
       </ViewColumn>
     );
   }

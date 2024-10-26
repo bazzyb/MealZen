@@ -2,8 +2,8 @@ import { useState } from "react";
 
 import { Button, Text, ViewColumn } from "@/components";
 import { LinkButton } from "@/components/core/LinkButton";
-import { Mealplan } from "@/db/queries/useGetMealplan";
 import { useGetMeals } from "@/db/queries/useGetMeals";
+import { Mealplan } from "@/db/schemas/mealplan";
 import { GenerateMealplanModal } from "@/views/mealplan/components/GenerateMealplanModal";
 
 import { EditMealplanEntryModal } from "./components/EditMealplanEntryModal";

@@ -1,4 +1,4 @@
-import { Mealplan } from "../queries/useGetMealplan";
+import { Mealplan } from "../schemas/mealplan";
 import { AbstractPowerSyncDatabase, usePowerSync } from "@powersync/react-native";
 import { useState } from "react";
 

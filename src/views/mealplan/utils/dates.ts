@@ -1,8 +1,8 @@
 import { AbstractPowerSyncDatabase } from "@powersync/react-native";
 import dayjs from "dayjs";
 
-import { Mealplan } from "@/db/queries/useGetMealplan";
-import { getMeals } from "@/db/queries/useGetMeals";
+import { getMealsWithoutJoin } from "@/db/queries/useGetMeals";
+import { Mealplan } from "@/db/schemas/mealplan";
 
 type BuildParams = {
   generateFrom: Date;
@@ -14,7 +14,7 @@ export async function buildMealPlan(db: AbstractPowerSyncDatabase, params: Build
 
   const numberOfDays = dayjs(generateTo).diff(generateFrom, "days") + 1;
 
-  const meals = await getMeals(db);
+  const meals = await getMealsWithoutJoin(db);
   const randomMeals = meals.sort(() => Math.random() - 0.5).slice(0, numberOfDays);
 
   return randomMeals.map((meal, idx) => ({

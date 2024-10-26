@@ -1,6 +1,9 @@
 import { ColumnsType, column } from "@powersync/react-native";
 import { z } from "zod";
 
+import { BOOK_TABLE } from "./book";
+import { MEAL_TABLE } from "./meal";
+
 export const MEALPLAN_TABLE = "mealplan";
 export const mealplanSchema = {
   // id column (text) is automatically included
@@ -10,13 +13,6 @@ export const mealplanSchema = {
   date: column.text,
   notes: column.text,
 } satisfies ColumnsType;
-
-// Overwrites the local-only owner_id value with the logged-in user's id.
-export const mealplanTableLocalToSyncStatement = `
-  INSERT INTO ${MEALPLAN_TABLE} (id, user_id, meal_id, name, date, notes)
-  SELECT id, ?, meal_id, name, date, notes
-  FROM inactive_local_${MEALPLAN_TABLE}
-`;
 
 export const MealplanZodSchema = z
   .object({
@@ -41,4 +37,41 @@ export const MealplanZodSchema = z
       });
     }
   });
+
+// Overwrites the local-only owner_id value with the logged-in user's id.
+export const mealplanTableLocalToSyncStatement = `
+  INSERT INTO ${MEALPLAN_TABLE} (id, user_id, meal_id, name, date, notes)
+  SELECT id, ?, meal_id, name, date, notes
+  FROM inactive_local_${MEALPLAN_TABLE}
+`;
+
+export const MealplanQuery = `
+  SELECT
+    ${MEALPLAN_TABLE}.*,
+    ${MEAL_TABLE}.name AS meal,
+    ${MEAL_TABLE}.is_simple AS "isSimple",
+    ${MEAL_TABLE}.is_overnight AS "isOvernight",
+    ${MEAL_TABLE}.is_long_prep AS "isLongPrep",
+    ${MEAL_TABLE}.is_long_cook AS "isLongCook",
+    ${MEAL_TABLE}.recipe_url AS "recipeUrl",
+    ${MEAL_TABLE}.page,
+    ${BOOK_TABLE}.name AS book,
+    ${BOOK_TABLE}.author AS author
+  FROM ${MEALPLAN_TABLE}
+  LEFT JOIN ${MEAL_TABLE} ON ${MEAL_TABLE}.id = ${MEALPLAN_TABLE}.meal_id
+  LEFT JOIN ${BOOK_TABLE} ON ${BOOK_TABLE}.id = ${MEAL_TABLE}.book_id
+  ORDER BY date ASC
+`;
+
 export type MealplanRecord = z.infer<typeof MealplanZodSchema>;
+export type Mealplan = MealplanRecord & {
+  meal: string;
+  recipeUrl?: string;
+  book?: string;
+  author?: string;
+  page?: number;
+  isSimple: boolean;
+  isOvernight: boolean;
+  isLongPrep: boolean;
+  isLongCook: boolean;
+};

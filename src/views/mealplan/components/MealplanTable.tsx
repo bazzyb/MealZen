@@ -4,7 +4,8 @@ import dayjs from "dayjs";
 
 import { Table, Text, ViewColumn, ViewRow } from "@/components";
 import { useReorderMealplan } from "@/db/mutations/useReorderMealplan";
-import { Mealplan, useGetMealplan } from "@/db/queries/useGetMealplan";
+import { useGetMealplan } from "@/db/queries/useGetMealplan";
+import { Mealplan } from "@/db/schemas/mealplan";
 import { useAppTheme } from "@/styles/useAppTheme";
 
 type Props = {

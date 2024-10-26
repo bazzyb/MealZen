@@ -1,11 +1,8 @@
-import { MEAL_TABLE, MealRecord } from "../schemas/meal";
+import { Meal } from "../schemas/meal";
 import { useQuery } from "@powersync/react-native";
 
-const MealQuery = `
-  SELECT * FROM ${MEAL_TABLE}
-  WHERE id = ?
-`;
+import { buildMealQuery } from "./meals";
 
 export function useGetMeal(mealId: string) {
-  return useQuery<MealRecord>(MealQuery, [mealId]);
+  return useQuery<Meal>(buildMealQuery({ mealId }));
 }

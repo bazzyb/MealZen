@@ -14,8 +14,9 @@ export function MealView() {
   const { colors, headerFontFamily } = useAppTheme();
 
   const [showEditMealModal, setShowEditMealModal] = useState(false);
-  const { data: meal } = useGetMeal(id);
   const { mutate: deleteMeal, isMutating: isDeleting } = useDeleteMeal();
+  const { data: mealData } = useGetMeal(id);
+  const meal = mealData[0];
 
   function openDeleteAlert() {
     Alert.alert("Delete Meal", "Are you sure you want to delete this meal?", [
@@ -36,7 +37,7 @@ export function MealView() {
     router.back();
   }
 
-  if (!meal[0]) {
+  if (!meal) {
     return <Text>Loading...</Text>;
   }
 
@@ -67,7 +68,7 @@ export function MealView() {
           </Button>
         </ViewColumn>
       </ViewRow>
-      <EditMealModal show={showEditMealModal} selectedMeal={meal[0]} handleClose={() => setShowEditMealModal(false)} />
+      <EditMealModal show={showEditMealModal} selectedMeal={meal} handleClose={() => setShowEditMealModal(false)} />
     </>
   );
 }

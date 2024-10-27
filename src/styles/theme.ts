@@ -37,11 +37,11 @@ const lightTextColors = {
 
 const lightBackgroundColors = {
   background: colors.white,
+  activeBackground: colors.gray[7],
   headerBackground: colorSet.primary,
   tabsBackground: colors.white,
   tabsActiveBackground: colorSet.primary,
   modalBlurBackground: `${colors.black}AA`,
-  rowActiveBackground: colors.gray[7],
   rowDragBackground: colors.blue[1],
 };
 
@@ -65,11 +65,11 @@ const darkTextColors = {
 
 const darkBackgroundColors = {
   background: colors.black,
+  activeBackground: colors.gray[1],
   headerBackground: colorSet.primary,
   tabsBackground: colors.black,
   tabsActiveBackground: colorSet.primary,
   modalBlurBackground: `${colors.gray[1]}AA`,
-  rowActiveBackground: colors.gray[1],
   rowDragBackground: colors.blue[6],
 };
 

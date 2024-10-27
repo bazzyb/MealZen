@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 
 export type GenericData = {
-  id: string | number;
+  id: string;
 } & Record<string, string | ReactNode>;
 
 type Accessor<TData extends GenericData> =

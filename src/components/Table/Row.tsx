@@ -1,3 +1,4 @@
+import Checkbox from "expo-checkbox";
 import { PropsWithChildren } from "react";
 import { TouchableHighlight, View } from "react-native";
 
@@ -15,21 +16,24 @@ type DraggableProps = {
 type SharedProps = {
   draggableProps?: DraggableProps;
   onPress?: () => void;
+  isSelectMode: boolean;
 };
 
 type RowProps<TData extends GenericData> = {
   item: TData;
   columns: Array<Column<TData>>;
+  isSelected: boolean;
+  handleSelectedItem: (id: string, isSelected: boolean) => void;
 } & SharedProps;
 
-function DraggableWrapper({ draggableProps, onPress, children }: PropsWithChildren<SharedProps>) {
+function DraggableWrapper({ draggableProps, onPress, isSelectMode, children }: PropsWithChildren<SharedProps>) {
   const { colors } = useAppTheme();
 
-  if (draggableProps) {
+  if (!isSelectMode && draggableProps) {
     return (
       <TouchableHighlight
         activeOpacity={0.2}
-        underlayColor={colors.rowActiveBackground}
+        underlayColor={colors.activeBackground}
         style={{ alignItems: "center" }}
         onPress={onPress}
         onLongPress={draggableProps.drag}
@@ -41,11 +45,11 @@ function DraggableWrapper({ draggableProps, onPress, children }: PropsWithChildr
     );
   }
 
-  if (onPress) {
+  if (!isSelectMode && onPress) {
     return (
       <TouchableHighlight
         activeOpacity={0.2}
-        underlayColor={colors.rowActiveBackground}
+        underlayColor={colors.activeBackground}
         onPress={onPress}
         accessible={false} // ensure buttons on row are accessible, and clickable in maestro
       >
@@ -62,11 +66,14 @@ export function TableRow<TData extends GenericData>({
   draggableProps,
   onPress,
   columns,
+  isSelectMode,
+  isSelected,
+  handleSelectedItem,
 }: PropsWithChildren<RowProps<TData>>) {
   const { colors } = useAppTheme();
 
   return (
-    <DraggableWrapper draggableProps={draggableProps} onPress={onPress}>
+    <DraggableWrapper draggableProps={draggableProps} onPress={onPress} isSelectMode={isSelectMode}>
       <ViewRow
         width="100%"
         justifyContent="flex-start"
@@ -78,6 +85,9 @@ export function TableRow<TData extends GenericData>({
         borderBottomColor={colors.gray[0]}
         backgroundColor={draggableProps?.isActive ? colors.rowDragBackground : "transparent"}
       >
+        {isSelectMode && (
+          <Checkbox value={isSelected} onValueChange={checked => handleSelectedItem(item.id, checked)} />
+        )}
         {columns.map(({ id, label, width, ...accessors }) => {
           const accessor = "accessor" in accessors ? accessors.accessor : accessors.accessorFn;
           return (

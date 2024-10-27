@@ -7,22 +7,18 @@ type Props = Omit<PressableProps, "style"> & {
   style?: ViewStyle;
 };
 
-export function MenuItem({ style, children, ...props }: PropsWithChildren<Props>) {
-  const { colors } = useAppTheme();
+export function IconButton({ children, style, ...buttonProps }: PropsWithChildren<Props>) {
+  const { colors, borderRadius } = useAppTheme();
 
   return (
     <Pressable
       style={({ pressed }) => ({
+        padding: 8,
+        borderRadius,
         backgroundColor: pressed ? colors.activeBackground : colors.background,
-        width: "100%",
-        minHeight: 40,
-        padding: 16,
-        borderBottomColor: colors.gray[5],
-        borderBottomWidth: 1,
-        justifyContent: "center",
         ...style,
       })}
-      {...props}
+      {...buttonProps}
     >
       {children}
     </Pressable>

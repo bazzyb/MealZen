@@ -4,6 +4,7 @@ import { View } from "react-native";
 
 import { ExternalLink, Table, Text, ViewColumn, ViewRow } from "@/components";
 import { LongCookIcon, LongPrepIcon, OvernightIcon, SimpleMealIcon } from "@/components/Icons";
+import { useDeleteMeals } from "@/db/mutations/useDeleteMeals";
 import { useGetBooks } from "@/db/queries/useGetBooks";
 import { useGetMeals } from "@/db/queries/useGetMeals";
 
@@ -18,6 +19,7 @@ export function MealsTable({ bookId }: Props) {
 
   const { data: meals, isLoading } = useGetMeals({ bookId, find: searchMeals });
   const { data: books, isLoading: isLoadingBooks } = useGetBooks();
+  const { mutate: deleteMeals } = useDeleteMeals();
 
   if (isLoading || isLoadingBooks) {
     return (
@@ -31,6 +33,7 @@ export function MealsTable({ bookId }: Props) {
     <Table
       hideHeader
       onSearchChange={setSearchMeals}
+      onDeleteMany={deleteMeals}
       data={meals}
       onRowPress={row =>
         router.navigate({

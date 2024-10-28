@@ -1,6 +1,7 @@
+import { bookTableLocalToSyncStatement } from "../book/queries";
+import { BOOK_TABLE, bookSchema } from "../book/schema";
 import { AbstractPowerSyncDatabase, Schema, Table } from "@powersync/react-native";
 
-import { BOOK_TABLE, bookSchema, bookTableLocalToSyncStatement } from "./book";
 import { MEAL_TABLE, mealSchema, mealTableLocalToSyncStatement } from "./meal";
 import { MEALPLAN_TABLE, mealplanSchema } from "./mealplan";
 

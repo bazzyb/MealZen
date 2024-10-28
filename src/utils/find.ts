@@ -1,4 +1,4 @@
-import { BookRecord } from "@/db/schemas/book";
+import { BookRecord } from "@/db/book/schema";
 import { MealRecord } from "@/db/schemas/meal";
 
 export function findBookInArray(bookId: string, books: BookRecord[]) {

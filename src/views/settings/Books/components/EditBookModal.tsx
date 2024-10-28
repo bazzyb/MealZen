@@ -2,8 +2,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 
 import { Button, Modal, TextInput, ViewRow } from "@/components";
-import { useUpdateBook } from "@/db/mutations/useUpdateBook";
-import { BookRecord, BookZodSchema } from "@/db/schemas/book";
+import { useUpdateBook } from "@/db/book";
+import { BookRecord, BookZodSchema } from "@/db/book/schema";
 
 type ModalBodyProps = {
   selectedBook: BookRecord;

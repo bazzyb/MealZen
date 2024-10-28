@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import { Button, TextInput, ViewColumn, ViewRow } from "@/components";
-import { useCreateBook } from "@/db/mutations/useCreateBook";
+import { useCreateBook } from "@/db/book";
 import { useAppTheme } from "@/styles/useAppTheme";
 import { Logger } from "@/utils/logger";
 

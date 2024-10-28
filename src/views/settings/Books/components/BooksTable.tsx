@@ -3,7 +3,7 @@ import { useState } from "react";
 import { View } from "react-native";
 
 import { Table, Text, ViewColumn, ViewRow } from "@/components";
-import { useGetBooks } from "@/db/queries/useGetBooks";
+import { useGetBooks } from "@/db/book";
 import { useAppTheme } from "@/styles/useAppTheme";
 
 export function BooksTable() {

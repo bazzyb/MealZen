@@ -2,8 +2,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 
 import { Button, Dropdown, Modal, Switch, TextInput, ViewRow } from "@/components";
+import { useGetBooks } from "@/db/book";
 import { useUpdateMeal } from "@/db/mutations/useUpdateMeal";
-import { useGetBooks } from "@/db/queries/useGetBooks";
 import { MealRecord, MealZodSchema } from "@/db/schemas/meal";
 
 type ModalBodyProps = {

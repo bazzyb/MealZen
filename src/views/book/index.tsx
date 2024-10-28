@@ -3,8 +3,8 @@ import { useState } from "react";
 import { Alert } from "react-native";
 
 import { Button, Text, ViewColumn, ViewRow } from "@/components";
-import { useDeleteBook } from "@/db/mutations/useDeleteBook";
-import { useGetBook } from "@/db/queries/useGetBook";
+import { useDeleteBook } from "@/db/book";
+import { useGetBook } from "@/db/book";
 import { useAppTheme } from "@/styles/useAppTheme";
 import { MealsTable } from "@/views/meals/components/MealsTable";
 import { EditBookModal } from "@/views/settings/Books/components/EditBookModal";

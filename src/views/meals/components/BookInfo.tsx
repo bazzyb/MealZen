@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 
 import { Text } from "@/components";
-import { BookRecord } from "@/db/schemas/book";
+import { BookRecord } from "@/db/book/schema";
 import { useAppTheme } from "@/styles/useAppTheme";
 import { findBookInArray } from "@/utils/find";
 

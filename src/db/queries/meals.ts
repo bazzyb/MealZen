@@ -1,4 +1,4 @@
-import { BOOK_TABLE } from "../schemas/book";
+import { BOOK_TABLE } from "../book/schema";
 import { MEAL_TABLE } from "../schemas/meal";
 
 export type MealTableFilters = {

@@ -77,6 +77,18 @@ export function buildGetManyMealsQuery(options: MealTableFilters) {
   `;
 }
 
+export async function getMealIdsForBookId(bookId: string, db: AbstractPowerSyncDatabase, userId?: string) {
+  const res = await db.getAll<{ id: string }>(
+    `
+    SELECT id FROM meal
+    WHERE book_id = ? AND user_id = ?
+  `,
+    [bookId, userId || LOCAL_USER_ID],
+  );
+
+  return res.map(row => row.id);
+}
+
 export async function updateMeal(meal: Omit<MealRecord, "user_id">, db: AbstractPowerSyncDatabase, userId?: string) {
   const updateQuery = `
     UPDATE ${MEAL_TABLE}

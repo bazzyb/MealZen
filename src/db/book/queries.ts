@@ -1,3 +1,4 @@
+import { deleteManyMeals, getMealIdsForBookId } from "../meal/queries";
 import { AbstractPowerSyncDatabase } from "@powersync/react-native";
 
 import { LOCAL_USER_ID } from "@/consts";
@@ -55,6 +56,10 @@ export async function updateBook(book: Omit<BookRecord, "user_id">, db: Abstract
 }
 
 export async function deleteBook(bookId: string, db: AbstractPowerSyncDatabase, userId?: string) {
+  const mealIds = await getMealIdsForBookId(bookId, db, userId);
+  if (mealIds.length > 0) {
+    await deleteManyMeals(mealIds, db, userId);
+  }
   await db.execute(`DELETE FROM ${BOOK_TABLE} WHERE id = ? AND user_id = ?`, [bookId, userId || LOCAL_USER_ID]);
   return bookId;
 }

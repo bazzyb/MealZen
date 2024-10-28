@@ -4,7 +4,7 @@ import { ReactNode, useEffect, useRef, useState } from "react";
 import Toast from "react-native-toast-message";
 
 import { LoadingSplash } from "@/components/LoadingSplash";
-import { buildSchema } from "@/db/schemas";
+import { buildSchema } from "@/db";
 import { supabase } from "@/supabase";
 import { Logger } from "@/utils/logger";
 

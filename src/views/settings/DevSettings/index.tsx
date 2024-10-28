@@ -3,7 +3,7 @@ import { usePowerSync } from "@powersync/react-native";
 
 import { Text, ViewColumn } from "@/components";
 import { TEST_EMAIL, TEST_PASSWORD } from "@/consts";
-import { buildSchema, syncLocalChangesToSyncedTable } from "@/db/schemas";
+import { buildSchema, syncLocalChangesToSyncedTable } from "@/db";
 import { useAuth } from "@/providers/AuthProvider";
 import { Logger } from "@/utils/logger";
 

@@ -5,7 +5,7 @@ import { Alert } from "react-native";
 import Toast from "react-native-toast-message";
 
 import { Text } from "@/components";
-import { buildSchema } from "@/db/schemas";
+import { buildSchema } from "@/db";
 import { useAuth } from "@/providers/AuthProvider";
 import { useAppTheme } from "@/styles/useAppTheme";
 import { Logger } from "@/utils/logger";

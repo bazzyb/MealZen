@@ -5,7 +5,7 @@ import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button, Modal, Text, TextInput } from "@/components";
-import { buildSchema, syncLocalChangesToSyncedTable } from "@/db/schemas";
+import { buildSchema, syncLocalChangesToSyncedTable } from "@/db";
 import { useAuth } from "@/providers/AuthProvider";
 
 type Props = {

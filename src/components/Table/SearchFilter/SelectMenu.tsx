@@ -13,6 +13,20 @@ type Props = {
 export function SelectMenu({ selectedItems, handleDeleteMany }: Props) {
   const { colors } = useAppTheme();
 
+  function openDeleteAlert() {
+    Alert.alert("Delete selected items", "Are you sure you want to delete the selected items?", [
+      {
+        text: "Cancel",
+        style: "cancel",
+      },
+      {
+        text: "Delete",
+        style: "destructive",
+        onPress: handleDeleteMany,
+      },
+    ]);
+  }
+
   return (
     <MenuView
       title="Menu Title"
@@ -21,7 +35,7 @@ export function SelectMenu({ selectedItems, handleDeleteMany }: Props) {
           Alert.alert("No items selected", "Please select items before performing this action.");
         }
         if (nativeEvent.event === "delete-selected-items") {
-          handleDeleteMany();
+          openDeleteAlert();
         }
       }}
       actions={[

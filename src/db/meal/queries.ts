@@ -1,4 +1,5 @@
 import { BOOK_TABLE } from "../book/schema";
+import { convertMealsToCustomMeals } from "../mealplan/queries";
 import { AbstractPowerSyncDatabase } from "@powersync/react-native";
 
 import { LOCAL_USER_ID } from "@/consts";
@@ -112,12 +113,8 @@ export async function updateMeal(meal: Omit<MealRecord, "user_id">, db: Abstract
   return resultRecord;
 }
 
-export async function deleteMeal(mealId: string, db: AbstractPowerSyncDatabase, userId?: string) {
-  await db.execute(`DELETE FROM ${MEAL_TABLE} WHERE id = ? AND user_id = ?`, [mealId, userId || LOCAL_USER_ID]);
-  return mealId;
-}
-
 export async function deleteManyMeals(mealIds: Array<string>, db: AbstractPowerSyncDatabase, userId?: string) {
+  await convertMealsToCustomMeals(mealIds, db, userId);
   await db.executeBatch(
     `DELETE FROM ${MEAL_TABLE}
     WHERE id = ? AND user_id = ?`,

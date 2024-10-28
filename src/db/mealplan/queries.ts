@@ -96,3 +96,21 @@ export async function updateMealplanEntry(
   }
   return resultRecord;
 }
+
+export async function convertMealsToCustomMeals(
+  mealIds: Array<string>,
+  db: AbstractPowerSyncDatabase,
+  userId?: string,
+) {
+  await db.executeBatch(
+    `UPDATE ${MEALPLAN_TABLE}
+    SET name = (
+        SELECT ${MEAL_TABLE}.name
+        FROM ${MEAL_TABLE}
+        WHERE ${MEAL_TABLE}.id = ${MEALPLAN_TABLE}.meal_id
+    ),
+    meal_id = NULL
+    WHERE meal_id = ? AND user_id = ?`,
+    mealIds.map(mealId => [mealId, userId || LOCAL_USER_ID]),
+  );
+}

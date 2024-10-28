@@ -5,7 +5,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { Button, ExternalLink, Text, ViewColumn, ViewRow } from "@/components";
 import { LongCookIcon, LongPrepIcon, OvernightIcon, SimpleMealIcon } from "@/components/Icons";
-import { useDeleteMeal, useGetMeal } from "@/db/meal";
+import { useDeleteMeals, useGetMeal } from "@/db/meal";
 import { useAppTheme } from "@/styles/useAppTheme";
 
 import { EditMealModal } from "./components/EditMealModal";
@@ -16,7 +16,7 @@ export function MealView() {
   const insets = useSafeAreaInsets();
 
   const [showEditMealModal, setShowEditMealModal] = useState(false);
-  const { mutate: deleteMeal, isMutating: isDeleting } = useDeleteMeal();
+  const { mutate: deleteMeal, isMutating: isDeleting } = useDeleteMeals();
   const { data: mealData } = useGetMeal(id);
   const meal = mealData[0];
 
@@ -35,7 +35,7 @@ export function MealView() {
   }
 
   async function handleDeleteMeal() {
-    await deleteMeal(id);
+    await deleteMeal([id]);
     router.back();
   }
 

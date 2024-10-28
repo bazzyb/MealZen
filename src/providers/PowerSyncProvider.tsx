@@ -17,6 +17,16 @@ export const PowerSyncProvider = ({ children }: { children: ReactNode }) => {
   const [status, setStatus] = useState<SyncStatus | null>(null);
   const [connector] = useState(supabase);
 
+  async function closeDB() {
+    try {
+      if (powerSyncRef.current) {
+        await powerSyncRef.current.close();
+      }
+    } catch (err) {
+      // db not open
+    }
+  }
+
   // Need to use this convoluted approach to avoid DB getting locked.
   async function buildDB() {
     let attempts = 0;
@@ -41,9 +51,7 @@ export const PowerSyncProvider = ({ children }: { children: ReactNode }) => {
 
   const handleDBConnect = async (syncEnabled: boolean) => {
     // try to ensure previous connection is closed
-    if (powerSyncRef.current) {
-      await powerSyncRef.current.close();
-    }
+    await closeDB();
 
     const db = await buildDB();
     if (!db) {
@@ -92,9 +100,7 @@ export const PowerSyncProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     return () => {
       // Ensure the database connection is closed when the app is closed or hot reloads
-      if (powerSyncRef.current) {
-        powerSyncRef.current.close();
-      }
+      closeDB();
     };
   }, []);
 

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { FlatList } from "react-native";
 import DraggableFlatList, { DragEndParams } from "react-native-draggable-flatlist";
+import Animated, { LinearTransition } from "react-native-reanimated";
 
 import { ViewColumn } from "@/components/Layout/ViewColumn";
 
@@ -92,7 +92,8 @@ export function Table<TData extends GenericData>(props: Props<TData>) {
   return (
     <ViewColumn flex={1}>
       {SearchFilterComponent}
-      <FlatList
+      <Animated.FlatList
+        itemLayoutAnimation={LinearTransition}
         data={items}
         renderItem={({ item }) => (
           <TableRow

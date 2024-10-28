@@ -83,7 +83,7 @@ export function TableRow<TData extends GenericData>({
         gap={8}
         borderBottomWidth={1}
         borderBottomColor={colors.gray[0]}
-        backgroundColor={draggableProps?.isActive ? colors.rowDragBackground : "transparent"}
+        backgroundColor={draggableProps?.isActive ? colors.rowDragBackground : colors.background}
       >
         {isSelectMode && (
           <Checkbox value={isSelected} onValueChange={checked => handleSelectedItem(item.id, checked)} />

@@ -6,7 +6,6 @@ import Toast from "react-native-toast-message";
 import { LoadingSplash } from "@/components/LoadingSplash";
 import { buildSchema } from "@/db/schemas";
 import { supabase } from "@/supabase";
-import { parseError } from "@/utils/errors";
 import { Logger } from "@/utils/logger";
 
 import { useAuth } from "./AuthProvider";
@@ -18,26 +17,42 @@ export const PowerSyncProvider = ({ children }: { children: ReactNode }) => {
   const [status, setStatus] = useState<SyncStatus | null>(null);
   const [connector] = useState(supabase);
 
+  // Need to use this convoluted approach to avoid DB getting locked.
+  async function buildDB() {
+    let attempts = 0;
+    let db: AbstractPowerSyncDatabase;
+
+    while (attempts < 5) {
+      try {
+        db = new PowerSyncDatabase({
+          schema: buildSchema(isSyncEnabled),
+          database: { dbFilename: "mealzen.db" },
+        });
+
+        await db.init();
+        return db;
+      } catch (err) {
+        // retry after 1 second
+        await new Promise(resolve => setTimeout(resolve, 1000));
+      }
+      attempts += 1;
+    }
+  }
+
   const handleDBConnect = async (syncEnabled: boolean) => {
-    // ensure previous connection is closed
+    // try to ensure previous connection is closed
     if (powerSyncRef.current) {
       await powerSyncRef.current.close();
     }
 
-    const db = new PowerSyncDatabase({
-      schema: buildSchema(syncEnabled),
-      database: { dbFilename: "mealzen.db" },
-    });
-
-    try {
-      await db.init();
-    } catch (error) {
+    const db = await buildDB();
+    if (!db) {
       Toast.show({
         type: "error",
         text1: "PowerSyncDatabase init error",
-        text2: parseError(error),
+        text2: "Database is locked. Please restart the app.",
       });
-      Logger.error("PowerSyncDatabase init error", error);
+      throw new Error("PowerSyncDatabase init error. Database is locked.");
     }
 
     try {

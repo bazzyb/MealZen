@@ -4,8 +4,8 @@ import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 
 import { Button, Dropdown, Modal, TextInput, ViewColumn, ViewRow } from "@/components";
+import { useGetMeals } from "@/db/meal";
 import { useUpdateMealplanEntry } from "@/db/mutations/useUpdateMealplanEntry";
-import { useGetMeals } from "@/db/queries/useGetMeals";
 import { Mealplan, MealplanRecord, MealplanZodSchema } from "@/db/schemas/mealplan";
 import { useAppTheme } from "@/styles/useAppTheme";
 

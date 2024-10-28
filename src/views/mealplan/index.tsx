@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { Button, Text, ViewColumn } from "@/components";
 import { LinkButton } from "@/components/core/LinkButton";
-import { useGetMeals } from "@/db/queries/useGetMeals";
+import { useGetMeals } from "@/db/meal";
 import { Mealplan } from "@/db/schemas/mealplan";
 import { GenerateMealplanModal } from "@/views/mealplan/components/GenerateMealplanModal";
 

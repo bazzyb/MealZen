@@ -1,5 +1,5 @@
 import { BookRecord } from "@/db/book/schema";
-import { MealRecord } from "@/db/schemas/meal";
+import { MealRecord } from "@/db/meal/schema";
 
 export function findBookInArray(bookId: string, books: BookRecord[]) {
   return books.find(b => b.id === bookId);

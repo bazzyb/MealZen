@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import { Button, TextInput, ViewColumn, ViewRow } from "@/components";
-import { useCreateMeal } from "@/db/mutations/useCreateMeal";
+import { useCreateMeal } from "@/db/meal";
 import { useAppTheme } from "@/styles/useAppTheme";
 import { Logger } from "@/utils/logger";
 

@@ -5,8 +5,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { Button, ExternalLink, Text, ViewColumn, ViewRow } from "@/components";
 import { LongCookIcon, LongPrepIcon, OvernightIcon, SimpleMealIcon } from "@/components/Icons";
-import { useDeleteMeal } from "@/db/mutations/useDeleteMeal";
-import { useGetMeal } from "@/db/queries/useGetMeal";
+import { useDeleteMeal, useGetMeal } from "@/db/meal";
 import { useAppTheme } from "@/styles/useAppTheme";
 
 import { EditMealModal } from "./components/EditMealModal";

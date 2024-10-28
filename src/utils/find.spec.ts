@@ -1,7 +1,7 @@
 import { fromPartial } from "@total-typescript/shoehorn";
 
 import { BookRecord } from "@/db/book/schema";
-import { MealRecord } from "@/db/schemas/meal";
+import { MealRecord } from "@/db/meal/schema";
 
 import { findBookInArray, findMealInArray } from "./find";
 

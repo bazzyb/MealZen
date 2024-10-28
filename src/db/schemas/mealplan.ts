@@ -1,8 +1,7 @@
 import { BOOK_TABLE } from "../book/schema";
+import { MEAL_TABLE } from "../meal/schema";
 import { ColumnsType, column } from "@powersync/react-native";
 import { z } from "zod";
-
-import { MEAL_TABLE } from "./meal";
 
 export const MEALPLAN_TABLE = "mealplan";
 export const mealplanSchema = {

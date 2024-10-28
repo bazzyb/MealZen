@@ -3,8 +3,8 @@ import { Controller, useForm } from "react-hook-form";
 
 import { Button, Dropdown, Modal, Switch, TextInput, ViewRow } from "@/components";
 import { useGetBooks } from "@/db/book";
-import { useUpdateMeal } from "@/db/mutations/useUpdateMeal";
-import { MealRecord, MealZodSchema } from "@/db/schemas/meal";
+import { useUpdateMeal } from "@/db/meal";
+import { MealRecord, MealZodSchema } from "@/db/meal/schema";
 
 type ModalBodyProps = {
   selectedMeal: MealRecord;

@@ -1,4 +1,3 @@
-import { BOOK_TABLE } from "../book/schema";
 import { ColumnsType, column } from "@powersync/react-native";
 import { z } from "zod";
 
@@ -28,25 +27,6 @@ export const MealZodSchema = z.object({
   book_id: z.string().uuid().nullable(),
   page: z.number().nullable(),
 });
-
-// Overwrites the local-only owner_id value with the logged-in user's id.
-export const mealTableLocalToSyncStatement = `
-  INSERT INTO ${MEAL_TABLE} (
-    id, user_id, name, is_simple, is_overnight, is_long_prep, is_long_cook, recipe_url, book_id, page
-  )
-  SELECT id, ?, name, is_simple, is_overnight, is_long_prep, is_long_cook, recipe_url, book_id, page
-  FROM inactive_local_${MEAL_TABLE}
-`;
-
-export const getMealQuery = `
-  SELECT
-    ${MEAL_TABLE}.*,
-    book.name AS book,
-    book.author AS author
-  FROM ${MEAL_TABLE}
-  JOIN ${BOOK_TABLE} ON ${BOOK_TABLE}.id = ${MEAL_TABLE}.book_id
-  WHERE id = ?
-`;
 
 export type MealRecord = z.infer<typeof MealZodSchema>;
 export type Meal = MealRecord & {

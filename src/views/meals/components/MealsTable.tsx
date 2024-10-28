@@ -5,8 +5,7 @@ import { View } from "react-native";
 import { ExternalLink, Table, Text, ViewColumn, ViewRow } from "@/components";
 import { LongCookIcon, LongPrepIcon, OvernightIcon, SimpleMealIcon } from "@/components/Icons";
 import { useGetBooks } from "@/db/book";
-import { useDeleteMeals } from "@/db/mutations/useDeleteMeals";
-import { useGetMeals } from "@/db/queries/useGetMeals";
+import { useDeleteMeals, useGetMeals } from "@/db/meal";
 
 import { BookInfo } from "./BookInfo";
 

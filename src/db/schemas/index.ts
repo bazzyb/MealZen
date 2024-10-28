@@ -1,8 +1,9 @@
 import { bookTableLocalToSyncStatement } from "../book/queries";
 import { BOOK_TABLE, bookSchema } from "../book/schema";
+import { mealTableLocalToSyncStatement } from "../meal/queries";
+import { MEAL_TABLE, mealSchema } from "../meal/schema";
 import { AbstractPowerSyncDatabase, Schema, Table } from "@powersync/react-native";
 
-import { MEAL_TABLE, mealSchema, mealTableLocalToSyncStatement } from "./meal";
 import { MEALPLAN_TABLE, mealplanSchema } from "./mealplan";
 
 export function buildSchema(isSynced: boolean) {

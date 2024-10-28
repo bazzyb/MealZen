@@ -20,17 +20,21 @@ export function BookView() {
   const { mutate: deleteBook, isMutating: isDeleting } = useDeleteBook();
 
   function openDeleteAlert() {
-    Alert.alert("Delete Book", "Are you sure you want to delete this book?", [
-      {
-        text: "Cancel",
-        style: "cancel",
-      },
-      {
-        text: "Delete",
-        style: "destructive",
-        onPress: handleDeleteBook,
-      },
-    ]);
+    Alert.alert(
+      "Delete Book",
+      "⚠️ WARNING ⚠️\n\nAll meals assosciated with this book will also be deleted.\n\nAre you sure you want to delete this book?",
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+        {
+          text: "Delete",
+          style: "destructive",
+          onPress: handleDeleteBook,
+        },
+      ],
+    );
   }
 
   async function handleDeleteBook() {

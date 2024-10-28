@@ -55,11 +55,19 @@ export async function updateBook(book: Omit<BookRecord, "user_id">, db: Abstract
   return resultRecord;
 }
 
-export async function deleteBook(bookId: string, db: AbstractPowerSyncDatabase, userId?: string) {
-  const mealIds = await getMealIdsForBookId(bookId, db, userId);
-  if (mealIds.length > 0) {
-    await deleteManyMeals(mealIds, db, userId);
+export async function deleteBooks(bookIds: Array<string>, db: AbstractPowerSyncDatabase, userId?: string) {
+  const mealIdList: Array<string> = [];
+  for (const bookId of bookIds) {
+    const mealIds = await getMealIdsForBookId(bookId, db, userId);
+    mealIdList.push(...mealIds);
   }
-  await db.execute(`DELETE FROM ${BOOK_TABLE} WHERE id = ? AND user_id = ?`, [bookId, userId || LOCAL_USER_ID]);
-  return bookId;
+
+  if (mealIdList.length > 0) {
+    await deleteManyMeals(mealIdList, db, userId);
+  }
+
+  await db.executeBatch(
+    `DELETE FROM ${BOOK_TABLE} WHERE id = ? AND user_id = ?`,
+    bookIds.map(id => [id, userId || LOCAL_USER_ID]),
+  );
 }

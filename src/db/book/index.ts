@@ -1,5 +1,5 @@
 export { useCreateBook } from "./useCreateBook";
-export { useDeleteBook } from "./useDeleteBook";
+export { useDeleteBooks } from "./useDeleteBooks";
 export { useUpdateBook } from "./useUpdateBook";
 export { useGetBooks } from "./useGetBooks";
 export { useGetBook } from "./useGetBook";

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { View } from "react-native";
 
 import { Table, Text, ViewColumn, ViewRow } from "@/components";
-import { useGetBooks } from "@/db/book";
+import { useDeleteBooks, useGetBooks } from "@/db/book";
 import { useAppTheme } from "@/styles/useAppTheme";
 
 export function BooksTable() {
@@ -11,6 +11,7 @@ export function BooksTable() {
 
   const [searchBooks, setSearchBooks] = useState("");
   const { data: books, isLoading } = useGetBooks(searchBooks);
+  const { mutate: deleteBooks } = useDeleteBooks();
 
   if (isLoading) {
     return (
@@ -24,6 +25,7 @@ export function BooksTable() {
     <Table
       hideHeader
       onSearchChange={setSearchBooks}
+      onDeleteMany={deleteBooks}
       data={books}
       onRowPress={row => router.navigate({ pathname: "/(settings)/books/[id]", params: { id: row.id } })}
       columns={[

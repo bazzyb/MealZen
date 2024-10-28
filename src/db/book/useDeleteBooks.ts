@@ -3,17 +3,17 @@ import { useState } from "react";
 
 import { useAuth } from "@/providers/AuthProvider";
 
-import { deleteBook } from "./queries";
+import { deleteBooks } from "./queries";
 
-export function useDeleteBook() {
+export function useDeleteBooks() {
   const [isMutating, setIsMutating] = useState(false);
   const { user } = useAuth();
 
   const db = usePowerSync();
 
-  async function mutate(mealId: string) {
+  async function mutate(bookIds: Array<string>) {
     setIsMutating(true);
-    const result = await deleteBook(mealId, db, user?.id);
+    const result = await deleteBooks(bookIds, db, user?.id);
     setIsMutating(false);
     return result;
   }

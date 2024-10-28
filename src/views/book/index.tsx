@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Alert } from "react-native";
 
 import { Button, Text, ViewColumn, ViewRow } from "@/components";
-import { useDeleteBook } from "@/db/book";
+import { useDeleteBooks } from "@/db/book";
 import { useGetBook } from "@/db/book";
 import { useAppTheme } from "@/styles/useAppTheme";
 import { MealsTable } from "@/views/meals/components/MealsTable";
@@ -17,7 +17,7 @@ export function BookView() {
 
   const [showEditBookModal, setShowEditBookModal] = useState(false);
   const { data: book } = useGetBook(id);
-  const { mutate: deleteBook, isMutating: isDeleting } = useDeleteBook();
+  const { mutate: deleteBook, isMutating: isDeleting } = useDeleteBooks();
 
   function openDeleteAlert() {
     Alert.alert(
@@ -38,7 +38,7 @@ export function BookView() {
   }
 
   async function handleDeleteBook() {
-    await deleteBook(id);
+    await deleteBook([id]);
     router.navigate("/(settings)/books");
   }
 

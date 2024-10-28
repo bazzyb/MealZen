@@ -5,8 +5,8 @@ import { Controller, useForm } from "react-hook-form";
 
 import { Button, Dropdown, Modal, TextInput, ViewColumn, ViewRow } from "@/components";
 import { useGetMeals } from "@/db/meal";
-import { useUpdateMealplanEntry } from "@/db/mutations/useUpdateMealplanEntry";
-import { Mealplan, MealplanRecord, MealplanZodSchema } from "@/db/schemas/mealplan";
+import { useUpdateMealplanEntry } from "@/db/mealplan";
+import { Mealplan, MealplanRecord, MealplanZodSchema } from "@/db/mealplan/schema";
 import { useAppTheme } from "@/styles/useAppTheme";
 
 type ModalBodyProps = {

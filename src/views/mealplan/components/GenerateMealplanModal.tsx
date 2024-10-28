@@ -5,7 +5,7 @@ import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button, DatePicker, Modal, ViewRow } from "@/components";
-import { useCreateMealplan } from "@/db/mutations/useCreateMealplan";
+import { useCreateMealplan } from "@/db/mealplan";
 import { getNoonToday } from "@/utils/dates";
 
 const GenerateSchema = z.object({

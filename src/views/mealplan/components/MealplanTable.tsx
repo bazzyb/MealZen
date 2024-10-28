@@ -3,9 +3,8 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import dayjs from "dayjs";
 
 import { Table, Text, ViewColumn, ViewRow } from "@/components";
-import { useReorderMealplan } from "@/db/mutations/useReorderMealplan";
-import { useGetMealplan } from "@/db/queries/useGetMealplan";
-import { Mealplan } from "@/db/schemas/mealplan";
+import { useGetMealplan, useReorderMealplan } from "@/db/mealplan";
+import { Mealplan } from "@/db/mealplan/schema";
 import { useAppTheme } from "@/styles/useAppTheme";
 
 type Props = {

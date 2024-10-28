@@ -2,7 +2,7 @@ import { AbstractPowerSyncDatabase } from "@powersync/react-native";
 import dayjs from "dayjs";
 
 import { getMealsWithoutJoin } from "@/db/meal/queries";
-import { Mealplan } from "@/db/schemas/mealplan";
+import { Mealplan } from "@/db/mealplan/schema";
 
 type BuildParams = {
   generateFrom: Date;

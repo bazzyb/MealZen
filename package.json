@@ -38,7 +38,7 @@
     "@journeyapps/react-native-quick-sqlite": "^2.0.0",
     "@powersync/react-native": "^1.14.2",
     "@react-native-community/datetimepicker": "8.0.1",
-    "@react-native-menu/menu": "^1.1.5",
+    "@react-native-menu/menu": "^1.1.4",
     "@react-navigation/native": "^6.0.2",
     "@supabase/supabase-js": "^2.45.4",
     "dayjs": "^1.11.13",

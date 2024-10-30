@@ -5,23 +5,22 @@ import { Controller, useForm } from "react-hook-form";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { z } from "zod";
 
-import { Button, DatePicker, ViewColumn } from "@/components";
+import { Button, ViewColumn } from "@/components";
+import { CalendarPicker } from "@/components/core/CalendarPicker";
 import { useCreateMealplan } from "@/db/mealplan";
 import { getNoonToday } from "@/utils/dates";
 
 import { buildMealPlan } from "./utils/dates";
 
 const GenerateSchema = z.object({
-  generateFrom: z.date(),
-  generateTo: z.date(),
+  generateDates: z.array(z.date()),
 });
 type GenerateFields = z.infer<typeof GenerateSchema>;
 
 export default function GenerateView() {
-  const { control, handleSubmit, formState } = useForm<GenerateFields>({
+  const { control, handleSubmit } = useForm<GenerateFields>({
     defaultValues: {
-      generateFrom: getNoonToday().toDate(),
-      generateTo: getNoonToday().add(1, "week").toDate(),
+      generateDates: [getNoonToday().toDate(), getNoonToday().add(6, "days").toDate()],
     },
     resolver: zodResolver(GenerateSchema),
   });
@@ -31,8 +30,8 @@ export default function GenerateView() {
 
   const { mutate, isMutating } = useCreateMealplan();
 
-  async function onSubmit(data: GenerateFields) {
-    const randomMeals = await buildMealPlan(powerSync, data);
+  async function onSubmit({ generateDates }: GenerateFields) {
+    const randomMeals = await buildMealPlan(powerSync, generateDates);
     await mutate(randomMeals);
     router.navigate("/(tab-views)");
   }
@@ -40,28 +39,9 @@ export default function GenerateView() {
   return (
     <ViewColumn height="100%" padding={16} paddingBottom={insets.bottom + 16} gap={8}>
       <Controller
-        name="generateFrom"
+        name="generateDates"
         control={control}
-        render={({ field }) => (
-          <DatePicker
-            label="Start date"
-            value={field.value}
-            handleChangeDate={field.onChange}
-            error={formState.errors.generateFrom?.message}
-          />
-        )}
-      />
-      <Controller
-        name="generateTo"
-        control={control}
-        render={({ field }) => (
-          <DatePicker
-            label="End date"
-            value={field.value}
-            handleChangeDate={field.onChange}
-            error={formState.errors.generateTo?.message}
-          />
-        )}
+        render={({ field }) => <CalendarPicker value={field.value} onChange={field.onChange} />}
       />
       <ViewColumn gap={8} marginTop="auto">
         <Button color="disabled" disabled={isMutating} onPress={() => router.navigate("/(tab-views)")}>

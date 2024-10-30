@@ -2,39 +2,39 @@ import DateTimePicker, { DateType } from "react-native-ui-datepicker";
 import { CalendarThemeProps } from "react-native-ui-datepicker/lib/typescript/src/types";
 
 import { useAppTheme } from "@/styles/useAppTheme";
-import { getNoonForDate } from "@/utils/dates";
+import { buildDateList, getNoonForDate } from "@/utils/dates";
 
 type RangeChangeParams = {
   startDate: DateType;
   endDate?: DateType;
 };
 
+export type MultiChangeParams = {
+  dates: DateType[];
+};
+
 type Props = {
+  pickerType?: "range" | "multiple";
   value: Array<Date>;
   onChange: (dates: Array<Date | undefined>) => void;
 };
 
-export function CalendarPicker({ value, onChange }: Props) {
-  // const [pickerType, setPickerType] = useState<"range" | "multiple">("range");
-  // reset dates when switching type, so range would be min and max, and multiple would be all dates from min to max
-
+export function CalendarPicker({ value, onChange, pickerType = "range" }: Props) {
   const { colors } = useAppTheme();
 
-  function buildDateList(startDate: DateType, endDate: DateType) {
-    const dateList = [];
-    let currentDate = getNoonForDate(startDate);
-    while (!currentDate.isAfter(getNoonForDate(endDate))) {
-      dateList.push(currentDate.toDate());
-      currentDate = currentDate.add(1, "day");
-    }
-    return dateList;
+  function isRangeChange(params: RangeChangeParams | MultiChangeParams): params is RangeChangeParams {
+    return (params as RangeChangeParams).startDate !== undefined;
   }
 
-  function handleRangeChange({ startDate, endDate }: RangeChangeParams) {
-    if (!endDate) {
-      onChange([getNoonForDate(startDate).toDate(), undefined]);
+  function handleChange(params: RangeChangeParams | MultiChangeParams) {
+    if (isRangeChange(params)) {
+      if (!params.endDate) {
+        onChange([getNoonForDate(params.startDate).toDate(), undefined]);
+      } else {
+        onChange(buildDateList(params.startDate, params.endDate));
+      }
     } else {
-      onChange(buildDateList(startDate, endDate));
+      onChange(params.dates.map(date => getNoonForDate(date).toDate()));
     }
   }
 
@@ -52,24 +52,14 @@ export function CalendarPicker({ value, onChange }: Props) {
     todayTextStyle: { color: colors.text },
   };
 
-  // if (pickerType === "multiple") {
-  //   return (
-  //     <DateTimePicker
-  //       mode="multiple"
-  //       dates={dates}
-  //       onChange={params => setDates(params.dates.map(d => dayjs(d)))}
-  //       {...calendarStyles}
-  //     />
-  //   );
-  // }
-
   return (
     <DateTimePicker
-      mode="range"
+      mode={pickerType}
+      dates={value}
       startDate={value[0]}
       endDate={value[value.length - 1]}
       displayFullDays
-      onChange={handleRangeChange}
+      onChange={handleChange}
       {...calendarStyles}
     />
   );

@@ -1,12 +1,15 @@
-import { buildMealPlan } from "../utils/dates";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { usePowerSync } from "@powersync/react-native";
+import { router } from "expo-router";
 import { Controller, useForm } from "react-hook-form";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { z } from "zod";
 
-import { Button, DatePicker, Modal, ViewRow } from "@/components";
+import { Button, DatePicker, ViewColumn } from "@/components";
 import { useCreateMealplan } from "@/db/mealplan";
 import { getNoonToday } from "@/utils/dates";
+
+import { buildMealPlan } from "./utils/dates";
 
 const GenerateSchema = z.object({
   generateFrom: z.date(),
@@ -14,11 +17,7 @@ const GenerateSchema = z.object({
 });
 type GenerateFields = z.infer<typeof GenerateSchema>;
 
-type ModalBodyProps = {
-  handleClose: () => void;
-};
-
-function ModalBody({ handleClose }: ModalBodyProps) {
+export default function GenerateView() {
   const { control, handleSubmit, formState } = useForm<GenerateFields>({
     defaultValues: {
       generateFrom: getNoonToday().toDate(),
@@ -28,17 +27,18 @@ function ModalBody({ handleClose }: ModalBodyProps) {
   });
 
   const powerSync = usePowerSync();
+  const insets = useSafeAreaInsets();
 
   const { mutate, isMutating } = useCreateMealplan();
 
   async function onSubmit(data: GenerateFields) {
     const randomMeals = await buildMealPlan(powerSync, data);
     await mutate(randomMeals);
-    handleClose();
+    router.navigate("/(tab-views)");
   }
 
   return (
-    <>
+    <ViewColumn height="100%" padding={16} paddingBottom={insets.bottom + 16} gap={8}>
       <Controller
         name="generateFrom"
         control={control}
@@ -63,27 +63,14 @@ function ModalBody({ handleClose }: ModalBodyProps) {
           />
         )}
       />
-      <ViewRow marginTop={8} justifyContent="space-between" width="100%">
-        <Button disabled={isMutating} onPress={handleSubmit(onSubmit)}>
-          Generate
-        </Button>
-        <Button color="disabled" disabled={isMutating} onPress={handleClose}>
+      <ViewColumn gap={8} marginTop="auto">
+        <Button color="disabled" disabled={isMutating} onPress={() => router.navigate("/(tab-views)")}>
           Cancel
         </Button>
-      </ViewRow>
-    </>
-  );
-}
-
-type Props = {
-  isVisible: boolean;
-  handleClose: () => void;
-};
-
-export function GenerateMealplanModal({ isVisible, handleClose }: Props) {
-  return (
-    <Modal isVisible={isVisible} handleClose={handleClose} title="Generate Mealplan">
-      <ModalBody handleClose={handleClose} />
-    </Modal>
+        <Button color="success" disabled={isMutating} onPress={handleSubmit(onSubmit)}>
+          Generate
+        </Button>
+      </ViewColumn>
+    </ViewColumn>
   );
 }

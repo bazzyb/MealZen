@@ -1,11 +1,12 @@
 import "@azure/core-asynciterator-polyfill";
 import { AbstractPowerSyncDatabase, PowerSyncContext, PowerSyncDatabase, SyncStatus } from "@powersync/react-native";
-import { ReactNode, useEffect, useRef, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import Toast from "react-native-toast-message";
 
 import { LoadingSplash } from "@/components/LoadingSplash";
 import { buildSchema } from "@/db";
 import { supabase } from "@/supabase";
+import { parseError } from "@/utils/errors";
 import { Logger } from "@/utils/logger";
 
 import { useAuth } from "./AuthProvider";
@@ -13,54 +14,24 @@ import { useAuth } from "./AuthProvider";
 export const PowerSyncProvider = ({ children }: { children: ReactNode }) => {
   const { isSyncEnabled } = useAuth();
   const [powerSync, setPowersync] = useState<AbstractPowerSyncDatabase | null>(null);
-  const powerSyncRef = useRef<AbstractPowerSyncDatabase | null>(null);
   const [status, setStatus] = useState<SyncStatus | null>(null);
   const [connector] = useState(supabase);
 
-  async function closeDB() {
-    try {
-      if (powerSyncRef.current) {
-        await powerSyncRef.current.close();
-      }
-    } catch (err) {
-      // db not open
-    }
-  }
-
-  // Need to use this convoluted approach to avoid DB getting locked.
-  async function buildDB() {
-    let attempts = 0;
-    let db: AbstractPowerSyncDatabase;
-
-    while (attempts < 5) {
-      try {
-        db = new PowerSyncDatabase({
-          schema: buildSchema(isSyncEnabled),
-          database: { dbFilename: "mealzen.db" },
-        });
-
-        await db.init();
-        return db;
-      } catch (err) {
-        // retry after 1 second
-        await new Promise(resolve => setTimeout(resolve, 1000));
-      }
-      attempts += 1;
-    }
-  }
-
   const handleDBConnect = async (syncEnabled: boolean) => {
-    // try to ensure previous connection is closed
-    await closeDB();
+    const db = new PowerSyncDatabase({
+      schema: buildSchema(syncEnabled),
+      database: { dbFilename: "mealzen.db" },
+    });
 
-    const db = await buildDB();
-    if (!db) {
+    try {
+      await db.init();
+    } catch (error) {
       Toast.show({
         type: "error",
         text1: "PowerSyncDatabase init error",
-        text2: "Database is locked. Please restart the app.",
+        text2: parseError(error),
       });
-      throw new Error("PowerSyncDatabase init error. Database is locked.");
+      Logger.error("PowerSyncDatabase init error", error);
     }
 
     try {
@@ -88,7 +59,6 @@ export const PowerSyncProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     if (powerSync) {
-      powerSyncRef.current = powerSync;
       // getting status directly from powerSync hook leads to stale data
       // so we listen to status changes and assign to state
       powerSync.registerListener({
@@ -96,13 +66,6 @@ export const PowerSyncProvider = ({ children }: { children: ReactNode }) => {
       });
     }
   }, [powerSync]);
-
-  useEffect(() => {
-    return () => {
-      // Ensure the database connection is closed when the app is closed or hot reloads
-      closeDB();
-    };
-  }, []);
 
   if (powerSync === null || status === null) {
     return <LoadingSplash />;

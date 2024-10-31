@@ -75,35 +75,18 @@ You'll need to run the required device, before running the e2e tests
 
 ## TODO
 
-### bugs/QOL
-
-- sync status (offline status?)
-- Allow opening app if no internet connection
-  - don't call db.connect if no internet
-  - test with usb debugging to turn on airplane mode
-  - AuthProvider -> getSession might be an issue, so might need to skip that??
-    - no wait, getSession should be local storage, so fine?
-- what to do with mealplan table when signing in
-  - overwrite whole synced table with local?
-  - ignore table
-  - modal to choose what to do?
-
 ### testing
 
 - E2E test for adding book and page to meal
 - E2E test for mealplans
 - mobile accessibility (screen readers? tabbing equivalent? accessibility testing?)
 
-## Known Issues
+### Prod release TODO steps
 
-- ps_crud table fills up with transactions until user syncs.
-  - If user uses app for long time without syncing, this could accrue too many transactions
-  - see: https://docs.powersync.com/usage/use-case-examples/offline-only-usage
-  - might be best to find a way to look for duplicate jobs, and remove them?
-  - if delete exists for id, which also has creates and edits, remove them all from ps_crud
-  - if delete exists for id, which also has edits but no create, remove the edits
-
-## Prod release TODO steps
-
+- sign up
+- monetisation
+  - allow signing in, but only sync if paying?
+- improve delete message on table select
+- design tweaks
 - EAS Build - https://docs.expo.dev/build/setup/
 - Maestro cloud CI - https://console.mobile.dev/quickstart?teamId=36513706-3609-41ab-a5e9-e28339db6964

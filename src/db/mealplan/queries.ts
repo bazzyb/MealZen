@@ -19,7 +19,6 @@ export const mealplanTableLocalToSyncStatement = `
 `;
 
 export async function createMealplan(meals: MealplanArray, db: AbstractPowerSyncDatabase, userId?: string) {
-  await db.execute(`DELETE FROM ${MEALPLAN_TABLE} WHERE user_id = ?`, [userId || LOCAL_USER_ID]);
   await db.executeBatch(
     `INSERT INTO ${MEALPLAN_TABLE} 
     (id, user_id, meal_id, date)
@@ -46,6 +45,10 @@ export const MealplanQuery = `
   LEFT JOIN ${BOOK_TABLE} ON ${BOOK_TABLE}.id = ${MEAL_TABLE}.book_id
   ORDER BY date ASC
 `;
+
+export function getMealplanWithoutJoin(db: AbstractPowerSyncDatabase) {
+  return db.getAll<MealplanRecord>(`SELECT * FROM ${MEALPLAN_TABLE}`);
+}
 
 export async function reorderMealplan(meals: Array<Mealplan>, db: AbstractPowerSyncDatabase) {
   const cases = meals
@@ -113,4 +116,15 @@ export async function convertMealsToCustomMeals(
     WHERE meal_id = ? AND user_id = ?`,
     mealIds.map(mealId => [mealId, userId || LOCAL_USER_ID]),
   );
+}
+
+export async function deleteMealplanEntries(db: AbstractPowerSyncDatabase, userId?: string, ids?: Array<string>) {
+  let query = `DELETE FROM ${MEALPLAN_TABLE}`;
+  if (ids) {
+    const idString = ids.map(id => `'${id}'`).join(", ");
+    query += ` WHERE id NOT IN (${idString})`;
+  }
+  query += ` AND user_id = ?`;
+
+  await db.execute(query, [userId || LOCAL_USER_ID]);
 }

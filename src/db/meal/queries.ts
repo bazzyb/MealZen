@@ -37,8 +37,14 @@ export async function createMeal(name: string, db: AbstractPowerSyncDatabase, us
   return resultRecord;
 }
 
-export function getMealsWithoutJoin(db: AbstractPowerSyncDatabase) {
-  return db.getAll<MealRecord>(`SELECT * FROM ${MEAL_TABLE} ORDER BY name ASC`, []);
+export function getMealsWithoutJoin(db: AbstractPowerSyncDatabase, skipMealIds?: Array<string>) {
+  let query = `SELECT * FROM ${MEAL_TABLE}`;
+  if (skipMealIds?.length) {
+    const idString = skipMealIds.map(id => `'${id}'`).join(", ");
+    query += ` WHERE id NOT IN (${idString})`;
+  }
+  query += " ORDER BY name ASC";
+  return db.getAll<MealRecord>(query, skipMealIds || []);
 }
 
 function buildWhereClause(options: MealTableFilters) {

@@ -6,24 +6,30 @@ import { Controller, useForm } from "react-hook-form";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { z } from "zod";
 
-import { Button, ViewColumn, ViewRow } from "@/components";
+import { Button, Switch, ViewColumn, ViewRow } from "@/components";
 import { CalendarPicker } from "@/components/core/CalendarPicker";
 import { useCreateMealplan } from "@/db/mealplan";
+import { getMealplanWithoutJoin } from "@/db/mealplan/queries";
+import { MealplanRecord } from "@/db/mealplan/schema";
+import { useClearMealplan } from "@/db/mealplan/useClearMealplan";
 import { buildDateList, getNoonToday } from "@/utils/dates";
 
-import { buildMealPlan } from "./utils/dates";
+import { pickRandomMeals } from "./utils/dates";
 
 const GenerateSchema = z.object({
   generateDates: z.array(z.date()),
+  preserveExisting: z.boolean(),
 });
 type GenerateFields = z.infer<typeof GenerateSchema>;
 
 export default function GenerateView() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [pickerType, setPickerType] = useState<"range" | "multiple">("range");
 
   const { control, handleSubmit, setValue, getValues } = useForm<GenerateFields>({
     defaultValues: {
       generateDates: buildDateList(getNoonToday(), getNoonToday().add(6, "days")),
+      preserveExisting: true,
     },
     resolver: zodResolver(GenerateSchema),
   });
@@ -31,7 +37,8 @@ export default function GenerateView() {
   const powerSync = usePowerSync();
   const insets = useSafeAreaInsets();
 
-  const { mutate, isMutating } = useCreateMealplan();
+  const { mutate: createMealplan } = useCreateMealplan();
+  const { mutate: clearMealplan } = useClearMealplan();
 
   function handlePickerChange(type: "range" | "multiple") {
     if (type === "range") {
@@ -41,9 +48,22 @@ export default function GenerateView() {
     setPickerType(type);
   }
 
-  async function onSubmit({ generateDates }: GenerateFields) {
-    const randomMeals = await buildMealPlan(powerSync, generateDates);
-    await mutate(randomMeals);
+  async function onSubmit({ generateDates, preserveExisting }: GenerateFields) {
+    setIsSubmitting(true);
+    let existingMealplanEntries: Array<MealplanRecord> = [];
+    if (preserveExisting) {
+      existingMealplanEntries = await getMealplanWithoutJoin(powerSync);
+    }
+
+    const randomMeals = await pickRandomMeals(powerSync, generateDates, existingMealplanEntries);
+    if (randomMeals.length) {
+      const existingMealplanIds = existingMealplanEntries.map(meal => meal.id || "").filter(Boolean);
+
+      await clearMealplan(existingMealplanIds);
+      await createMealplan(randomMeals);
+    }
+
+    setIsSubmitting(false);
     router.navigate("/(tab-views)");
   }
 
@@ -53,14 +73,14 @@ export default function GenerateView() {
         <Button
           color={pickerType === "range" ? "primary" : "disabled"}
           onPress={() => handlePickerChange("range")}
-          disabled={isMutating}
+          disabled={isSubmitting}
         >
           Range
         </Button>
         <Button
           color={pickerType === "multiple" ? "primary" : "disabled"}
           onPress={() => handlePickerChange("multiple")}
-          disabled={isMutating}
+          disabled={isSubmitting}
         >
           Multiple
         </Button>
@@ -70,11 +90,18 @@ export default function GenerateView() {
         control={control}
         render={({ field }) => <CalendarPicker pickerType={pickerType} value={field.value} onChange={field.onChange} />}
       />
+      <Controller
+        name="preserveExisting"
+        control={control}
+        render={({ field }) => (
+          <Switch label="Preserve existing meals on mealplan" value={field.value} onValueChange={field.onChange} />
+        )}
+      />
       <ViewColumn gap={8} marginTop="auto">
-        <Button color="disabled" disabled={isMutating} onPress={() => router.navigate("/(tab-views)")}>
+        <Button color="disabled" disabled={isSubmitting} onPress={() => router.navigate("/(tab-views)")}>
           Cancel
         </Button>
-        <Button color="success" disabled={isMutating} onPress={handleSubmit(onSubmit)}>
+        <Button color="success" disabled={isSubmitting} onPress={handleSubmit(onSubmit)}>
           Generate
         </Button>
       </ViewColumn>

@@ -1,5 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { usePowerSync } from "@powersync/react-native";
+import { router } from "expo-router";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
@@ -59,7 +60,15 @@ export function SignInModal({ isVisible, handleClose, setIsChangingAuth }: Props
       onClose();
     } catch (error) {
       if (error instanceof Error) {
-        setSignInError(error.message);
+        if (error.message === "confirm_email") {
+          onClose();
+          router.navigate({
+            pathname: "/(auth)/confirm/[email]",
+            params: { email },
+          });
+        } else {
+          setSignInError(error.message);
+        }
       } else {
         setSignInError("An unknown error occurred");
       }

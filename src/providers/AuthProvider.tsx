@@ -9,6 +9,14 @@ import { Logger } from "@/utils/logger";
 type AuthContextType = {
   session: AuthSession | null;
   user: AuthUser | null;
+  signUp: (
+    email: string,
+    password: string,
+  ) => Promise<{
+    user: AuthUser | null;
+    session: AuthSession | null;
+  }>;
+  resendEmailConfirmation: (email: string) => Promise<void>;
   signIn: (email: string, password: string) => Promise<AuthUser>;
   signOut: () => Promise<void>;
   isSyncEnabled: boolean;
@@ -33,6 +41,40 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
   const [isSyncEnabled, setIsSyncEnabled] = useState<boolean | null>(null);
 
+  async function signUp(email: string, password: string) {
+    Logger.log("signUp");
+
+    const { data, error } = await supabase.client.auth.signUp({
+      email,
+      password,
+    });
+
+    if (error) {
+      throw error;
+    }
+
+    if (!data.user) {
+      throw new Error("We were unable to create your account at this time. Please try again later.");
+    }
+
+    setUser(data.session?.user || null);
+    setSession(data.session);
+    return data;
+  }
+
+  async function resendEmailConfirmation(email: string) {
+    Logger.log("resendEmailConfirmation");
+
+    const { error } = await supabase.client.auth.resend({
+      type: "signup",
+      email,
+    });
+
+    if (error) {
+      throw error;
+    }
+  }
+
   async function signIn(email: string, password: string) {
     Logger.log("signIn");
 
@@ -42,15 +84,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     });
 
     if (error) {
+      if (error.code === "email_not_confirmed") {
+        throw new Error("confirm_email");
+      }
+      if (error.code === "invalid_credentials") {
+        throw new Error("Invalid email or password.");
+      }
       throw error;
     }
 
     if (!data.session || !data.user) {
-      throw new Error("Could not signIn to Supabase");
+      throw new Error("Could not sign in at this time. Please try again later.");
     }
 
     setSession(data.session);
-    setUser(data.user);
+    setUser(data.session.user);
 
     return data.user;
   }
@@ -103,7 +151,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const value = useMemo(
-    () => ({ session, user, signIn, signOut, isSyncEnabled, toggleSync }),
+    () => ({ session, user, signUp, resendEmailConfirmation, signIn, signOut, isSyncEnabled, toggleSync }),
     [session, user, isSyncEnabled],
   );
 

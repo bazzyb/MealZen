@@ -1,5 +1,6 @@
 import { MenuItem } from "../components/MenuItem";
 import { usePowerSync } from "@powersync/react-native";
+import { router } from "expo-router";
 import { useState } from "react";
 import { Alert } from "react-native";
 import Toast from "react-native-toast-message";
@@ -57,7 +58,11 @@ export function Auth() {
     setIsChangingAuth(false);
   }
 
-  async function onPress() {
+  async function goToSignup() {
+    router.navigate("/signup");
+  }
+
+  async function handleSignInSignOut() {
     if (user) {
       openSignOutAlert();
     } else {
@@ -67,7 +72,12 @@ export function Auth() {
 
   return (
     <>
-      <MenuItem onPress={onPress} disabled={isChangingAuth}>
+      {!user && (
+        <MenuItem role="link" onPress={goToSignup} disabled={isChangingAuth}>
+          <Text>Sign Up</Text>
+        </MenuItem>
+      )}
+      <MenuItem onPress={handleSignInSignOut} disabled={isChangingAuth}>
         <Text>{user ? "Sign Out" : "Sign In"}</Text>
         {user && (
           <Text size={12} color={colors.textSecondary}>

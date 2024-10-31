@@ -86,7 +86,6 @@ You'll need to run the required device, before running the e2e tests
 - sign up
 - monetisation
   - allow signing in, but only sync if paying?
-- improve delete message on table select
 - design tweaks
 - EAS Build - https://docs.expo.dev/build/setup/
 - Maestro cloud CI - https://console.mobile.dev/quickstart?teamId=36513706-3609-41ab-a5e9-e28339db6964

@@ -6,16 +6,16 @@ import { Logger } from "@/utils/logger";
 
 import { deleteMealplanEntries } from "./queries";
 
-export function useClearMealplan() {
+export function useDeleteMealplanEntry() {
   const [isMutating, setIsMutating] = useState(false);
   const { user } = useAuth();
 
   const db = usePowerSync();
 
-  async function mutate(mealplanIds: Array<string>) {
+  async function mutate(mealplanEntryId: string) {
     setIsMutating(true);
     try {
-      const result = await deleteMealplanEntries(db, user?.id, { skipIds: mealplanIds });
+      const result = await deleteMealplanEntries(db, user?.id, { id: mealplanEntryId });
       setIsMutating(false);
       return result;
     } catch (err) {

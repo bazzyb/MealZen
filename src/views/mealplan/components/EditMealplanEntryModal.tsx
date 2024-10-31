@@ -2,11 +2,13 @@ import Entypo from "@expo/vector-icons/Entypo";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { Alert } from "react-native";
 
-import { Button, Dropdown, Modal, TextInput, ViewColumn, ViewRow } from "@/components";
+import { Button, DeleteButton, Dropdown, Modal, TextInput, ViewColumn, ViewRow } from "@/components";
 import { useGetMeals } from "@/db/meal";
 import { useUpdateMealplanEntry } from "@/db/mealplan";
 import { Mealplan, MealplanRecord, MealplanZodSchema } from "@/db/mealplan/schema";
+import { useDeleteMealplanEntry } from "@/db/mealplan/useDeleteMealplanEntry";
 import { useAppTheme } from "@/styles/useAppTheme";
 
 type ModalBodyProps = {
@@ -27,7 +29,8 @@ function ModalBody({ selectedMealplanEntry, handleClose }: ModalBodyProps) {
   });
 
   const { data: meals, isLoading: isLoadingMeals } = useGetMeals();
-  const { mutate, isMutating } = useUpdateMealplanEntry();
+  const { mutate: updateEntry, isMutating: isUpdatingEntry } = useUpdateMealplanEntry();
+  const { mutate: deleteEntry, isMutating: isDeletingEntry } = useDeleteMealplanEntry();
 
   function handleSetSelect() {
     clearErrors();
@@ -49,8 +52,25 @@ function ModalBody({ selectedMealplanEntry, handleClose }: ModalBodyProps) {
   }
 
   async function handleSave(data: MealplanRecord) {
-    await mutate(data);
+    await updateEntry(data);
     handleClose();
+  }
+
+  async function openDeleteConfirmAlert() {
+    Alert.alert("Delete Mealplan Entry", "Are you sure you want to delete this mealplan entry?", [
+      {
+        text: "Cancel",
+        style: "cancel",
+      },
+      {
+        text: "Delete",
+        style: "destructive",
+        onPress: async () => {
+          await deleteEntry(selectedMealplanEntry.id);
+          handleClose();
+        },
+      },
+    ]);
   }
 
   return (
@@ -136,12 +156,13 @@ function ModalBody({ selectedMealplanEntry, handleClose }: ModalBodyProps) {
       />
 
       <ViewRow marginTop={8} justifyContent="space-between" width="100%">
-        <Button color="success" disabled={isMutating} onPress={handleSubmit(handleSave)}>
+        <Button color="success" disabled={isUpdatingEntry || isDeletingEntry} onPress={handleSubmit(handleSave)}>
           Save
         </Button>
-        <Button color="disabled" disabled={isMutating} onPress={handleClose}>
+        <Button color="disabled" disabled={isUpdatingEntry || isDeletingEntry} onPress={handleClose}>
           Cancel
         </Button>
+        <DeleteButton style={{ marginLeft: "auto" }} onPress={openDeleteConfirmAlert} />
       </ViewRow>
     </>
   );

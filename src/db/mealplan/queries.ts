@@ -118,13 +118,20 @@ export async function convertMealsToCustomMeals(
   );
 }
 
-export async function deleteMealplanEntries(db: AbstractPowerSyncDatabase, userId?: string, ids?: Array<string>) {
-  let query = `DELETE FROM ${MEALPLAN_TABLE}`;
-  if (ids) {
-    const idString = ids.map(id => `'${id}'`).join(", ");
-    query += ` WHERE id NOT IN (${idString})`;
-  }
-  query += ` AND user_id = ?`;
+type DeleteProps = {
+  skipIds?: Array<string>;
+  id?: string;
+};
 
-  await db.execute(query, [userId || LOCAL_USER_ID]);
+export async function deleteMealplanEntries(db: AbstractPowerSyncDatabase, userId?: string, options: DeleteProps = {}) {
+  let query = `DELETE FROM ${MEALPLAN_TABLE} WHERE user_id = ?`;
+  if (options.id) {
+    query += ` AND id = ?`;
+  }
+  if (options.skipIds) {
+    const idString = options.skipIds.map(id => `'${id}'`).join(", ");
+    query += ` AND id NOT IN (${idString})`;
+  }
+
+  await db.execute(query, [userId || LOCAL_USER_ID, options.id]);
 }

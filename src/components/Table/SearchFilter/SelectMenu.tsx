@@ -8,13 +8,14 @@ import { useAppTheme } from "@/styles/useAppTheme";
 type Props = {
   selectedItems: Array<string>;
   handleDeleteMany: () => void;
+  deleteWarning?: string;
 };
 
-export function SelectMenu({ selectedItems, handleDeleteMany }: Props) {
+export function SelectMenu({ selectedItems, handleDeleteMany, deleteWarning }: Props) {
   const { colors } = useAppTheme();
 
   function openDeleteAlert() {
-    Alert.alert("Delete selected items", "Are you sure you want to delete the selected items?", [
+    Alert.alert("Delete selected items", deleteWarning || "Are you sure you want to delete the selected items?", [
       {
         text: "Cancel",
         style: "cancel",

@@ -11,6 +11,7 @@ import { SelectMenu } from "./SelectMenu";
 export type SharedSearchFilterProps = {
   onSearchChange?: (search: string) => void;
   onDeleteMany?: (ids: Array<string>) => Promise<void>;
+  deleteWarning?: string;
 };
 
 export type SearchFilterProps = SharedSearchFilterProps & {
@@ -21,7 +22,15 @@ export type SearchFilterProps = SharedSearchFilterProps & {
 };
 
 export function SearchFilter(props: SearchFilterProps) {
-  const { onSearchChange, onDeleteMany, isSelectedMode, setIsSelectedMode, selectedItems, setSelectedItems } = props;
+  const {
+    onSearchChange,
+    onDeleteMany,
+    isSelectedMode,
+    setIsSelectedMode,
+    selectedItems,
+    setSelectedItems,
+    deleteWarning,
+  } = props;
 
   const [searchText, setSearchText] = useState("");
 
@@ -59,7 +68,9 @@ export function SearchFilter(props: SearchFilterProps) {
           <FontAwesome6 name="edit" size={24} color={colors.text} />
         )}
       </IconButton>
-      {isSelectedMode && <SelectMenu selectedItems={selectedItems} handleDeleteMany={handleDeleteMany} />}
+      {isSelectedMode && (
+        <SelectMenu selectedItems={selectedItems} handleDeleteMany={handleDeleteMany} deleteWarning={deleteWarning} />
+      )}
     </ViewRow>
   );
 }

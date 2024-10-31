@@ -28,6 +28,7 @@ export function BooksTable() {
       onDeleteMany={deleteBooks}
       data={books}
       onRowPress={row => router.navigate({ pathname: "/(settings)/books/[id]", params: { id: row.id } })}
+      deleteWarning="⚠️ WARNING ⚠️\n\nAll meals assosciated with these books will also be deleted.\n\nAre you sure you want to delete these books?"
       columns={[
         {
           id: "name",

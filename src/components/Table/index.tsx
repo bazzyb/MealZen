@@ -13,7 +13,17 @@ import { GenericData, TableProps } from "./types";
 type Props<TData extends GenericData> = TableProps<TData> & SharedSearchFilterProps;
 
 export function Table<TData extends GenericData>(props: Props<TData>) {
-  const { data, columns, onRowPress, isSortable, hideHeader, onOrderChange, onSearchChange, onDeleteMany } = props;
+  const {
+    data,
+    columns,
+    onRowPress,
+    isSortable,
+    hideHeader,
+    onOrderChange,
+    onSearchChange,
+    onDeleteMany,
+    deleteWarning,
+  } = props;
 
   const [items, setItems] = useState<TData[]>(data);
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
@@ -43,6 +53,7 @@ export function Table<TData extends GenericData>(props: Props<TData>) {
       <SearchFilter
         onSearchChange={onSearchChange}
         onDeleteMany={onDeleteMany}
+        deleteWarning={deleteWarning}
         isSelectedMode={isSelectMode}
         setIsSelectedMode={setIsSelectMode}
         selectedItems={selectedItems}

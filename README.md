@@ -84,8 +84,21 @@ You'll need to run the required device, before running the e2e tests
 ### Prod release TODO steps
 
 - sign up
+  - redirect from email back to app?
+  - confirm and sign up styles
+  - minor quirks around flow
 - monetisation
+  - revenuecat
   - allow signing in, but only sync if paying?
+- account view
+  - delete account
+  - change email and password
+  - manage subscription
+  - signout
 - design tweaks
 - EAS Build - https://docs.expo.dev/build/setup/
+- screenshots for app store
+- convert mealzen.co.uk to store page
+- setup play store
+- setup apple store
 - Maestro cloud CI - https://console.mobile.dev/quickstart?teamId=36513706-3609-41ab-a5e9-e28339db6964

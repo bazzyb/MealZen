@@ -12,6 +12,7 @@
     "android:e2e": "expo run:ios --device 'E2E_Pixel_8_API_35'",
     "ios": "expo run:ios --device 'Local iphone 16 ios 18'",
     "ios:tablet": "expo run:ios --device 'Local ipad air ios 18'",
+    "ios:last": "expo run:ios",
     "ios:e2e": "expo run:ios --device 'E2E iphone 13 ios 18'",
     "e2e": "maestro test .maestro/",
     "prebuild": "expo prebuild",

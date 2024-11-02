@@ -5,7 +5,7 @@
     "version": "0.0.1",
     "orientation": "portrait",
     "icon": "./assets/images/mealzen-icon.png",
-    "scheme": "myapp",
+    "scheme": "uk.co.mealzen",
     "userInterfaceStyle": "automatic",
     "backgroundColor": "#673ab7",
     "splash": {

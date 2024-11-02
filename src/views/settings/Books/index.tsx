@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { StyleSheet } from "react-native";
 
 import { Button, TextInput, ViewColumn, ViewRow } from "@/components";
 import { useCreateBook } from "@/db/book";
@@ -28,7 +29,13 @@ export default function BooksView() {
 
   return (
     <ViewColumn padding={0} flex={1}>
-      <ViewRow justifyContent="center" gap={8} padding={16} borderBottomWidth={1} borderBottomColor={colors.gray[5]}>
+      <ViewRow
+        justifyContent="center"
+        gap={8}
+        padding={16}
+        borderBottomWidth={StyleSheet.hairlineWidth}
+        borderBottomColor={colors.gray[5]}
+      >
         <TextInput placeholder="Book name" value={bookName} onChangeText={setBookName} style={{ flex: 1 }} />
         <Button onPress={handleCreateBook} disabled={isCreatingBook} color="success">
           Create Book

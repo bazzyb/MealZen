@@ -1,6 +1,6 @@
 import Checkbox from "expo-checkbox";
 import { PropsWithChildren } from "react";
-import { TouchableHighlight, View } from "react-native";
+import { StyleSheet, TouchableHighlight, View } from "react-native";
 
 import { ViewRow } from "@/components/Layout/ViewRow";
 import { Text } from "@/components/core/Text";
@@ -81,7 +81,7 @@ export function TableRow<TData extends GenericData>({
         paddingVertical={8}
         paddingHorizontal={16}
         gap={8}
-        borderBottomWidth={1}
+        borderBottomWidth={StyleSheet.hairlineWidth}
         borderBottomColor={colors.gray[0]}
         backgroundColor={draggableProps?.isActive ? colors.rowDragBackground : colors.background}
       >

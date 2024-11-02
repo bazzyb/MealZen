@@ -1,5 +1,5 @@
 import { PropsWithChildren } from "react";
-import { Pressable, PressableProps, ViewStyle } from "react-native";
+import { Pressable, PressableProps, StyleSheet, ViewStyle } from "react-native";
 
 import { useAppTheme } from "@/styles/useAppTheme";
 
@@ -18,7 +18,7 @@ export function MenuItem({ style, children, ...props }: PropsWithChildren<Props>
         minHeight: 40,
         padding: 16,
         borderBottomColor: colors.gray[5],
-        borderBottomWidth: 1,
+        borderBottomWidth: StyleSheet.hairlineWidth,
         justifyContent: "center",
         ...style,
       })}

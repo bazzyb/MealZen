@@ -1,6 +1,6 @@
 import { router, useLocalSearchParams } from "expo-router";
 import { useState } from "react";
-import { Alert } from "react-native";
+import { Alert, StyleSheet } from "react-native";
 
 import { Button, Text, ViewColumn, ViewRow } from "@/components";
 import { useDeleteBooks } from "@/db/book";
@@ -49,7 +49,13 @@ export function BookView() {
   return (
     <>
       <ViewColumn width="100%" height="100%">
-        <ViewRow padding={16} borderBottomColor={colors.gray[5]} borderBottomWidth={1} gap={16} height="auto">
+        <ViewRow
+          padding={16}
+          borderBottomColor={colors.gray[5]}
+          borderBottomWidth={StyleSheet.hairlineWidth}
+          gap={16}
+          height="auto"
+        >
           <BookDetails book={book[0]} />
           <ViewColumn gap={8}>
             <Button

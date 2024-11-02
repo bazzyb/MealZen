@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { StyleSheet } from "react-native";
 
 import { Button, TextInput, ViewColumn, ViewRow } from "@/components";
 import { useCreateMeal } from "@/db/meal";
@@ -28,7 +29,13 @@ export default function MealsView() {
 
   return (
     <ViewColumn padding={0} flex={1}>
-      <ViewRow justifyContent="center" gap={8} padding={16} borderBottomWidth={1} borderBottomColor={colors.gray[5]}>
+      <ViewRow
+        justifyContent="center"
+        gap={8}
+        padding={16}
+        borderBottomWidth={StyleSheet.hairlineWidth}
+        borderBottomColor={colors.gray[5]}
+      >
         <TextInput placeholder="Meal name" value={mealName} onChangeText={setMealName} style={{ flex: 1 }} />
         <Button onPress={handleCreateMeal} disabled={isCreatingMeal} color="success">
           Create Meal

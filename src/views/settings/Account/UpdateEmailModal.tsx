@@ -1,6 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import Toast from "react-native-toast-message";
 import { z } from "zod";
 
 import { Button, Modal, Text, TextInput, ViewRow } from "@/components";
@@ -38,6 +39,12 @@ export function UpdateEmailModal({ isVisible, handleClose }: Props) {
 
     try {
       await updateEmail(email);
+      Toast.show({
+        type: "info",
+        text1: "Email verification sent",
+        text2:
+          "An email has been sent to your current email, and your new email. Click the link in both emails to verify your new email address.",
+      });
       onClose();
     } catch (error) {
       setUpdateEmailError(parseError(error));

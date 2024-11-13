@@ -153,10 +153,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   async function updateEmail(newEmail: string) {
-    // Does email verification need to be done again? Does supabase do that automatically?
-    await supabase.client.auth.updateUser({
+    const { data, error } = await supabase.client.auth.updateUser({
       email: newEmail,
     });
+
+    if (error) {
+      throw error;
+    }
+
+    if (!data.user) {
+      throw new Error("Could not update email at this time. Please try again later.");
+    }
+
+    await getSession(true);
   }
 
   // async function updatePassword(newPassword: string) {

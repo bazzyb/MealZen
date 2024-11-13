@@ -11,12 +11,15 @@ import { useAuth } from "@/providers/AuthProvider";
 import { useAppTheme } from "@/styles/useAppTheme";
 import { Logger } from "@/utils/logger";
 
+import { UpdateEmailModal } from "./UpdateEmailModal";
+
 export default function AccountLayout() {
   const { signOut, user, toggleSync } = useAuth();
   const powerSync = usePowerSync();
 
   const { colors } = useAppTheme();
 
+  const [updateEmailModalOpen, setUpdateEmailModalOpen] = useState(false);
   const [isChangingAuth, setIsChangingAuth] = useState(false);
 
   function openSignOutAlert() {
@@ -59,20 +62,26 @@ export default function AccountLayout() {
   }
 
   return (
-    <ViewColumn height="100%">
-      <ViewRow
-        paddingHorizontal={16}
-        paddingVertical={8}
-        borderBottomColor={colors.gray[5]}
-        borderBottomWidth={StyleSheet.hairlineWidth}
-      >
-        <Text size={12} color={colors.textSecondary}>
-          {user?.email}
-        </Text>
-      </ViewRow>
-      <MenuItem onPress={openSignOutAlert} disabled={isChangingAuth}>
-        <Text>Sign Out</Text>
-      </MenuItem>
-    </ViewColumn>
+    <>
+      <ViewColumn height="100%">
+        <ViewRow
+          paddingHorizontal={16}
+          paddingVertical={8}
+          borderBottomColor={colors.gray[5]}
+          borderBottomWidth={StyleSheet.hairlineWidth}
+        >
+          <Text size={12} color={colors.textSecondary}>
+            {user?.email}
+          </Text>
+        </ViewRow>
+        <MenuItem onPress={() => setUpdateEmailModalOpen(true)} disabled={isChangingAuth}>
+          <Text>Change Email</Text>
+        </MenuItem>
+        <MenuItem onPress={openSignOutAlert} disabled={isChangingAuth}>
+          <Text>Sign Out</Text>
+        </MenuItem>
+      </ViewColumn>
+      <UpdateEmailModal isVisible={updateEmailModalOpen} handleClose={() => setUpdateEmailModalOpen(false)} />
+    </>
   );
 }

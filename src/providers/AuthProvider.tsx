@@ -19,6 +19,9 @@ type AuthContextType = {
   resendEmailConfirmation: (email: string) => Promise<void>;
   signIn: (email: string, password: string) => Promise<AuthUser>;
   signOut: () => Promise<void>;
+  updateEmail: (newEmail: string) => Promise<void>;
+  // updatePassword: (newPassword: string) => Promise<void>;
+  // deleteUser: () => Promise<void>;
   isSyncEnabled: boolean;
   toggleSync: () => void;
 };
@@ -142,6 +145,29 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }
 
+  async function updateEmail(newEmail: string) {
+    // Does email verification need to be done again? Does supabase do that automatically?
+    await supabase.client.auth.updateUser({
+      email: newEmail,
+    });
+  }
+
+  // async function updatePassword(newPassword: string) {
+  //   // how does the nonce stuff work?
+  //   await supabase.client.auth.updateUser({
+  //     password: newPassword,
+  //   });
+  // }
+
+  // async function deleteUser() {
+  //   if (user?.id) {
+  //     // clear data from tables
+  //     await supabase.client.auth.admin.deleteUser(user.id);
+  //     // log out
+  //     // navigate to home screen
+  //   }
+  // }
+
   function toggleSync() {
     setIsSyncEnabled(!isSyncEnabled);
   }
@@ -151,7 +177,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const value = useMemo(
-    () => ({ session, user, signUp, resendEmailConfirmation, signIn, signOut, isSyncEnabled, toggleSync }),
+    () => ({ session, user, signUp, resendEmailConfirmation, signIn, signOut, updateEmail, isSyncEnabled, toggleSync }),
     [session, user, isSyncEnabled],
   );
 

@@ -87,14 +87,13 @@ You'll need to run the required device, before running the e2e tests
   - redirect from email back to app?
   - confirm and sign up styles
   - minor quirks around flow
-- monetisation
-  - revenuecat
-  - allow signing in, but only sync if paying?
 - account view
   - delete account
   - change email and password
   - manage subscription
-  - signout
+- monetisation
+  - revenuecat
+  - allow signing in, but only sync if paying?
 - design tweaks
 - EAS Build - https://docs.expo.dev/build/setup/
 - screenshots for app store

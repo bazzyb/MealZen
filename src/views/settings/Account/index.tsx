@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Alert, StyleSheet } from "react-native";
 import Toast from "react-native-toast-message";
 
-import { Text, ViewColumn, ViewRow } from "@/components";
+import { Text, ViewColumn } from "@/components";
 import { buildSchema } from "@/db";
 import { useAuth } from "@/providers/AuthProvider";
 import { useAppTheme } from "@/styles/useAppTheme";
@@ -17,7 +17,7 @@ export default function AccountLayout() {
   const { signOut, user, toggleSync } = useAuth();
   const powerSync = usePowerSync();
 
-  const { colors } = useAppTheme();
+  const { colors, fontBold } = useAppTheme();
 
   const [updateEmailModalOpen, setUpdateEmailModalOpen] = useState(false);
   const [isChangingAuth, setIsChangingAuth] = useState(false);
@@ -64,7 +64,7 @@ export default function AccountLayout() {
   return (
     <>
       <ViewColumn height="100%">
-        <ViewRow
+        <ViewColumn
           paddingHorizontal={16}
           paddingVertical={8}
           borderBottomColor={colors.gray[5]}
@@ -73,7 +73,17 @@ export default function AccountLayout() {
           <Text size={12} color={colors.textSecondary}>
             {user?.email}
           </Text>
-        </ViewRow>
+          {user?.new_email && (
+            <Text
+              size={12}
+              color={colors.green[1]}
+              style={{ backgroundColor: colors.green[7], padding: 8, marginVertical: 4, fontFamily: fontBold }}
+            >
+              Your email change request is pending verification. You should have received an email to your old and new
+              email addresses. Click the link in each email to verify your new email address.
+            </Text>
+          )}
+        </ViewColumn>
         <MenuItem onPress={() => setUpdateEmailModalOpen(true)} disabled={isChangingAuth}>
           <Text>Change Email</Text>
         </MenuItem>

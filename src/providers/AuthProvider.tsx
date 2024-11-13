@@ -118,9 +118,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }
 
-  async function getSession() {
+  async function _handleGetSession(refresh = false) {
+    if (refresh) {
+      return supabase.client.auth.refreshSession();
+    }
+    return supabase.client.auth.getSession();
+  }
+
+  async function getSession(refresh = false) {
     try {
-      const { data, error } = await supabase.client.auth.getSession();
+      const { data, error } = await _handleGetSession(refresh);
 
       if (error) {
         throw error;
@@ -173,7 +180,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   useEffect(() => {
-    getSession();
+    getSession(true);
   }, []);
 
   const value = useMemo(

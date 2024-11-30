@@ -20,7 +20,7 @@ type AuthContextType = {
   signIn: (email: string, password: string) => Promise<AuthUser>;
   signOut: () => Promise<void>;
   updateEmail: (newEmail: string) => Promise<void>;
-  // updatePassword: (newPassword: string) => Promise<void>;
+  resetPassword: (email: string) => Promise<void>;
   // deleteUser: () => Promise<void>;
   isSyncEnabled: boolean;
   toggleSync: () => void;
@@ -168,12 +168,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     await getSession(true);
   }
 
-  // async function updatePassword(newPassword: string) {
-  //   // how does the nonce stuff work?
-  //   await supabase.client.auth.updateUser({
-  //     password: newPassword,
-  //   });
-  // }
+  async function resetPassword(email: string) {
+    const { error } = await supabase.client.auth.resetPasswordForEmail(email);
+    if (error) {
+      throw error;
+    }
+  }
 
   // async function deleteUser() {
   //   if (user?.id) {
@@ -193,7 +193,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const value = useMemo(
-    () => ({ session, user, signUp, resendEmailConfirmation, signIn, signOut, updateEmail, isSyncEnabled, toggleSync }),
+    () => ({
+      session,
+      user,
+      signUp,
+      resendEmailConfirmation,
+      signIn,
+      signOut,
+      updateEmail,
+      resetPassword,
+      isSyncEnabled,
+      toggleSync,
+    }),
     [session, user, isSyncEnabled],
   );
 

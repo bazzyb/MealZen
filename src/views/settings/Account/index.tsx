@@ -14,7 +14,7 @@ import { Logger } from "@/utils/logger";
 import { UpdateEmailModal } from "./UpdateEmailModal";
 
 export default function AccountLayout() {
-  const { signOut, user, toggleSync } = useAuth();
+  const { signOut, user, toggleSync, resetPassword } = useAuth();
   const powerSync = usePowerSync();
 
   const { colors, fontBold } = useAppTheme();
@@ -34,6 +34,25 @@ export default function AccountLayout() {
         onPress: handleSignOut,
       },
     ]);
+  }
+
+  async function handleResetPassword() {
+    if (user) {
+      try {
+        await resetPassword(user.email!);
+        Toast.show({
+          type: "success",
+          text1: "Password reset email sent",
+          text2: "Please check your email for instructions on how to reset your password.",
+        });
+      } catch (error) {
+        Toast.show({
+          type: "error",
+          text1: "An error occurred while sending the password reset email",
+          // text2: error.message,
+        });
+      }
+    }
   }
 
   async function handleSignOut() {
@@ -86,6 +105,9 @@ export default function AccountLayout() {
         </ViewColumn>
         <MenuItem onPress={() => setUpdateEmailModalOpen(true)} disabled={isChangingAuth}>
           <Text>Change Email</Text>
+        </MenuItem>
+        <MenuItem onPress={handleResetPassword} disabled={isChangingAuth}>
+          <Text>Reset Password</Text>
         </MenuItem>
         <MenuItem onPress={openSignOutAlert} disabled={isChangingAuth}>
           <Text>Sign Out</Text>

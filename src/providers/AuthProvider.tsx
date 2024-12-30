@@ -1,4 +1,4 @@
-import { AuthError, type AuthSession, type AuthUser } from "@supabase/supabase-js";
+import { AuthError, type AuthSession, AuthSessionMissingError, type AuthUser } from "@supabase/supabase-js";
 import { ReactNode, createContext, useContext, useEffect, useMemo, useState } from "react";
 import Toast from "react-native-toast-message";
 
@@ -129,7 +129,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       const { data, error } = await _handleGetSession(refresh);
 
-      if (error) {
+      if (error && error.name !== AuthSessionMissingError.name) {
         throw error;
       }
 

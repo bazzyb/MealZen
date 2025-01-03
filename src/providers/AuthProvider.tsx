@@ -129,7 +129,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       const { data, error } = await _handleGetSession(refresh);
 
-      if (error && error.name !== AuthSessionMissingError.name) {
+      if (error && error.name !== AuthSessionMissingError.name && !error?.message.includes("Refresh Token Not Found")) {
         throw error;
       }
 

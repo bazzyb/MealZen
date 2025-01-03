@@ -175,15 +175,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }
 
-  // async function deleteUser() {
-  //   if (user?.id) {
-  //     // clear data from tables
-  //     await supabase.client.auth.admin.deleteUser(user.id);
-  //     // log out
-  //     // navigate to home screen
-  //   }
-  // }
-
   function toggleSync() {
     setIsSyncEnabled(!isSyncEnabled);
   }

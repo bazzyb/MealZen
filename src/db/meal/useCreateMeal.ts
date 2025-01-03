@@ -3,7 +3,7 @@ import { useState } from "react";
 
 import { useAuth } from "@/providers/AuthProvider";
 
-import { createMeal } from "./queries";
+import { CreateMealValues, createMeal } from "./queries";
 
 export function useCreateMeal() {
   const [isMutating, setIsMutating] = useState(false);
@@ -11,9 +11,9 @@ export function useCreateMeal() {
 
   const db = usePowerSync();
 
-  async function mutate(name: string) {
+  async function mutate(values: CreateMealValues) {
     setIsMutating(true);
-    const result = await createMeal(name, db, user?.id);
+    const result = await createMeal(values, db, user?.id);
     setIsMutating(false);
     return result;
   }

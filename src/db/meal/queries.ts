@@ -21,13 +21,21 @@ export const mealTableLocalToSyncStatement = `
   FROM inactive_local_${MEAL_TABLE}
 `;
 
-export async function createMeal(name: string, db: AbstractPowerSyncDatabase, userId?: string) {
+export type CreateMealValues = {
+  name: string;
+  bookId?: string;
+  page?: number;
+};
+
+export async function createMeal(values: CreateMealValues, db: AbstractPowerSyncDatabase, userId?: string) {
+  const { name, bookId, page } = values;
+
   const res = await db.execute(
     `INSERT INTO ${MEAL_TABLE} (
-    id, name, user_id, is_simple, is_overnight, is_long_prep, is_long_cook)
-    VALUES (uuid(), ?, ?, 0, 0, 0, 0)
+    id, name, user_id, book_id, page, is_simple, is_overnight, is_long_prep, is_long_cook)
+    VALUES (uuid(), ?, ?, ?, ?, 0, 0, 0, 0)
     RETURNING *`,
-    [name, userId || LOCAL_USER_ID],
+    [name, userId || LOCAL_USER_ID, bookId || null, page || null],
   );
 
   const resultRecord = res.rows?.item(0);

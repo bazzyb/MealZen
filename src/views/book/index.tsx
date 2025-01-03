@@ -7,6 +7,7 @@ import { useDeleteBooks } from "@/db/book";
 import { useGetBook } from "@/db/book";
 import { useAppTheme } from "@/styles/useAppTheme";
 import { EditBookModal } from "@/views/book/components/EditBookModal";
+import { AddMealForm } from "@/views/meals/components/AddMealForm";
 import { MealsTable } from "@/views/meals/components/MealsTable";
 
 import { BookDetails } from "./components/BookDetails";
@@ -77,6 +78,7 @@ export function BookView() {
             </Button>
           </ViewColumn>
         </ViewRow>
+        <AddMealForm bookId={id} />
         <MealsTable bookId={id} />
       </ViewColumn>
       <EditBookModal show={showEditBookModal} selectedBook={book[0]} handleClose={() => setShowEditBookModal(false)} />

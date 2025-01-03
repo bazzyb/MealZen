@@ -39,6 +39,7 @@ export default function AccountLayout() {
 
   async function handleResetPassword() {
     if (user) {
+      setIsChangingAuth(true);
       try {
         await resetPassword(user.email!);
         Toast.show({
@@ -53,6 +54,7 @@ export default function AccountLayout() {
           // text2: error.message,
         });
       }
+      setIsChangingAuth(false);
     }
   }
 

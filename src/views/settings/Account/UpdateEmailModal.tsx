@@ -73,6 +73,7 @@ export function UpdateEmailModal({ isVisible, handleClose }: Props) {
           color="disabled"
           style={{ marginTop: 16, width: "auto" }}
           disabled={isUpdatingEmail}
+          loading={isUpdatingEmail}
           onPress={onClose}
           accessibilityLabel="Cancel Button"
         >
@@ -82,6 +83,7 @@ export function UpdateEmailModal({ isVisible, handleClose }: Props) {
           color="success"
           style={{ marginTop: 16, width: "auto" }}
           disabled={isUpdatingEmail}
+          loading={isUpdatingEmail}
           onPress={handleSubmit(handleUpdateEmail)}
           accessibilityLabel="Update Email Button"
         >

@@ -15,7 +15,7 @@ const colorSet = {
   error: colors.red[4],
   errorLight: colors.red[5],
   errorDark: colors.red[3],
-  disabled: colors.gray[3],
+  disabled: colors.gray[4],
   disabledLight: colors.gray[8],
   disabledDark: colors.gray[2],
 };
@@ -33,6 +33,7 @@ const lightTextColors = {
   linkLight: colors.blue[5],
   linkDark: colors.blue[3],
   formErrorText: colorSet.error,
+  disabledText: colors.gray[8],
 };
 
 const lightBackgroundColors = {
@@ -61,6 +62,7 @@ const darkTextColors = {
   linkLight: colors.blue[6],
   linkDark: colors.blue[4],
   formErrorText: colorSet.errorLight,
+  disabledText: colors.gray[8],
 };
 
 const darkBackgroundColors = {

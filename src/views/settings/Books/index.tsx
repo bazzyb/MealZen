@@ -37,7 +37,7 @@ export default function BooksView() {
         borderBottomColor={colors.gray[5]}
       >
         <TextInput placeholder="Book name" value={bookName} onChangeText={setBookName} style={{ flex: 1 }} />
-        <Button onPress={handleCreateBook} disabled={isCreatingBook} color="success">
+        <Button onPress={handleCreateBook} disabled={!bookName || isCreatingBook} color="success">
           Create Book
         </Button>
       </ViewRow>

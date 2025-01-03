@@ -37,7 +37,7 @@ export default function MealsView() {
         borderBottomColor={colors.gray[5]}
       >
         <TextInput placeholder="Meal name" value={mealName} onChangeText={setMealName} style={{ flex: 1 }} />
-        <Button onPress={handleCreateMeal} disabled={isCreatingMeal} color="success">
+        <Button onPress={handleCreateMeal} disabled={!mealName || isCreatingMeal} color="success">
           Create Meal
         </Button>
       </ViewRow>

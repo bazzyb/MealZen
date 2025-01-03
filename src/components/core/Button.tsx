@@ -23,6 +23,7 @@ export function Button({
   textStyle,
   style,
   variant,
+  disabled,
   ...buttonProps
 }: PropsWithChildren<Props>) {
   const { colors, fontFamily, borderRadius } = useAppTheme();
@@ -35,7 +36,7 @@ export function Button({
     if (pressed) {
       return variant === "outlined" ? colors.gray[8] : getColor(true);
     }
-    if (loading) {
+    if (disabled || loading) {
       return colors.disabled;
     }
     return variant === "outlined" ? colors.white : getColor();
@@ -53,13 +54,20 @@ export function Button({
         borderColor: variant === "outlined" ? getBackgroundColor(pressed) : undefined,
         ...style,
       })}
+      disabled={disabled}
       {...buttonProps}
     >
       {loading ? (
         <ActivityIndicator color={colors.white} />
       ) : (
         <Text
-          color={loading ? colors.disabled : variant === "outlined" ? getColor() : textColor || colors.buttonText}
+          color={
+            disabled || loading
+              ? colors.disabledText
+              : variant === "outlined"
+                ? getColor()
+                : textColor || colors.buttonText
+          }
           style={textStyle}
         >
           {children}

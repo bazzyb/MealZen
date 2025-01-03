@@ -6,8 +6,8 @@ import { Button, Text, ViewColumn, ViewRow } from "@/components";
 import { useDeleteBooks } from "@/db/book";
 import { useGetBook } from "@/db/book";
 import { useAppTheme } from "@/styles/useAppTheme";
+import { EditBookModal } from "@/views/book/components/EditBookModal";
 import { MealsTable } from "@/views/meals/components/MealsTable";
-import { EditBookModal } from "@/views/settings/Books/components/EditBookModal";
 
 import { BookDetails } from "./components/BookDetails";
 

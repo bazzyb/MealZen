@@ -1,5 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { router } from "expo-router";
+import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import Toast from "react-native-toast-message";
 import { z } from "zod";
@@ -28,6 +29,8 @@ export type SignupFields = z.infer<typeof SignupSchema>;
 export function SignupLayout() {
   const { signUp } = useAuth();
 
+  const [isSigningUp, setIsSigningUp] = useState(false);
+
   const { control, handleSubmit, formState } = useForm<SignupFields>({
     defaultValues: {
       email: "",
@@ -39,6 +42,7 @@ export function SignupLayout() {
   });
 
   async function onSubmit(data: SignupFields) {
+    setIsSigningUp(true);
     try {
       const res = await signUp(data.email, data.password);
       if (!res.session) {
@@ -46,8 +50,10 @@ export function SignupLayout() {
           pathname: "/(auth)/confirm/[email]",
           params: { email: data.email },
         });
+        setIsSigningUp(false);
       } else {
         router.navigate("/");
+        setIsSigningUp(false);
       }
     } catch (err) {
       if (err instanceof Error) {
@@ -58,12 +64,17 @@ export function SignupLayout() {
         });
         Logger.error(err.message);
       }
+      setIsSigningUp(false);
     }
   }
 
   return (
-    <ViewColumn height="100%" justifyContent="center" alignItems="center">
-      <Text>Signup</Text>
+    <ViewColumn height="100%" justifyContent="center" alignItems="center" padding={32} gap={8}>
+      <Text size={24}>Create an account</Text>
+
+      <Text>
+        If you would like to sync your data across multiple devices, you will need to create an account and subscribe.
+      </Text>
 
       <Controller
         name="email"
@@ -71,19 +82,22 @@ export function SignupLayout() {
         render={({ field }) => (
           <TextInput
             {...field}
-            placeholder="Email"
+            label="Email"
+            placeholder="Enter an email address"
             onChangeText={field.onChange}
             value={field.value}
             error={formState.errors.email?.message}
           />
         )}
       />
+
       <Controller
         name="password"
         control={control}
         render={({ field }) => (
           <TextInput
             {...field}
+            label="Password"
             placeholder="Password"
             onChangeText={field.onChange}
             value={field.value}
@@ -93,12 +107,14 @@ export function SignupLayout() {
           />
         )}
       />
+
       <Controller
         name="confirmPassword"
         control={control}
         render={({ field }) => (
           <TextInput
             {...field}
+            label="Confirm Password"
             placeholder="Confirm Password"
             onChangeText={field.onChange}
             value={field.value}
@@ -109,7 +125,9 @@ export function SignupLayout() {
         )}
       />
 
-      <Button onPress={handleSubmit(onSubmit)}>Signup</Button>
+      <Button loading={isSigningUp} disabled={isSigningUp} onPress={handleSubmit(onSubmit)}>
+        Signup
+      </Button>
     </ViewColumn>
   );
 }

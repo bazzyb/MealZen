@@ -6,6 +6,7 @@ import { Alert, StyleSheet } from "react-native";
 import Toast from "react-native-toast-message";
 
 import { Text, ViewColumn } from "@/components";
+import { LoadingOverlay } from "@/components/LoadingOverlay";
 import { buildSchema } from "@/db";
 import { useAuth } from "@/providers/AuthProvider";
 import { useAppTheme } from "@/styles/useAppTheme";
@@ -83,6 +84,7 @@ export default function AccountLayout() {
   return (
     <>
       <ViewColumn height="100%">
+        {isChangingAuth && <LoadingOverlay />}
         <ViewColumn
           paddingHorizontal={16}
           paddingVertical={8}

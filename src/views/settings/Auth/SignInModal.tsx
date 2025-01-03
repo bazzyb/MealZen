@@ -113,6 +113,7 @@ export function SignInModal({ isVisible, handleClose, setIsChangingAuth }: Props
         color="success"
         style={{ marginTop: 16, width: "auto" }}
         disabled={isSigningIn}
+        loading={isSigningIn}
         onPress={handleSubmit(handleSignIn)}
         accessibilityLabel="Sign In Button"
       >

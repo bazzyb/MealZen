@@ -1,9 +1,9 @@
 import { router } from "expo-router";
 import { useState } from "react";
-import { View } from "react-native";
 
 import { ExternalLink, Table, Text, ViewColumn, ViewRow } from "@/components";
 import { LongCookIcon, LongPrepIcon, OvernightIcon, SimpleMealIcon } from "@/components/Icons";
+import { LoadingOverlay } from "@/components/LoadingOverlay";
 import { useGetBooks } from "@/db/book";
 import { useDeleteMeals, useGetMeals } from "@/db/meal";
 
@@ -21,11 +21,7 @@ export function MealsTable({ bookId }: Props) {
   const { mutate: deleteMeals } = useDeleteMeals();
 
   if (isLoading || isLoadingBooks) {
-    return (
-      <View style={{ paddingHorizontal: 16 }}>
-        <Text>Loading...</Text>
-      </View>
-    );
+    return <LoadingOverlay />;
   }
 
   return (

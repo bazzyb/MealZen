@@ -1,8 +1,8 @@
 import { router } from "expo-router";
 import { useState } from "react";
-import { View } from "react-native";
 
 import { Table, Text, ViewColumn, ViewRow } from "@/components";
+import { LoadingOverlay } from "@/components/LoadingOverlay";
 import { useDeleteBooks, useGetBooks } from "@/db/book";
 import { useAppTheme } from "@/styles/useAppTheme";
 
@@ -14,11 +14,7 @@ export function BooksTable() {
   const { mutate: deleteBooks } = useDeleteBooks();
 
   if (isLoading) {
-    return (
-      <View style={{ paddingHorizontal: 16 }}>
-        <Text>Loading...</Text>
-      </View>
-    );
+    return <LoadingOverlay />;
   }
 
   return (

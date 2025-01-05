@@ -2,7 +2,8 @@ import { router, useLocalSearchParams } from "expo-router";
 import { useState } from "react";
 import { Alert, StyleSheet } from "react-native";
 
-import { Button, Text, ViewColumn, ViewRow } from "@/components";
+import { Button, ViewColumn, ViewRow } from "@/components";
+import { LoadingOverlay } from "@/components/LoadingOverlay";
 import { useDeleteBooks } from "@/db/book";
 import { useGetBook } from "@/db/book";
 import { useAppTheme } from "@/styles/useAppTheme";
@@ -44,7 +45,7 @@ export function BookView() {
   }
 
   if (!book[0]) {
-    return <Text>Loading...</Text>;
+    return <LoadingOverlay />;
   }
 
   return (

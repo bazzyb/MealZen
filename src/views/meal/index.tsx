@@ -5,6 +5,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { Button, ExternalLink, Text, ViewColumn, ViewRow } from "@/components";
 import { LongCookIcon, LongPrepIcon, OvernightIcon, SimpleMealIcon } from "@/components/Icons";
+import { LoadingOverlay } from "@/components/LoadingOverlay";
 import { useDeleteMeals, useGetMeal } from "@/db/meal";
 import { useAppTheme } from "@/styles/useAppTheme";
 
@@ -40,7 +41,7 @@ export function MealView() {
   }
 
   if (!meal) {
-    return <Text>Loading...</Text>;
+    return <LoadingOverlay />;
   }
 
   return (

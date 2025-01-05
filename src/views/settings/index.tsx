@@ -2,16 +2,20 @@ import { router } from "expo-router";
 
 import { Text, ViewColumn } from "@/components";
 
-import { Auth } from "./Auth";
-import { Category } from "./components/Category";
+// import { Auth } from "./Auth";
+// import { Category } from "./components/Category";
 import { MenuItem } from "./components/MenuItem";
 
 export default function SettingsView() {
   return (
     <ViewColumn>
-      <Auth />
+      {/* {__DEV__ && (
+        <>
+          <Auth />
+          <Category />
+        </>
+      )} */}
 
-      <Category />
       <MenuItem role="link" onPress={() => router.navigate("/(settings)/books")} style={{ paddingVertical: 4 }}>
         <Text>Books</Text>
       </MenuItem>

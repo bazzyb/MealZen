@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Alert } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { Button, ExternalLink, Text, ViewColumn, ViewRow } from "@/components";
+import { Button, ExternalLink, Heading, Text, ViewColumn, ViewRow } from "@/components";
 import { LongCookIcon, LongPrepIcon, OvernightIcon, SimpleMealIcon } from "@/components/Icons";
 import { LoadingOverlay } from "@/components/LoadingOverlay";
 import { useDeleteMeals, useGetMeal } from "@/db/meal";
@@ -13,7 +13,7 @@ import { EditMealModal } from "./components/EditMealModal";
 
 export function MealView() {
   const { id } = useLocalSearchParams<{ id: string }>();
-  const { colors, headerFontFamily, fontBold } = useAppTheme();
+  const { colors } = useAppTheme();
   const insets = useSafeAreaInsets();
 
   const [showEditMealModal, setShowEditMealModal] = useState(false);
@@ -48,20 +48,20 @@ export function MealView() {
     <>
       <ViewColumn padding={16} height="100%">
         <ViewColumn>
-          <Text style={{ fontFamily: headerFontFamily, fontSize: 24 }}>{meal.name}</Text>
+          <Heading style={{ fontSize: 24 }}>{meal.name}</Heading>
           {meal.book && (
             <Text style={{ color: colors.textSecondary }}>
-              <Text style={{ fontFamily: fontBold }}>Book:</Text> {meal.book}
+              <Text bold>Book:</Text> {meal.book}
             </Text>
           )}
           {meal.page && (
             <Text style={{ color: colors.textSecondary }}>
-              <Text style={{ fontFamily: fontBold }}>Page:</Text> {meal.page}
+              <Text bold>Page:</Text> {meal.page}
             </Text>
           )}
           {meal.recipe_url && (
             <ViewRow gap={4} alignItems="center">
-              <Text style={{ fontFamily: fontBold }}>Link:</Text>
+              <Text bold>Link:</Text>
               <ExternalLink url={meal.recipe_url}>{meal.recipe_url}</ExternalLink>
             </ViewRow>
           )}

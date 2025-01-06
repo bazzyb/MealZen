@@ -1,4 +1,4 @@
-import { Text } from "../core/Text";
+import { Heading } from "../core/Heading";
 import { Stack } from "expo-router";
 import { startCase } from "lodash";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -30,16 +30,15 @@ export function AppStack() {
         },
         headerTintColor: theme.colors.headerText,
         headerTitle: title => (
-          <Text
+          <Heading
             style={{
-              fontFamily: theme.headerFontFamily,
               fontSize: 18,
               fontWeight: 600,
               color: theme.colors.headerText,
             }}
           >
             {startCase(getTitle(title.children))}
-          </Text>
+          </Heading>
         ),
         headerBackTitleVisible: false,
       }}

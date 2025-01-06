@@ -18,7 +18,7 @@ export default function AccountLayout() {
   const { signOut, user, toggleSync, resetPassword } = useAuth();
   const powerSync = usePowerSync();
 
-  const { colors, fontBold } = useAppTheme();
+  const { colors } = useAppTheme();
 
   const [updateEmailModalOpen, setUpdateEmailModalOpen] = useState(false);
   const [isChangingAuth, setIsChangingAuth] = useState(false);
@@ -100,7 +100,8 @@ export default function AccountLayout() {
             <Text
               size={12}
               color={colors.green[1]}
-              style={{ backgroundColor: colors.green[7], padding: 8, marginVertical: 4, fontFamily: fontBold }}
+              bold
+              style={{ backgroundColor: colors.green[7], padding: 8, marginVertical: 4 }}
             >
               Your email change request is pending verification. You should have received an email to your old and new
               email addresses. Click the link in each email to verify your new email address.

@@ -4,7 +4,7 @@ import { Text, ViewRow } from "@/components";
 import { useAppTheme } from "@/styles/useAppTheme";
 
 export function Category({ children }: PropsWithChildren<object>) {
-  const { colors, fontBold } = useAppTheme();
+  const { colors } = useAppTheme();
 
   return (
     <ViewRow
@@ -13,7 +13,9 @@ export function Category({ children }: PropsWithChildren<object>) {
       paddingHorizontal={10}
       backgroundColor={colors.disabledLight}
     >
-      <Text style={{ color: colors.black, fontFamily: fontBold, fontSize: 12 }}>{children}</Text>
+      <Text bold style={{ color: colors.black, fontSize: 12 }}>
+        {children}
+      </Text>
     </ViewRow>
   );
 }

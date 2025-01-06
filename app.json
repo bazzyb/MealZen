@@ -22,7 +22,8 @@
         "foregroundImage": "./assets/images/mealzen-adaptive-icon.png",
         "backgroundColor": "#673ab7"
       },
-      "package": "uk.co.mealzen.app"
+      "package": "uk.co.mealzen.app",
+      "permissions": ["com.android.vending.BILLING"]
     },
     "web": {
       "bundler": "metro",

@@ -12,6 +12,7 @@ type Props = {
 
 export function AddMealForm({ bookId }: Props) {
   const [mealName, setMealName] = useState("");
+  const [page, setPage] = useState("");
 
   const { colors } = useAppTheme();
 
@@ -22,8 +23,9 @@ export function AddMealForm({ bookId }: Props) {
       return;
     }
     try {
-      await createMeal({ name: mealName, bookId });
+      await createMeal({ name: mealName, bookId, page: page ? parseInt(page) : undefined });
       setMealName("");
+      setPage("");
     } catch (err) {
       Logger.error("Failed to create meal", err);
     }
@@ -31,16 +33,26 @@ export function AddMealForm({ bookId }: Props) {
 
   return (
     <ViewRow
-      justifyContent="center"
       gap={8}
-      padding={16}
+      paddingVertical={16}
+      paddingHorizontal={8}
       borderBottomWidth={StyleSheet.hairlineWidth}
       borderBottomColor={colors.gray[5]}
+      flexWrap="wrap"
     >
-      <TextInput placeholder="Meal name" value={mealName} onChangeText={setMealName} style={{ flex: 1 }} />
-      <Button onPress={handleCreateMeal} disabled={!mealName || isCreatingMeal} color="success">
-        Create Meal
-      </Button>
+      <ViewRow flex={1} minWidth="50%">
+        <TextInput placeholder="Name" value={mealName} onChangeText={setMealName} />
+      </ViewRow>
+      {bookId && (
+        <ViewRow flexBasis="20%">
+          <TextInput placeholder="Page" value={page} onChangeText={setPage} keyboardType="numeric" />
+        </ViewRow>
+      )}
+      <ViewRow>
+        <Button onPress={handleCreateMeal} disabled={!mealName || isCreatingMeal} color="success">
+          Add Meal
+        </Button>
+      </ViewRow>
     </ViewRow>
   );
 }

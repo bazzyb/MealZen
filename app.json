@@ -3,7 +3,7 @@
     "name": "MealZen",
     "slug": "MealZen",
     "version": "0.0.1",
-    "orientation": "portrait",
+    "orientation": "default",
     "icon": "./assets/images/mealzen-icon.png",
     "scheme": "uk.co.mealzen",
     "userInterfaceStyle": "automatic",
@@ -39,6 +39,12 @@
             "node_modules/@expo-google-fonts/noto-sans/NotoSans_700Bold.ttf",
             "./assets/fonts/Wittgenstein-VariableFont_wght.ttf"
           ]
+        }
+      ],
+      [
+        "expo-screen-orientation",
+        {
+          "initialOrientation": "DEFAULT"
         }
       ]
     ],

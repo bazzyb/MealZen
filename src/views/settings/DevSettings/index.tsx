@@ -1,52 +1,75 @@
+import { LoadingOverlay } from "../../../components/LoadingOverlay";
 import { MenuItem } from "../components/MenuItem";
-import { usePowerSync } from "@powersync/react-native";
+import { usePowerSync, useStatus } from "@powersync/react-native";
+import { useState } from "react";
 
 import { Text, ViewColumn } from "@/components";
-import { TEST_EMAIL, TEST_PASSWORD } from "@/consts";
-import { buildSchema, syncLocalChangesToSyncedTable } from "@/db";
+import { TEST_EMAIL, TEST_FREE_EMAIL, TEST_PASSWORD } from "@/consts";
 import { useAuth } from "@/providers/AuthProvider";
+import { useSubs } from "@/providers/SubsProvider";
+import { useAppTheme } from "@/styles/useAppTheme";
 import { Logger } from "@/utils/logger";
+import { handleDisableSync, handleEnableSync } from "@/utils/sync";
 
 import { buildTestUser } from "./utils/buildTestUser";
 
 export function DevSettingsView() {
-  const { user, signIn, signOut, toggleSync } = useAuth();
+  const { user, signIn, signOut } = useAuth();
+  const { isPremiumEnabled } = useSubs();
   const powerSync = usePowerSync();
+  const psStatus = useStatus();
+  const { colors } = useAppTheme();
+
+  const [isUpdating, setIsUpdating] = useState(false);
+
+  const isTestUser = [TEST_FREE_EMAIL, TEST_EMAIL].includes(user?.email || "");
+
+  async function signInToFreeTestUser() {
+    setIsUpdating(true);
+
+    // Sign in to supabase auth
+    const { id } = await signIn(TEST_FREE_EMAIL, TEST_PASSWORD);
+
+    // Enable sync if user is premium
+    await handleEnableSync(id, isPremiumEnabled, powerSync);
+
+    setIsUpdating(false);
+  }
 
   async function signInToTestUser() {
+    setIsUpdating(true);
+
     // Sign in to supabase auth
     const { id } = await signIn(TEST_EMAIL, TEST_PASSWORD);
 
-    // Update schema to use synced tables
-    await powerSync.updateSchema(buildSchema(true));
+    // Enable sync if user is premium
+    await handleEnableSync(id, isPremiumEnabled, powerSync);
 
-    // Copy local data to synced tables
-    await syncLocalChangesToSyncedTable(powerSync, id);
-
-    // Turn on sync
-    toggleSync();
+    setIsUpdating(false);
   }
 
-  async function signOutOfTestUser() {
-    // Disconnect from supabase, and switch to local schema
-    await powerSync.disconnectAndClear();
-    await powerSync.updateSchema(buildSchema(false));
-    Logger.log("disconnected");
+  async function signOutOfUser() {
+    setIsUpdating(true);
+
+    await handleDisableSync(isPremiumEnabled, powerSync);
 
     // Sign out of supabase auth
     await signOut();
 
-    // Turn off sync
-    toggleSync();
+    setIsUpdating(false);
   }
 
   async function setupUser() {
-    if (!user || user?.email !== TEST_EMAIL) {
+    setIsUpdating(true);
+
+    if (!user || !isTestUser) {
       Logger.info("Log in to the test user before running this action");
       return;
     }
 
-    await buildTestUser(powerSync, user.id);
+    await buildTestUser(powerSync, user.id, user.email);
+
+    setIsUpdating(false);
   }
 
   if (!__DEV__) {
@@ -60,12 +83,32 @@ export function DevSettingsView() {
 
   return (
     <ViewColumn>
-      <MenuItem onPress={user ? signOutOfTestUser : signInToTestUser} style={{ paddingVertical: 4 }}>
-        <Text>Sign {user ? "out of" : "in to"} Test User</Text>
-      </MenuItem>
-      <MenuItem onPress={setupUser} style={{ paddingVertical: 4 }}>
-        <Text>Reset Test User</Text>
-      </MenuItem>
+      {isUpdating && <LoadingOverlay />}
+      {!user && (
+        <>
+          <MenuItem disabled={isUpdating} onPress={signInToFreeTestUser} style={{ paddingVertical: 4 }}>
+            <Text>Sign in to Free Test User</Text>
+          </MenuItem>
+          <MenuItem disabled={isUpdating} onPress={signInToTestUser} style={{ paddingVertical: 4 }}>
+            <Text>Sign in to Test User</Text>
+          </MenuItem>
+        </>
+      )}
+      {user && (
+        <MenuItem disabled={isUpdating} onPress={signOutOfUser} style={{ paddingVertical: 4 }}>
+          <Text>Sign Out</Text>
+        </MenuItem>
+      )}
+      {isTestUser && (
+        <MenuItem disabled={isUpdating} onPress={setupUser} style={{ paddingVertical: 4 }}>
+          <Text>Reset Test User</Text>
+        </MenuItem>
+      )}
+      {isTestUser && (
+        <Text style={{ padding: 8 }} color={colors.textSecondary}>
+          Last synced at: {psStatus.lastSyncedAt?.toLocaleString()}
+        </Text>
+      )}
     </ViewColumn>
   );
 }

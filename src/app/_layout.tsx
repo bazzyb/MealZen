@@ -7,6 +7,7 @@ import { LoadingSplash } from "@/components/LoadingSplash";
 import { AppStack } from "@/components/Navigation/AppStack";
 import { AuthProvider } from "@/providers/AuthProvider";
 import { PowerSyncProvider } from "@/providers/PowerSyncProvider";
+import { SubsProvider } from "@/providers/SubsProvider";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import { colors } from "@/styles/colors";
 import { Logger } from "@/utils/logger";
@@ -46,9 +47,11 @@ export default function RootLayout() {
     <>
       <ThemeProvider>
         <AuthProvider>
-          <PowerSyncProvider>
-            <AppStack />
-          </PowerSyncProvider>
+          <SubsProvider>
+            <PowerSyncProvider>
+              <AppStack />
+            </PowerSyncProvider>
+          </SubsProvider>
         </AuthProvider>
       </ThemeProvider>
       <Toast

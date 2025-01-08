@@ -20,7 +20,7 @@ export const getBookStatement = `
 export const getManyBooksStatement = `
   SELECT * FROM ${BOOK_TABLE}
   WHERE name LIKE '%' || ? || '%'
-  ORDER BY name ASC
+  ORDER BY LOWER(name) ASC
 `;
 
 export async function createBook(name: string, db: AbstractPowerSyncDatabase, userId?: string) {

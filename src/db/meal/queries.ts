@@ -87,7 +87,7 @@ export function buildGetManyMealsQuery(options: MealTableFilters) {
     FROM ${MEAL_TABLE}
     LEFT JOIN ${BOOK_TABLE} ON ${BOOK_TABLE}.id = ${MEAL_TABLE}.book_id
     ${buildWhereClause(options)}
-    ORDER BY name ASC
+    ORDER BY LOWER(meal.name) ASC
   `;
 }
 

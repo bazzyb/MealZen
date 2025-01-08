@@ -6,8 +6,9 @@ import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button, Modal, Text, TextInput } from "@/components";
-import { buildSchema, syncLocalChangesToSyncedTable } from "@/db";
 import { useAuth } from "@/providers/AuthProvider";
+import { useSubs } from "@/providers/SubsProvider";
+import { handleEnableSync } from "@/utils/sync";
 
 type Props = {
   isVisible: boolean;
@@ -22,7 +23,8 @@ const SignInSchema = z.object({
 type SignInFields = z.infer<typeof SignInSchema>;
 
 export function SignInModal({ isVisible, handleClose, setIsChangingAuth }: Props) {
-  const { signIn, toggleSync } = useAuth();
+  const { signIn } = useAuth();
+  const { isPremiumEnabled } = useSubs();
   const [isSigningIn, setIsSigningIn] = useState(false);
   const [signInError, setSignInError] = useState<string | null>(null);
 
@@ -47,14 +49,8 @@ export function SignInModal({ isVisible, handleClose, setIsChangingAuth }: Props
       // Sign in to supabase auth
       const { id } = await signIn(email, password);
 
-      // Update schema to use synced tables
-      await powerSync.updateSchema(buildSchema(true));
-
-      // Copy local data to synced tables
-      await syncLocalChangesToSyncedTable(powerSync, id);
-
-      // Turn on sync
-      toggleSync();
+      // Enable sync if user is premium
+      await handleEnableSync(id, isPremiumEnabled, powerSync);
 
       // Close modal
       onClose();

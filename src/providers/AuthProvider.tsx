@@ -1,5 +1,6 @@
 import { AuthError, type AuthSession, AuthSessionMissingError, type AuthUser } from "@supabase/supabase-js";
 import { ReactNode, createContext, useContext, useEffect, useMemo, useState } from "react";
+import Purchases from "react-native-purchases";
 import Toast from "react-native-toast-message";
 
 import { LoadingSplash } from "@/components/LoadingSplash";
@@ -21,9 +22,6 @@ type AuthContextType = {
   signOut: () => Promise<void>;
   updateEmail: (newEmail: string) => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
-  // deleteUser: () => Promise<void>;
-  isSyncEnabled: boolean;
-  toggleSync: () => void;
 };
 
 export const AuthContext = createContext<AuthContextType | null>(null);
@@ -42,7 +40,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<AuthSession | null>(null);
   const [user, setUser] = useState<AuthUser | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [isSyncEnabled, setIsSyncEnabled] = useState<boolean | null>(null);
 
   async function signUp(email: string, password: string) {
     Logger.log("signUp");
@@ -100,6 +97,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       throw new Error("Could not sign in at this time. Please try again later.");
     }
 
+    await Purchases.logIn(data.user.id);
     setSession(data.session);
     setUser(data.session.user);
 
@@ -138,7 +136,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setUser(data.session.user);
       }
 
-      setIsSyncEnabled(!!data.session);
       setIsLoading(false);
     } catch (error) {
       Toast.show({
@@ -147,7 +144,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         text2: error instanceof AuthError ? error.message : "",
       });
       Logger.error(error);
-      setIsSyncEnabled(false);
       setIsLoading(false);
     }
   }
@@ -175,10 +171,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }
 
-  function toggleSync() {
-    setIsSyncEnabled(!isSyncEnabled);
-  }
-
   useEffect(() => {
     getSession(true);
   }, []);
@@ -193,17 +185,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       signOut,
       updateEmail,
       resetPassword,
-      isSyncEnabled,
-      toggleSync,
     }),
-    [session, user, isSyncEnabled],
+    [session, user],
   );
 
-  if (value.isSyncEnabled === null || isLoading) {
+  if (isLoading) {
     return <LoadingSplash />;
   }
 
-  return (
-    <AuthContext.Provider value={{ ...value, isSyncEnabled: value.isSyncEnabled }}>{children}</AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

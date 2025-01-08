@@ -7,15 +7,16 @@ import Toast from "react-native-toast-message";
 
 import { Text, ViewColumn } from "@/components";
 import { LoadingOverlay } from "@/components/LoadingOverlay";
-import { buildSchema } from "@/db";
 import { useAuth } from "@/providers/AuthProvider";
+import { useSubs } from "@/providers/SubsProvider";
 import { useAppTheme } from "@/styles/useAppTheme";
-import { Logger } from "@/utils/logger";
+import { handleDisableSync } from "@/utils/sync";
 
 import { UpdateEmailModal } from "./UpdateEmailModal";
 
 export default function AccountLayout() {
-  const { signOut, user, toggleSync, resetPassword } = useAuth();
+  const { signOut, user, resetPassword } = useAuth();
+  const { isPremiumEnabled } = useSubs();
   const powerSync = usePowerSync();
 
   const { colors } = useAppTheme();
@@ -61,16 +62,10 @@ export default function AccountLayout() {
   async function handleSignOut() {
     setIsChangingAuth(true);
     try {
-      // Disconnect from supabase, and switch to local schema
-      await powerSync.disconnectAndClear();
-      await powerSync.updateSchema(buildSchema(false));
-      Logger.log("disconnected");
+      await handleDisableSync(isPremiumEnabled, powerSync);
 
       // Sign out of supabase auth
       await signOut();
-
-      // Turn off sync
-      toggleSync();
 
       router.navigate("/(tab-views)/settings");
     } catch (error) {

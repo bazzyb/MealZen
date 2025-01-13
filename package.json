@@ -25,7 +25,8 @@
     "prettify": "prettier --write --cache --ignore-unknown --log-level error .",
     "doctor": "expo-doctor",
     "build:preview": "eas build --platform all --profile preview",
-    "build:android": "eas build --platform android"
+    "build:android": "eas build -p android --local --output builds",
+    "submit:android": "eas submit -p android --path builds"
   },
   "lint-staged": {
     "*.{ts,js,tsx,jsx,css,md}": "prettier --write --cache --ignore-unknown --log-level error"

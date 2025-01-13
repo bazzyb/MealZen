@@ -24,4 +24,5 @@ android
 expo-env.d.ts
 # @end expo-cli
 
-mealzen-*.json
+serviceAccounts
+builds

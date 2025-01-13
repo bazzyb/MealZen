@@ -30,6 +30,14 @@
       "output": "static",
       "##favicon": "./assets/images/favicon.png"
     },
+    "submit": {
+      "production": {
+        "android": {
+          "serviceAccountKeyPath": "./serviceAccounts/mealzen-a8f2cb909dde.json",
+          "track": "internal"
+        }
+      }
+    },
     "plugins": [
       "expo-router",
       [

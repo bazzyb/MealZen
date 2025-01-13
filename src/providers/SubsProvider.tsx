@@ -4,7 +4,7 @@ import { Platform } from "react-native";
 import Purchases, { CustomerInfo, PurchasesOfferings } from "react-native-purchases";
 
 import { LoadingSplash } from "@/components/LoadingSplash";
-import { REVENUE_CAT_API_KEY } from "@/consts";
+import { REVENUE_CAT_ANDROID_API_KEY } from "@/consts";
 
 import { useAuth } from "./AuthProvider";
 
@@ -38,9 +38,7 @@ export function SubsProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (Platform.OS === "android") {
-      Purchases.configure({ apiKey: REVENUE_CAT_API_KEY, appUserID: user?.id });
-      // isUserSubscribed().then(isSubscribed => setIsPremiumEnabled(isSubscribed));
-      setIsPremiumEnabled(true);
+      Purchases.configure({ apiKey: REVENUE_CAT_ANDROID_API_KEY, appUserID: user?.id });
     }
   }, []);
 

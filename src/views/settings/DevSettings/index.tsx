@@ -86,21 +86,21 @@ export function DevSettingsView() {
       {isUpdating && <LoadingOverlay />}
       {!user && (
         <>
-          <MenuItem disabled={isUpdating} onPress={signInToFreeTestUser} style={{ paddingVertical: 4 }}>
+          <MenuItem disabled={isUpdating} pv={4} onPress={signInToFreeTestUser}>
             <Text>Sign in to Free Test User</Text>
           </MenuItem>
-          <MenuItem disabled={isUpdating} onPress={signInToTestUser} style={{ paddingVertical: 4 }}>
+          <MenuItem disabled={isUpdating} pv={4} onPress={signInToTestUser}>
             <Text>Sign in to Test User</Text>
           </MenuItem>
         </>
       )}
       {user && (
-        <MenuItem disabled={isUpdating} onPress={signOutOfUser} style={{ paddingVertical: 4 }}>
+        <MenuItem disabled={isUpdating} pv={4} onPress={signOutOfUser}>
           <Text>Sign Out</Text>
         </MenuItem>
       )}
       {isTestUser && (
-        <MenuItem disabled={isUpdating} onPress={setupUser} style={{ paddingVertical: 4 }}>
+        <MenuItem disabled={isUpdating} pv={4} onPress={setupUser}>
           <Text>Reset Test User</Text>
         </MenuItem>
       )}

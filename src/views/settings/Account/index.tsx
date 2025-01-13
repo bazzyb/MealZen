@@ -2,24 +2,24 @@ import { MenuItem } from "../components/MenuItem";
 import { usePowerSync } from "@powersync/react-native";
 import { router } from "expo-router";
 import { useState } from "react";
-import { Alert, StyleSheet } from "react-native";
+import { Alert } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 import Toast from "react-native-toast-message";
 
 import { Text, ViewColumn } from "@/components";
 import { LoadingOverlay } from "@/components/LoadingOverlay";
 import { useAuth } from "@/providers/AuthProvider";
 import { useSubs } from "@/providers/SubsProvider";
-import { useAppTheme } from "@/styles/useAppTheme";
 import { handleDisableSync } from "@/utils/sync";
 
+import { SubInfo } from "./Subs";
 import { UpdateEmailModal } from "./UpdateEmailModal";
+import { UserInfo } from "./User";
 
 export default function AccountLayout() {
   const { signOut, user, resetPassword } = useAuth();
   const { isPremiumEnabled } = useSubs();
   const powerSync = usePowerSync();
-
-  const { colors } = useAppTheme();
 
   const [updateEmailModalOpen, setUpdateEmailModalOpen] = useState(false);
   const [isChangingAuth, setIsChangingAuth] = useState(false);
@@ -79,30 +79,11 @@ export default function AccountLayout() {
   }
 
   return (
-    <>
+    <ScrollView>
       <ViewColumn height="100%">
         {isChangingAuth && <LoadingOverlay />}
-        <ViewColumn
-          paddingHorizontal={16}
-          paddingVertical={8}
-          borderBottomColor={colors.gray[5]}
-          borderBottomWidth={StyleSheet.hairlineWidth}
-        >
-          <Text size={12} color={colors.textSecondary}>
-            {user?.email}
-          </Text>
-          {user?.new_email && (
-            <Text
-              size={12}
-              color={colors.green[1]}
-              bold
-              style={{ backgroundColor: colors.green[7], padding: 8, marginVertical: 4 }}
-            >
-              Your email change request is pending verification. You should have received an email to your old and new
-              email addresses. Click the link in each email to verify your new email address.
-            </Text>
-          )}
-        </ViewColumn>
+        <UserInfo />
+        <SubInfo />
         <MenuItem onPress={() => setUpdateEmailModalOpen(true)} disabled={isChangingAuth}>
           <Text>Change Email</Text>
         </MenuItem>
@@ -114,6 +95,6 @@ export default function AccountLayout() {
         </MenuItem>
       </ViewColumn>
       <UpdateEmailModal isVisible={updateEmailModalOpen} handleClose={() => setUpdateEmailModalOpen(false)} />
-    </>
+    </ScrollView>
   );
 }

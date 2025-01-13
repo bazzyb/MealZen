@@ -1,4 +1,5 @@
 import { router } from "expo-router";
+import { Linking } from "react-native";
 import DeviceInfo from "react-native-device-info";
 
 import { Text, ViewColumn } from "@/components";
@@ -13,18 +14,14 @@ export default function SettingsView() {
 
   return (
     <ViewColumn>
-      {/* {__DEV__ && (
-        <>
       <Auth />
       <Category />
-        </>
-      )} */}
 
       <MenuItem role="link" pv={4} onPress={() => router.navigate("/(settings)/books")}>
         <Text>Books</Text>
       </MenuItem>
       <Category />
-      <MenuItem role="link" pv={4} onPress={() => router.navigate("https://www.mealzen.co.uk/privacy-policy")}>
+      <MenuItem role="link" pv={4} onPress={() => Linking.openURL("https://www.mealzen.co.uk/privacy-policy")}>
         <Text>Privacy Policy</Text>
       </MenuItem>
       <MenuItem pv={6} style={{ minHeight: "auto" }}>

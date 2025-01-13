@@ -37,8 +37,25 @@ export function SubsProvider({ children }: { children: ReactNode }) {
   const [offerings, setOfferings] = useState<PurchasesOfferings | null>(null);
 
   useEffect(() => {
+    function refetchSubs() {
+      Purchases.syncPurchases();
+    }
+
+    // Check subscription status every 5 minutes
+    const refetchSubsInterval = setInterval(refetchSubs, 1000 * 60 * 5);
+    return () => clearInterval(refetchSubsInterval);
+  }, []);
+
+  useEffect(() => {
     if (Platform.OS === "android") {
       Purchases.configure({ apiKey: REVENUE_CAT_ANDROID_API_KEY, appUserID: user?.id });
+      isUserSubscribed().then(isSubscribed => setIsPremiumEnabled(isSubscribed));
+
+      // can listen for changes trigged by app, but won't catch things like sub expiring
+      Purchases.addCustomerInfoUpdateListener(info => {
+        setIsPremiumEnabled(!isEmpty(info.entitlements.active));
+        setCustomerInfo(info);
+      });
     }
   }, []);
 

@@ -4,6 +4,7 @@ import { usePowerSync, useStatus } from "@powersync/react-native";
 import { useState } from "react";
 
 import { Text, ViewColumn } from "@/components";
+import { Paywall } from "@/components/Paywall";
 import { TEST_EMAIL, TEST_FREE_EMAIL, TEST_PASSWORD } from "@/consts";
 import { useAuth } from "@/providers/AuthProvider";
 import { useSubs } from "@/providers/SubsProvider";
@@ -109,6 +110,7 @@ export function DevSettingsView() {
           Last synced at: {psStatus.lastSyncedAt?.toLocaleString()}
         </Text>
       )}
+      <Paywall />
     </ViewColumn>
   );
 }

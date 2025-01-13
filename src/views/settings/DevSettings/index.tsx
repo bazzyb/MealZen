@@ -12,6 +12,7 @@ import { useAppTheme } from "@/styles/useAppTheme";
 import { Logger } from "@/utils/logger";
 import { handleDisableSync, handleEnableSync } from "@/utils/sync";
 
+import { SubInfo } from "./Subs";
 import { buildTestUser } from "./utils/buildTestUser";
 
 export function DevSettingsView() {
@@ -111,6 +112,7 @@ export function DevSettingsView() {
         </Text>
       )}
       <Paywall />
+      <SubInfo />
     </ViewColumn>
   );
 }

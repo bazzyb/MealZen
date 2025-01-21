@@ -2,7 +2,7 @@ import { BOOK_TABLE } from "../book/schema";
 import { convertMealsToCustomMeals } from "../mealplan/queries";
 import { AbstractPowerSyncDatabase } from "@powersync/react-native";
 
-import { INACTIVE_TABLE_PREFIX, LOCAL_USER_ID } from "@/consts";
+import { INACTIVE_LOCAL_TABLE_PREFIX, INACTIVE_SYNCED_TABLE_PREFIX, LOCAL_USER_ID } from "@/consts";
 
 import { MEAL_TABLE, MealRecord } from "./schema";
 
@@ -12,13 +12,22 @@ export type MealTableFilters = {
   find?: string;
 };
 
-// Overwrites the local-only owner_id value with the logged-in user's id.
 export const mealTableLocalToSyncStatement = `
   INSERT INTO ${MEAL_TABLE} (
     id, user_id, name, is_simple, is_overnight, is_long_prep, is_long_cook, recipe_url, book_id, page
   )
-  SELECT id, ?, name, is_simple, is_overnight, is_long_prep, is_long_cook, recipe_url, book_id, page
-  FROM ${INACTIVE_TABLE_PREFIX}${MEAL_TABLE}
+  SELECT id, user_id, name, is_simple, is_overnight, is_long_prep, is_long_cook, recipe_url, book_id, page
+  FROM ${INACTIVE_LOCAL_TABLE_PREFIX}${MEAL_TABLE}
+  WHERE user_id = ?
+`;
+
+export const mealTableSyncToLocalStatement = `
+  INSERT INTO ${MEAL_TABLE} (
+    id, user_id, name, is_simple, is_overnight, is_long_prep, is_long_cook, recipe_url, book_id, page
+  )
+  SELECT id, user_id, name, is_simple, is_overnight, is_long_prep, is_long_cook, recipe_url, book_id, page
+  FROM ${INACTIVE_SYNCED_TABLE_PREFIX}${MEAL_TABLE}
+  WHERE user_id = ?
 `;
 
 export type CreateMealValues = {
@@ -59,7 +68,7 @@ export function getMealsWithoutJoin(db: AbstractPowerSyncDatabase, skipMealIds?:
 }
 
 function buildWhereClause(options: MealTableFilters) {
-  let whereClause = "WHERE userId = ?";
+  let whereClause = `WHERE ${MEAL_TABLE}.user_id = ?`;
   if (Object.values(options).every(value => !value)) {
     return whereClause;
   }

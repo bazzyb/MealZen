@@ -9,7 +9,6 @@ import Toast from "react-native-toast-message";
 import { Text, ViewColumn } from "@/components";
 import { LoadingOverlay } from "@/components/LoadingOverlay";
 import { useAuth } from "@/providers/AuthProvider";
-import { useSubs } from "@/providers/SubsProvider";
 import { handleDisableSync } from "@/utils/sync";
 
 import { SubInfo } from "./Subs";
@@ -18,7 +17,6 @@ import { UserInfo } from "./User";
 
 export default function AccountLayout() {
   const { signOut, user, resetPassword } = useAuth();
-  const { isPremiumEnabled } = useSubs();
   const powerSync = usePowerSync();
 
   const [updateEmailModalOpen, setUpdateEmailModalOpen] = useState(false);
@@ -62,7 +60,7 @@ export default function AccountLayout() {
   async function handleSignOut() {
     setIsChangingAuth(true);
     try {
-      await handleDisableSync(isPremiumEnabled, powerSync);
+      await handleDisableSync(powerSync);
 
       // Sign out of supabase auth
       await signOut();

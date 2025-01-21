@@ -1,15 +1,22 @@
 import { deleteManyMeals, getMealIdsForBookId } from "../meal/queries";
 import { AbstractPowerSyncDatabase } from "@powersync/react-native";
 
-import { INACTIVE_TABLE_PREFIX, LOCAL_USER_ID } from "@/consts";
+import { INACTIVE_LOCAL_TABLE_PREFIX, INACTIVE_SYNCED_TABLE_PREFIX, LOCAL_USER_ID } from "@/consts";
 
 import { BOOK_TABLE, BookRecord } from "./schema";
 
-// Overwrites the local-only owner_id value with the logged-in user's id.
 export const bookTableLocalToSyncStatement = `
   INSERT INTO ${BOOK_TABLE} (id, user_id, name, author)
-  SELECT id, ?, name, author
-  FROM ${INACTIVE_TABLE_PREFIX}${BOOK_TABLE}
+  SELECT id, user_id, name, author
+  FROM ${INACTIVE_LOCAL_TABLE_PREFIX}${BOOK_TABLE}
+  WHERE user_id = ?
+`;
+
+export const bookTableSyncToLocalStatement = `
+  INSERT INTO ${BOOK_TABLE} (id, user_id, name, author)
+  SELECT id, user_id, name, author
+  FROM ${INACTIVE_SYNCED_TABLE_PREFIX}${BOOK_TABLE}
+  WHERE user_id = ?
 `;
 
 export const getBookStatement = `

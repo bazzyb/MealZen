@@ -1,7 +1,7 @@
 import { AbstractPowerSyncDatabase, CrudEntry, PowerSyncBackendConnector, UpdateType } from "@powersync/react-native";
 import { SupabaseClient, createClient } from "@supabase/supabase-js";
 
-import { LOCAL_USER_ID, POWERSYNC_URL, SUPABASE_ANON_KEY, SUPABASE_URL } from "@/consts";
+import { POWERSYNC_URL, SUPABASE_ANON_KEY, SUPABASE_URL } from "@/consts";
 import { Logger } from "@/utils/logger";
 
 import { KVStorage } from "./KVStorage";
@@ -75,12 +75,9 @@ export class SupabaseConnector implements PowerSyncBackendConnector {
         let result: any = null;
         switch (op.op) {
           case UpdateType.PUT:
-            // supabase rules require that the user_id matches the authenticated user
-            // all local data will have a user_id of LOCAL_USER_ID,
-            //    so this needs to be updated before writing to supabase.
             // eslint-disable-next-line no-case-declarations
-            const record = { ...op.opData, id: op.id, user_id: data.user.id };
-            result = await table.upsert(record).eq("user_id", LOCAL_USER_ID);
+            const record = { ...op.opData, id: op.id };
+            result = await table.upsert(record).eq("user_id", data.user.id);
             break;
           case UpdateType.PATCH:
             result = await table.update(op.opData).eq("id", op.id);

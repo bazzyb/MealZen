@@ -77,6 +77,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   async function signIn(email: string, password: string) {
     Logger.log("signIn");
+    setIsLoading(true);
 
     const { data, error } = await supabase.client.auth.signInWithPassword({
       email,
@@ -100,20 +101,24 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     await Purchases.logIn(data.user.id);
     setSession(data.session);
     setUser(data.session.user);
+    setIsLoading(false);
 
     return data.user;
   }
 
   async function signOut() {
     Logger.log("signOut");
+    setIsLoading(true);
     const { error } = await supabase.client.auth.signOut();
 
+    await Purchases.logOut();
     setSession(null);
     setUser(null);
 
     if (error) {
       Logger.error(error);
     }
+    setIsLoading(false);
   }
 
   async function _handleGetSession(refresh = false) {

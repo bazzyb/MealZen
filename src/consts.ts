@@ -14,4 +14,5 @@ export const REVENUE_CAT_ANDROID_API_KEY = process.env.EXPO_PUBLIC_REVENUE_CAT_A
 
 export const LOCAL_USER_ID = "00000000-0000-0000-0000-000000000000";
 
-export const INACTIVE_TABLE_PREFIX = "inactive_local_";
+export const INACTIVE_LOCAL_TABLE_PREFIX = "inactive_local_";
+export const INACTIVE_SYNCED_TABLE_PREFIX = "inactive_synced_";

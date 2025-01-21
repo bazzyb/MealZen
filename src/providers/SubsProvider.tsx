@@ -12,7 +12,6 @@ type SubsContextType = {
   isPremiumEnabled: boolean;
   customerInfo: CustomerInfo | null;
   offerings: PurchasesOfferings | null;
-  isUserSubscribed: () => Promise<boolean>;
   getSubscriptionPrice: () => Promise<number>;
   getSubscriptionPriceAsString: () => Promise<string>;
 };
@@ -38,18 +37,18 @@ export function SubsProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     function refetchSubs() {
-      Purchases.syncPurchases();
+      setUserInfo();
     }
 
     // Check subscription status every 5 minutes
-    const refetchSubsInterval = setInterval(refetchSubs, 1000 * 60 * 5);
+    const refetchSubsInterval = setInterval(refetchSubs, 1000 * 5);
     return () => clearInterval(refetchSubsInterval);
   }, []);
 
   useEffect(() => {
     if (Platform.OS === "android") {
       Purchases.configure({ apiKey: REVENUE_CAT_ANDROID_API_KEY, appUserID: user?.id });
-      isUserSubscribed().then(isSubscribed => setIsPremiumEnabled(isSubscribed));
+      setUserInfo();
 
       // can listen for changes trigged by app, but won't catch things like sub expiring
       Purchases.addCustomerInfoUpdateListener(info => {
@@ -62,15 +61,18 @@ export function SubsProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     Purchases.getOfferings().then(offerings => setOfferings(offerings));
     if (user) {
-      Purchases.getCustomerInfo().then(info => setCustomerInfo(info));
+      setUserInfo();
     } else {
+      setIsPremiumEnabled(false);
       setCustomerInfo(null);
     }
   }, [user]);
 
-  async function isUserSubscribed() {
-    const customerInfo = await Purchases.getCustomerInfo();
-    return !isEmpty(customerInfo.entitlements.active);
+  function setUserInfo() {
+    Purchases.getCustomerInfo().then(info => {
+      setIsPremiumEnabled(!isEmpty(info.entitlements.active));
+      setCustomerInfo(info);
+    });
   }
 
   async function getSubscriptionPrice() {
@@ -95,7 +97,6 @@ export function SubsProvider({ children }: { children: ReactNode }) {
         isPremiumEnabled,
         customerInfo,
         offerings,
-        isUserSubscribed,
         getSubscriptionPrice,
         getSubscriptionPriceAsString,
       }}

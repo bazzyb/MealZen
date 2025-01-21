@@ -2,7 +2,7 @@ import { BOOK_TABLE } from "../book/schema";
 import { MEAL_TABLE } from "../meal/schema";
 import { AbstractPowerSyncDatabase } from "@powersync/react-native";
 
-import { INACTIVE_TABLE_PREFIX, LOCAL_USER_ID } from "@/consts";
+import { INACTIVE_LOCAL_TABLE_PREFIX, INACTIVE_SYNCED_TABLE_PREFIX, LOCAL_USER_ID } from "@/consts";
 
 import { MEALPLAN_TABLE, Mealplan, MealplanRecord } from "./schema";
 
@@ -11,11 +11,18 @@ export type MealplanArray = {
   date: Date;
 }[];
 
-// Overwrites the local-only owner_id value with the logged-in user's id.
 export const mealplanTableLocalToSyncStatement = `
   INSERT INTO ${MEALPLAN_TABLE} (id, user_id, meal_id, name, date, notes)
-  SELECT id, ?, meal_id, name, date, notes
-  FROM ${INACTIVE_TABLE_PREFIX}${MEALPLAN_TABLE}
+  SELECT id, user_id, meal_id, name, date, notes
+  FROM ${INACTIVE_LOCAL_TABLE_PREFIX}${MEALPLAN_TABLE}
+  WHERE user_id = ?
+`;
+
+export const mealplanTableSyncToLocalStatement = `
+  INSERT INTO ${MEALPLAN_TABLE} (id, user_id, meal_id, name, date, notes)
+  SELECT id, user_id, meal_id, name, date, notes
+  FROM ${INACTIVE_SYNCED_TABLE_PREFIX}${MEALPLAN_TABLE}
+  WHERE user_id = ?
 `;
 
 export async function createMealplan(meals: MealplanArray, db: AbstractPowerSyncDatabase, userId?: string) {

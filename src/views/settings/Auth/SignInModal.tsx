@@ -7,7 +7,6 @@ import { z } from "zod";
 
 import { Button, Modal, Text, TextInput } from "@/components";
 import { useAuth } from "@/providers/AuthProvider";
-import { useSubs } from "@/providers/SubsProvider";
 import { handleEnableSync } from "@/utils/sync";
 
 type Props = {
@@ -24,7 +23,6 @@ type SignInFields = z.infer<typeof SignInSchema>;
 
 export function SignInModal({ isVisible, handleClose, setIsChangingAuth }: Props) {
   const { signIn } = useAuth();
-  const { isPremiumEnabled } = useSubs();
   const [isSigningIn, setIsSigningIn] = useState(false);
   const [signInError, setSignInError] = useState<string | null>(null);
 
@@ -50,7 +48,7 @@ export function SignInModal({ isVisible, handleClose, setIsChangingAuth }: Props
       const { id } = await signIn(email, password);
 
       // Enable sync if user is premium
-      await handleEnableSync(id, isPremiumEnabled, powerSync);
+      await handleEnableSync(id, powerSync);
 
       // Close modal
       onClose();

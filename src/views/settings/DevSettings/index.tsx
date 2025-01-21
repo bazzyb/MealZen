@@ -6,16 +6,14 @@ import { useState } from "react";
 import { Text, ViewColumn } from "@/components";
 import { TEST_EMAIL, TEST_FREE_EMAIL, TEST_PASSWORD } from "@/consts";
 import { useAuth } from "@/providers/AuthProvider";
-import { useSubs } from "@/providers/SubsProvider";
 import { useAppTheme } from "@/styles/useAppTheme";
 import { Logger } from "@/utils/logger";
-import { handleDisableSync, handleEnableSync } from "@/utils/sync";
+import { handleDisableSync, waitForNewSync } from "@/utils/sync";
 
 import { buildTestUser } from "./utils/buildTestUser";
 
 export function DevSettingsView() {
   const { user, signIn, signOut } = useAuth();
-  const { isPremiumEnabled } = useSubs();
   const powerSync = usePowerSync();
   const psStatus = useStatus();
   const { colors } = useAppTheme();
@@ -26,32 +24,21 @@ export function DevSettingsView() {
 
   async function signInToFreeTestUser() {
     setIsUpdating(true);
-
-    // Sign in to supabase auth
-    const { id } = await signIn(TEST_FREE_EMAIL, TEST_PASSWORD);
-
-    // Enable sync if user is premium
-    await handleEnableSync(id, isPremiumEnabled, powerSync);
-
+    await signIn(TEST_FREE_EMAIL, TEST_PASSWORD);
     setIsUpdating(false);
   }
 
   async function signInToTestUser() {
     setIsUpdating(true);
-
-    // Sign in to supabase auth
-    const { id } = await signIn(TEST_EMAIL, TEST_PASSWORD);
-
-    // Enable sync if user is premium
-    await handleEnableSync(id, isPremiumEnabled, powerSync);
-
+    await signIn(TEST_EMAIL, TEST_PASSWORD);
+    await waitForNewSync(powerSync);
     setIsUpdating(false);
   }
 
   async function signOutOfUser() {
     setIsUpdating(true);
 
-    await handleDisableSync(isPremiumEnabled, powerSync);
+    await handleDisableSync(powerSync);
 
     // Sign out of supabase auth
     await signOut();

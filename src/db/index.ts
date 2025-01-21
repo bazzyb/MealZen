@@ -1,11 +1,12 @@
 import { AbstractPowerSyncDatabase, Schema, Table } from "@powersync/react-native";
 
-import { INACTIVE_TABLE_PREFIX } from "@/consts";
+import { INACTIVE_LOCAL_TABLE_PREFIX, INACTIVE_SYNCED_TABLE_PREFIX } from "@/consts";
 
-import { bookTableLocalToSyncStatement } from "./book/queries";
+import { bookTableLocalToSyncStatement, bookTableSyncToLocalStatement } from "./book/queries";
 import { BOOK_TABLE, bookSchema } from "./book/schema";
-import { mealTableLocalToSyncStatement } from "./meal/queries";
+import { mealTableLocalToSyncStatement, mealTableSyncToLocalStatement } from "./meal/queries";
 import { MEAL_TABLE, mealSchema } from "./meal/schema";
+import { mealplanTableSyncToLocalStatement } from "./mealplan/queries";
 import { MEALPLAN_TABLE, mealplanSchema } from "./mealplan/schema";
 
 export function buildSchema(isSynced: boolean) {
@@ -13,13 +14,13 @@ export function buildSchema(isSynced: boolean) {
     if (isSynced) {
       return table;
     } else {
-      return `inactive_synced_${table}`;
+      return `${INACTIVE_SYNCED_TABLE_PREFIX}${table}`;
     }
   };
 
   const getLocalTableName = (table: string): string => {
     if (isSynced) {
-      return `${INACTIVE_TABLE_PREFIX}${table}`;
+      return `${INACTIVE_LOCAL_TABLE_PREFIX}${table}`;
     } else {
       return table;
     }
@@ -56,7 +57,7 @@ export function buildSchema(isSynced: boolean) {
   });
 }
 
-export async function syncLocalChangesToSyncedTable(db: AbstractPowerSyncDatabase, userId: string) {
+export async function copyLocalChangesToSyncedTable(db: AbstractPowerSyncDatabase, userId: string) {
   await db.writeTransaction(async tx => {
     // Copy local-only data to the sync-enabled views.
     // This records each operation in the upload queue.
@@ -69,8 +70,22 @@ export async function syncLocalChangesToSyncedTable(db: AbstractPowerSyncDatabas
     // await tx.execute(mealplanTableLocalToSyncStatement, [userId]); // DEPENDS ON BOOKS AND MEALS
 
     // Delete the local-only data.
-    await tx.execute(`DELETE FROM ${INACTIVE_TABLE_PREFIX}${MEALPLAN_TABLE}`); // DEPENDS ON BOOKS AND MEALS
-    await tx.execute(`DELETE FROM ${INACTIVE_TABLE_PREFIX}${MEAL_TABLE}`); // DEPENDS ON BOOKS
-    await tx.execute(`DELETE FROM ${INACTIVE_TABLE_PREFIX}${BOOK_TABLE}`); // NO DEPENDENCIES
+    await tx.execute(`DELETE FROM ${INACTIVE_LOCAL_TABLE_PREFIX}${MEALPLAN_TABLE} WHERE user_id = ?`, [userId]); // DEPENDS ON BOOKS AND MEALS
+    await tx.execute(`DELETE FROM ${INACTIVE_LOCAL_TABLE_PREFIX}${MEAL_TABLE} WHERE user_id = ?`, [userId]); // DEPENDS ON BOOKS
+    await tx.execute(`DELETE FROM ${INACTIVE_LOCAL_TABLE_PREFIX}${BOOK_TABLE} WHERE user_id = ?`, [userId]); // NO DEPENDENCIES
+  });
+}
+
+export async function copySyncedChangesToLocalTable(db: AbstractPowerSyncDatabase, userId: string) {
+  await db.writeTransaction(async tx => {
+    // Move data from local to sync tables.
+    await tx.execute(bookTableSyncToLocalStatement, [userId]); // NO DEPENDENCIES
+    await tx.execute(mealTableSyncToLocalStatement, [userId]); // DEPENDS ON BOOKS
+    await tx.execute(mealplanTableSyncToLocalStatement, [userId]); // DEPENDS ON BOOKS AND MEALS
+
+    // Delete the local-only data.
+    await tx.execute(`DELETE FROM ${INACTIVE_SYNCED_TABLE_PREFIX}${MEALPLAN_TABLE} WHERE user_id = ?`, [userId]); // DEPENDS ON BOOKS AND MEALS
+    await tx.execute(`DELETE FROM ${INACTIVE_SYNCED_TABLE_PREFIX}${MEAL_TABLE} WHERE user_id = ?`, [userId]); // DEPENDS ON BOOKS
+    await tx.execute(`DELETE FROM ${INACTIVE_SYNCED_TABLE_PREFIX}${BOOK_TABLE} WHERE user_id = ?`, [userId]); // NO DEPENDENCIES
   });
 }

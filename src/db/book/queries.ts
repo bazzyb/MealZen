@@ -1,7 +1,7 @@
 import { deleteManyMeals, getMealIdsForBookId } from "../meal/queries";
 import { AbstractPowerSyncDatabase } from "@powersync/react-native";
 
-import { LOCAL_USER_ID } from "@/consts";
+import { INACTIVE_TABLE_PREFIX, LOCAL_USER_ID } from "@/consts";
 
 import { BOOK_TABLE, BookRecord } from "./schema";
 
@@ -9,7 +9,7 @@ import { BOOK_TABLE, BookRecord } from "./schema";
 export const bookTableLocalToSyncStatement = `
   INSERT INTO ${BOOK_TABLE} (id, user_id, name, author)
   SELECT id, ?, name, author
-  FROM inactive_local_${BOOK_TABLE}
+  FROM ${INACTIVE_TABLE_PREFIX}${BOOK_TABLE}
 `;
 
 export const getBookStatement = `

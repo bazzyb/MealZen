@@ -1,5 +1,7 @@
 import { AbstractPowerSyncDatabase, Schema, Table } from "@powersync/react-native";
 
+import { INACTIVE_TABLE_PREFIX } from "@/consts";
+
 import { bookTableLocalToSyncStatement } from "./book/queries";
 import { BOOK_TABLE, bookSchema } from "./book/schema";
 import { mealTableLocalToSyncStatement } from "./meal/queries";
@@ -17,7 +19,7 @@ export function buildSchema(isSynced: boolean) {
 
   const getLocalTableName = (table: string): string => {
     if (isSynced) {
-      return `inactive_local_${table}`;
+      return `${INACTIVE_TABLE_PREFIX}${table}`;
     } else {
       return table;
     }
@@ -67,8 +69,8 @@ export async function syncLocalChangesToSyncedTable(db: AbstractPowerSyncDatabas
     // await tx.execute(mealplanTableLocalToSyncStatement, [userId]); // DEPENDS ON BOOKS AND MEALS
 
     // Delete the local-only data.
-    await tx.execute(`DELETE FROM inactive_local_${MEALPLAN_TABLE}`); // DEPENDS ON BOOKS AND MEALS
-    await tx.execute(`DELETE FROM inactive_local_${MEAL_TABLE}`); // DEPENDS ON BOOKS
-    await tx.execute(`DELETE FROM inactive_local_${BOOK_TABLE}`); // NO DEPENDENCIES
+    await tx.execute(`DELETE FROM ${INACTIVE_TABLE_PREFIX}${MEALPLAN_TABLE}`); // DEPENDS ON BOOKS AND MEALS
+    await tx.execute(`DELETE FROM ${INACTIVE_TABLE_PREFIX}${MEAL_TABLE}`); // DEPENDS ON BOOKS
+    await tx.execute(`DELETE FROM ${INACTIVE_TABLE_PREFIX}${BOOK_TABLE}`); // NO DEPENDENCIES
   });
 }

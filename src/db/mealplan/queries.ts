@@ -2,7 +2,7 @@ import { BOOK_TABLE } from "../book/schema";
 import { MEAL_TABLE } from "../meal/schema";
 import { AbstractPowerSyncDatabase } from "@powersync/react-native";
 
-import { LOCAL_USER_ID } from "@/consts";
+import { INACTIVE_TABLE_PREFIX, LOCAL_USER_ID } from "@/consts";
 
 import { MEALPLAN_TABLE, Mealplan, MealplanRecord } from "./schema";
 
@@ -15,7 +15,7 @@ export type MealplanArray = {
 export const mealplanTableLocalToSyncStatement = `
   INSERT INTO ${MEALPLAN_TABLE} (id, user_id, meal_id, name, date, notes)
   SELECT id, ?, meal_id, name, date, notes
-  FROM inactive_local_${MEALPLAN_TABLE}
+  FROM ${INACTIVE_TABLE_PREFIX}${MEALPLAN_TABLE}
 `;
 
 export async function createMealplan(meals: MealplanArray, db: AbstractPowerSyncDatabase, userId?: string) {

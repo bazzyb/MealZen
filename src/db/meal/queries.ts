@@ -2,7 +2,7 @@ import { BOOK_TABLE } from "../book/schema";
 import { convertMealsToCustomMeals } from "../mealplan/queries";
 import { AbstractPowerSyncDatabase } from "@powersync/react-native";
 
-import { LOCAL_USER_ID } from "@/consts";
+import { INACTIVE_TABLE_PREFIX, LOCAL_USER_ID } from "@/consts";
 
 import { MEAL_TABLE, MealRecord } from "./schema";
 
@@ -18,7 +18,7 @@ export const mealTableLocalToSyncStatement = `
     id, user_id, name, is_simple, is_overnight, is_long_prep, is_long_cook, recipe_url, book_id, page
   )
   SELECT id, ?, name, is_simple, is_overnight, is_long_prep, is_long_cook, recipe_url, book_id, page
-  FROM inactive_local_${MEAL_TABLE}
+  FROM ${INACTIVE_TABLE_PREFIX}${MEAL_TABLE}
 `;
 
 export type CreateMealValues = {

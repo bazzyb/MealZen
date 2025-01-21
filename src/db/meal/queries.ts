@@ -45,24 +45,26 @@ export async function createMeal(values: CreateMealValues, db: AbstractPowerSync
   return resultRecord;
 }
 
-export function getMealsWithoutJoin(db: AbstractPowerSyncDatabase, skipMealIds?: Array<string>) {
-  let query = `SELECT * FROM ${MEAL_TABLE}`;
+export function getMealsWithoutJoin(db: AbstractPowerSyncDatabase, skipMealIds?: Array<string>, userId?: string) {
+  let query = `
+    SELECT * FROM ${MEAL_TABLE}
+    WHERE user_id = ?
+  `;
   if (skipMealIds?.length) {
     const idString = skipMealIds.map(id => `'${id}'`).join(", ");
-    query += ` WHERE id NOT IN (${idString})`;
+    query += ` AND id NOT IN (${idString})`;
   }
   query += " ORDER BY name ASC";
-  return db.getAll<MealRecord>(query, skipMealIds || []);
+  return db.getAll<MealRecord>(query, [userId || LOCAL_USER_ID]);
 }
 
 function buildWhereClause(options: MealTableFilters) {
+  let whereClause = "WHERE userId = ?";
   if (Object.values(options).every(value => !value)) {
-    return "";
+    return whereClause;
   }
 
-  let whereClause = "WHERE ";
   const conditions = [];
-
   if (options.find) {
     conditions.push(`LOWER(${MEAL_TABLE}.name) LIKE '%' || ? || '%'`);
   }
@@ -75,7 +77,7 @@ function buildWhereClause(options: MealTableFilters) {
     conditions.push(`${BOOK_TABLE}.id = '${options.bookId}'`);
   }
 
-  return whereClause + conditions.join(" AND ");
+  return `${whereClause} AND ${conditions.join(" AND ")}`;
 }
 
 export function buildGetManyMealsQuery(options: MealTableFilters) {

@@ -8,6 +8,7 @@ export async function pickRandomMeals(
   db: AbstractPowerSyncDatabase,
   dates: Array<Date>,
   existingMealplanEntries: Array<MealplanRecord>,
+  userId?: string,
 ) {
   let existingMealIds: Array<string> = [];
   let datesToUse = dates;
@@ -20,7 +21,7 @@ export async function pickRandomMeals(
     });
   }
 
-  const meals = await getMealsWithoutJoin(db, existingMealIds);
+  const meals = await getMealsWithoutJoin(db, existingMealIds, userId);
   const randomMeals = meals.sort(() => Math.random() - 0.5).slice(0, datesToUse.length);
 
   return randomMeals.map((meal, idx) => ({

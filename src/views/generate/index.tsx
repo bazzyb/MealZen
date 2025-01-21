@@ -12,6 +12,7 @@ import { useCreateMealplan } from "@/db/mealplan";
 import { getMealplanWithoutJoin } from "@/db/mealplan/queries";
 import { MealplanRecord } from "@/db/mealplan/schema";
 import { useClearMealplan } from "@/db/mealplan/useClearMealplan";
+import { useAuth } from "@/providers/AuthProvider";
 import { buildDateList, getNoonToday } from "@/utils/dates";
 
 import { pickRandomMeals } from "./utils/dates";
@@ -25,6 +26,7 @@ type GenerateFields = z.infer<typeof GenerateSchema>;
 export default function GenerateView() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [pickerType, setPickerType] = useState<"range" | "multiple">("range");
+  const { user } = useAuth();
 
   const { control, handleSubmit, setValue, getValues } = useForm<GenerateFields>({
     defaultValues: {
@@ -52,10 +54,10 @@ export default function GenerateView() {
     setIsSubmitting(true);
     let existingMealplanEntries: Array<MealplanRecord> = [];
     if (preserveExisting) {
-      existingMealplanEntries = await getMealplanWithoutJoin(powerSync);
+      existingMealplanEntries = await getMealplanWithoutJoin(powerSync, user?.id);
     }
 
-    const randomMeals = await pickRandomMeals(powerSync, generateDates, existingMealplanEntries);
+    const randomMeals = await pickRandomMeals(powerSync, generateDates, existingMealplanEntries, user?.id);
     if (randomMeals.length) {
       const existingMealplanIds = existingMealplanEntries.map(meal => meal.id || "").filter(Boolean);
 

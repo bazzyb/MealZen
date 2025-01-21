@@ -43,14 +43,15 @@ export const MealplanQuery = `
   FROM ${MEALPLAN_TABLE}
   LEFT JOIN ${MEAL_TABLE} ON ${MEAL_TABLE}.id = ${MEALPLAN_TABLE}.meal_id
   LEFT JOIN ${BOOK_TABLE} ON ${BOOK_TABLE}.id = ${MEAL_TABLE}.book_id
+  WHERE ${MEALPLAN_TABLE}.user_id = ?
   ORDER BY date ASC
 `;
 
-export function getMealplanWithoutJoin(db: AbstractPowerSyncDatabase) {
-  return db.getAll<MealplanRecord>(`SELECT * FROM ${MEALPLAN_TABLE}`);
+export function getMealplanWithoutJoin(db: AbstractPowerSyncDatabase, userId?: string) {
+  return db.getAll<MealplanRecord>(`SELECT * FROM ${MEALPLAN_TABLE} WHERE user_id = ?`, [userId || LOCAL_USER_ID]);
 }
 
-export async function reorderMealplan(meals: Array<Mealplan>, db: AbstractPowerSyncDatabase) {
+export async function reorderMealplan(meals: Array<Mealplan>, db: AbstractPowerSyncDatabase, userId?: string) {
   const cases = meals
     .map(
       meal => `
@@ -64,10 +65,10 @@ export async function reorderMealplan(meals: Array<Mealplan>, db: AbstractPowerS
   const query = `
     UPDATE mealplan
     SET date = CASE ${cases} END
-    WHERE id IN (${ids});
+    WHERE id IN (${ids}) AND user_id = ?;
   `;
 
-  await db.execute(query);
+  await db.execute(query, [userId || LOCAL_USER_ID]);
 }
 
 export async function updateMealplanEntry(

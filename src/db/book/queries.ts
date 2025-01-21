@@ -14,12 +14,14 @@ export const bookTableLocalToSyncStatement = `
 
 export const getBookStatement = `
   SELECT * FROM ${BOOK_TABLE}
-  WHERE id = ?
+  WHERE id = ? AND user_id = ?
 `;
 
 export const getManyBooksStatement = `
   SELECT * FROM ${BOOK_TABLE}
-  WHERE name LIKE '%' || ? || '%'
+  WHERE
+    name LIKE '%' || ? || '%'
+    AND user_id = ?
   ORDER BY LOWER(name) ASC
 `;
 

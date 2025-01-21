@@ -16,12 +16,15 @@ export async function handleEnableSync(userId: string, isPremium: boolean, power
     // Finish by having powerSync connect to supabase
     await powerSync.connect(supabase);
     Logger.log("connected");
+
+    await waitForNewSync(powerSync);
   }
 }
 
 export async function handleDisableSync(isPremium: boolean, powerSync: AbstractPowerSyncDatabase) {
   if (powerSync.connected) {
     // Disconnect from supabase, and switch to local schema
+
     if (isPremium) {
       await powerSync.disconnectAndClear();
     } else if (powerSync.connected) {
@@ -30,5 +33,17 @@ export async function handleDisableSync(isPremium: boolean, powerSync: AbstractP
 
     await powerSync.updateSchema(buildSchema(false));
     Logger.log("disconnected");
+  }
+}
+
+export async function waitForNewSync(powerSync: AbstractPowerSyncDatabase) {
+  const now = new Date();
+  const timeLimit = new Date(now.getTime() + 1000 * 4); // 30 seconds
+
+  while (
+    timeLimit > new Date() &&
+    (!powerSync.currentStatus.lastSyncedAt || powerSync.currentStatus.lastSyncedAt < now)
+  ) {
+    await new Promise(resolve => setTimeout(resolve, 200));
   }
 }

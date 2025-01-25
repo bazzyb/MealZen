@@ -37,9 +37,10 @@ export const PowerSyncProvider = ({ children }: { children: ReactNode }) => {
     }
 
     if (user && !isPremiumEnabled) {
-      // This is for is a premium user's subscription expires
-      handleDisableSync(powerSync);
-      copySyncedChangesToLocalTable(powerSync, user.id);
+      // This is for when a premium user's subscription expires
+      handleDisableSync(powerSync).then(() => {
+        copySyncedChangesToLocalTable(powerSync, user.id);
+      });
     }
   }, [user, isPremiumEnabled]);
 

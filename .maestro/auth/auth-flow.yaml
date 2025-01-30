@@ -4,7 +4,7 @@ name: Meal Flow
 - launchApp
 
 # Go to settings tab
-- tapOn: "Settings, tab, 4 of 4"
+- tapOn: "Settings, tab, 3 of 3"
 
 # Sign in
 - tapOn: "Sign In"
@@ -19,7 +19,7 @@ name: Meal Flow
 - assertVisible: "Meal Plan"
 
 # Revisit settings tab
-- tapOn: "Settings, tab, 4 of 4"
+- tapOn: "Settings, tab, 3 of 3"
 
 # Check signed in
 - assertVisible: Sign Out ${EMAIL}

@@ -4,7 +4,8 @@ name: Book Flow
 - launchApp
 
 # Go to books tab
-- tapOn: "Books, tab, 3 of 4"
+- tapOn: "Settings, tab, 3 of 3"
+- tapOn: "Books"
 
 # Create a book
 - tapOn: "Book name"
@@ -17,7 +18,7 @@ name: Book Flow
 
 # Open modal to edit book
 - tapOn: "Test Book"
-- assertVisible: "Edit Book"
+- assertVisible: "Book Details"
 
 # Edit the book
 - tapOn: "Name input"
@@ -27,7 +28,7 @@ name: Book Flow
 - tapOn: "Save"
 
 # Assert book is edited
-- assertNotVisible: "Edit Book"
+- assertNotVisible: "Book Details"
 - assertVisible: "Test Book Edited"
 - assertVisible: "Test Author"
 

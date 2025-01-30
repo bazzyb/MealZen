@@ -6,6 +6,7 @@ import { useState } from "react";
 import { Text, ViewColumn } from "@/components";
 import { TEST_EMAIL, TEST_FREE_EMAIL, TEST_PASSWORD } from "@/consts";
 import { useAuth } from "@/providers/AuthProvider";
+import { useSubs } from "@/providers/SubsProvider";
 import { useAppTheme } from "@/styles/useAppTheme";
 import { Logger } from "@/utils/logger";
 import { handleDisableSync, waitForNewSync } from "@/utils/sync";
@@ -14,6 +15,7 @@ import { buildTestUser } from "./utils/buildTestUser";
 
 export function DevSettingsView() {
   const { user, signIn, signOut } = useAuth();
+  const { isPremiumEnabled } = useSubs();
   const powerSync = usePowerSync();
   const psStatus = useStatus();
   const { colors } = useAppTheme();
@@ -71,6 +73,12 @@ export function DevSettingsView() {
   return (
     <ViewColumn>
       {isUpdating && <LoadingOverlay />}
+      <MenuItem>
+        <Text>User ID: {user?.id}</Text>
+        <Text>Email: {user?.email}</Text>
+        <Text>Premium enabled: {String(isPremiumEnabled)}</Text>
+        <Text>Is connected: {String(powerSync.connected)}</Text>
+      </MenuItem>
       {!user && (
         <>
           <MenuItem disabled={isUpdating} pv={4} onPress={signInToFreeTestUser}>

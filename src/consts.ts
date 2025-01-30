@@ -16,3 +16,5 @@ export const LOCAL_USER_ID = "00000000-0000-0000-0000-000000000000";
 
 export const INACTIVE_LOCAL_TABLE_PREFIX = "inactive_local_";
 export const INACTIVE_SYNCED_TABLE_PREFIX = "inactive_synced_";
+
+export const LIFETIME_SUBSCRIPTION_SKU = "rc_promo_premium_lifetime";

@@ -8,17 +8,27 @@ export function ConfirmLayout() {
   const { email } = useLocalSearchParams<{ email: string }>();
 
   return (
-    <ViewColumn height="100%" justifyContent="center" alignItems="center">
-      <Text size={24}>Verify your email</Text>
+    <ViewColumn height="100%" justifyContent="center" padding={32} gap={8}>
+      <ViewColumn alignItems="center">
+        <Text size={24}>Verify your email</Text>
+        <Text bold size={20}>
+          {email}
+        </Text>
+      </ViewColumn>
 
       <Text>
-        We've sent an email to <Text bold>{email}</Text>. Please click the link in the email to verify your email
-        address.
+        An email has been sent to the above address. Please click the link in the email to verify your email address.
       </Text>
 
       <Text>If you don't see the email, check your spam folder or click the button below to resend the email.</Text>
-
-      <Button onPress={() => resendEmailConfirmation(email)}>Resend Email</Button>
+      <Button
+        color="success"
+        style={{ marginTop: 16 }}
+        textStyle={{ textAlign: "center" }}
+        onPress={() => resendEmailConfirmation(email)}
+      >
+        Resend Email
+      </Button>
     </ViewColumn>
   );
 }

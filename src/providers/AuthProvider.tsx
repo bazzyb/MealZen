@@ -77,7 +77,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   async function signIn(email: string, password: string) {
     Logger.log("signIn");
-    setIsLoading(true);
 
     const { data, error } = await supabase.client.auth.signInWithPassword({
       email,
@@ -98,6 +97,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       throw new Error("Could not sign in at this time. Please try again later.");
     }
 
+    setIsLoading(true);
     await Purchases.logIn(data.user.id);
     setSession(data.session);
     setUser(data.session.user);

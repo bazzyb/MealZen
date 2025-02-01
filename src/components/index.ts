@@ -9,6 +9,7 @@ export { Text } from "./core/Text";
 export { Switch } from "./core/Switch";
 export { TextInput } from "./core/TextInput";
 export { Modal } from "./Modal";
+export { SyncStatus } from "./SyncStatus";
 export { Table } from "./Table";
 export { ViewColumn } from "./Layout/ViewColumn";
 export { ViewRow } from "./Layout/ViewRow";

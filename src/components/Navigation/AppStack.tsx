@@ -1,8 +1,10 @@
+import { ViewRow } from "../Layout/ViewRow";
 import { Heading } from "../core/Heading";
 import { Stack } from "expo-router";
 import { startCase } from "lodash";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+import { SyncStatus } from "@/components/SyncStatus";
 import { useAppTheme } from "@/styles/useAppTheme";
 
 function getTitle(route: string) {
@@ -30,15 +32,19 @@ export function AppStack() {
         },
         headerTintColor: theme.colors.headerText,
         headerTitle: title => (
-          <Heading
-            style={{
-              fontSize: 18,
-              fontWeight: 600,
-              color: theme.colors.headerText,
-            }}
-          >
-            {startCase(getTitle(title.children))}
-          </Heading>
+          <ViewRow justifyContent="space-between">
+            <Heading
+              style={{
+                fontSize: 18,
+                fontWeight: 600,
+                color: theme.colors.headerText,
+                fontFamily: theme.headerFontFamily,
+              }}
+            >
+              {startCase(getTitle(title.children))}
+            </Heading>
+            <SyncStatus />
+          </ViewRow>
         ),
         headerBackTitleVisible: false,
       }}

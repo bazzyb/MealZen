@@ -4,6 +4,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { Tabs } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+import { SyncStatus } from "@/components/SyncStatus";
 import { useAppTheme } from "@/styles/useAppTheme";
 
 export default function TabsLayout() {
@@ -23,6 +24,7 @@ export default function TabsLayout() {
         headerTintColor: theme.colors.headerText,
         headerTitleAlign: "left",
         headerTitleStyle: { fontFamily: theme.headerFontFamily },
+        headerRight: () => <SyncStatus />,
         tabBarLabelStyle: { fontFamily: theme.headerFontFamily, paddingBottom: 4 },
       }}
     >

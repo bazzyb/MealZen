@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { router } from "expo-router";
+import { Link, router } from "expo-router";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import Toast from "react-native-toast-message";
@@ -7,6 +7,7 @@ import { z } from "zod";
 
 import { Button, Text, TextInput, ViewColumn } from "@/components";
 import { useAuth } from "@/providers/AuthProvider";
+import { useAppTheme } from "@/styles/useAppTheme";
 import { Logger } from "@/utils/logger";
 
 const SignupSchema = z
@@ -28,6 +29,7 @@ export type SignupFields = z.infer<typeof SignupSchema>;
 
 export function SignupLayout() {
   const { signUp } = useAuth();
+  const { colors } = useAppTheme();
 
   const [isSigningUp, setIsSigningUp] = useState(false);
 
@@ -125,9 +127,12 @@ export function SignupLayout() {
         )}
       />
 
-      <Button loading={isSigningUp} disabled={isSigningUp} onPress={handleSubmit(onSubmit)}>
+      <Button loading={isSigningUp} disabled={isSigningUp} onPress={handleSubmit(onSubmit)} style={{ marginTop: 16 }}>
         Signup
       </Button>
+      <Link style={{ color: colors.link, marginTop: 12 }} href="/signin">
+        Already have an account? Sign in here
+      </Link>
     </ViewColumn>
   );
 }

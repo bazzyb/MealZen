@@ -1,24 +1,18 @@
 import { MenuItem } from "../components/MenuItem";
 import { router } from "expo-router";
-import { useState } from "react";
 
 import { Text } from "@/components";
 import { useAuth } from "@/providers/AuthProvider";
 
-import { SignInModal } from "./SignInModal";
-
 export function Auth() {
   const { user } = useAuth();
-
-  const [signInModalOpen, setSignInModalOpen] = useState(false);
-  const [isChangingAuth, setIsChangingAuth] = useState(false);
 
   async function goToSignup() {
     router.navigate("/signup");
   }
 
-  async function handleSignIn() {
-    setSignInModalOpen(true);
+  async function goToSignIn() {
+    router.navigate("/signin");
   }
 
   async function goToAccount() {
@@ -29,10 +23,10 @@ export function Auth() {
     <>
       {!user && (
         <>
-          <MenuItem role="link" onPress={goToSignup} disabled={isChangingAuth}>
+          <MenuItem role="link" onPress={goToSignup}>
             <Text>Sign Up</Text>
           </MenuItem>
-          <MenuItem onPress={handleSignIn} disabled={isChangingAuth}>
+          <MenuItem role="link" onPress={goToSignIn}>
             <Text>Sign In</Text>
           </MenuItem>
         </>
@@ -42,11 +36,6 @@ export function Auth() {
           <Text>Account</Text>
         </MenuItem>
       )}
-      <SignInModal
-        isVisible={signInModalOpen}
-        handleClose={() => setSignInModalOpen(false)}
-        setIsChangingAuth={setIsChangingAuth}
-      />
     </>
   );
 }

@@ -1,6 +1,5 @@
 import { MenuItem } from "../components/MenuItem";
 import { usePowerSync } from "@powersync/react-native";
-import { router } from "expo-router";
 import { useState } from "react";
 import { Alert } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
@@ -64,8 +63,6 @@ export default function AccountLayout() {
 
       // Sign out of supabase auth
       await signOut();
-
-      router.navigate("/(tab-views)/settings");
     } catch (error) {
       Toast.show({
         type: "error",

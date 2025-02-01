@@ -40,16 +40,18 @@ export function CalendarPicker({ value, onChange, pickerType = "range" }: Props)
 
   const calendarStyles: CalendarThemeProps = {
     calendarTextStyle: { color: colors.text },
-    headerTextStyle: { color: colors.text },
+    todayContainerStyle: { borderColor: colors.gray[5] },
+    todayTextStyle: { color: colors.text },
     weekDaysTextStyle: { color: colors.text },
     monthContainerStyle: { backgroundColor: colors.background },
     yearContainerStyle: { backgroundColor: colors.background },
     selectedRangeBackgroundColor: colors.activeBackground,
     selectedItemColor: colors.primaryLight,
     selectedTextStyle: { color: colors.white },
+    headerTextStyle: { color: colors.text, paddingVertical: 16 },
+    headerButtonStyle: { padding: 16 },
     headerButtonColor: colors.text,
-    todayContainerStyle: { borderColor: colors.gray[5] },
-    todayTextStyle: { color: colors.text },
+    headerButtonSize: 20,
   };
 
   return (
@@ -60,6 +62,7 @@ export function CalendarPicker({ value, onChange, pickerType = "range" }: Props)
       endDate={value[value.length - 1]}
       displayFullDays
       onChange={handleChange}
+      height={360}
       {...calendarStyles}
     />
   );

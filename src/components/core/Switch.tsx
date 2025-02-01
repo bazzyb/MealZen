@@ -30,7 +30,7 @@ export const Switch = forwardRef<SwitchBase, PropsWithChildren<Props>>((props, r
         trackColor={{ true: colors.success, false: colors.disabled }}
         // same as trackColor -> false, but for ios
         ios_backgroundColor={colors.disabled}
-        style={switchStyle}
+        style={{ marginVertical: 12, transform: [{ scaleX: 1.2 }, { scaleY: 1.2 }], ...switchStyle }}
         {...switchProps}
       >
         {children}

@@ -34,6 +34,7 @@ export function SelectMenu({ selectedItems, handleDeleteMany, deleteWarning }: P
       onPressAction={({ nativeEvent }) => {
         if (selectedItems.length === 0) {
           Alert.alert("No items selected", "Please select items before performing this action.");
+          return;
         }
         if (nativeEvent.event === "delete-selected-items") {
           openDeleteAlert();

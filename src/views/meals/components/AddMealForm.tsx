@@ -34,8 +34,7 @@ export function AddMealForm({ bookId }: Props) {
   return (
     <ViewRow
       gap={8}
-      paddingVertical={16}
-      paddingHorizontal={8}
+      padding={16}
       borderBottomWidth={StyleSheet.hairlineWidth}
       borderBottomColor={colors.gray[5]}
       flexWrap="wrap"

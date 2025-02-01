@@ -104,9 +104,9 @@ export function SignInLayout() {
         >
           Sign In
         </Button>
-        {/* <Link style={{ color: colors.link }} href="/signup">
+        <Link style={{ color: colors.link }} href="/forgot-password">
           Forgot password?
-        </Link> */}
+        </Link>
       </ViewRow>
       <Link style={{ color: colors.link, marginTop: 16 }} href="/signup">
         Need an account? Sign up here

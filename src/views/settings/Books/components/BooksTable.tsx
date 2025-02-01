@@ -19,7 +19,6 @@ export function BooksTable() {
 
   return (
     <Table
-      hideHeader
       onSearchChange={setSearchBooks}
       onDeleteMany={deleteBooks}
       data={books}

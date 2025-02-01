@@ -25,5 +25,4 @@ export type TableProps<TData extends GenericData> = {
   onRowPress?: (data: TData) => void;
   onOrderChange?: (reorderedItems: Array<TData>, setItems: (items: Array<TData>) => void) => void;
   isSortable?: boolean;
-  hideHeader?: boolean;
 };

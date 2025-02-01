@@ -26,7 +26,6 @@ export function MealplanTable({ setSelectedMealplanEntry }: Props) {
   return (
     <Table
       isSortable
-      hideHeader
       onOrderChange={handleMealReorder}
       data={mealplan}
       onRowPress={setSelectedMealplanEntry}

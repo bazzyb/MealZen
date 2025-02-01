@@ -26,7 +26,6 @@ export function MealsTable({ bookId }: Props) {
 
   return (
     <Table
-      hideHeader
       onSearchChange={setSearchMeals}
       onDeleteMany={deleteMeals}
       data={meals}

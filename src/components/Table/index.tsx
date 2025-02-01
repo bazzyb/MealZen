@@ -1,29 +1,19 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import DraggableFlatList, { DragEndParams } from "react-native-draggable-flatlist";
-import Animated, { LinearTransition } from "react-native-reanimated";
+import Animated, { SequencedTransition } from "react-native-reanimated";
 
 import { ViewColumn } from "@/components/Layout/ViewColumn";
 
-import { TableHeader } from "./Header";
 import { NoItemsFound } from "./NoItemsFound";
 import { TableRow } from "./Row";
 import { SearchFilter, SharedSearchFilterProps } from "./SearchFilter";
+import { SelectAllRow } from "./SelectAllRow";
 import { GenericData, TableProps } from "./types";
 
 type Props<TData extends GenericData> = TableProps<TData> & SharedSearchFilterProps;
 
 export function Table<TData extends GenericData>(props: Props<TData>) {
-  const {
-    data,
-    columns,
-    onRowPress,
-    isSortable,
-    hideHeader,
-    onOrderChange,
-    onSearchChange,
-    onDeleteMany,
-    deleteWarning,
-  } = props;
+  const { data, columns, onRowPress, isSortable, onOrderChange, onSearchChange, onDeleteMany, deleteWarning } = props;
 
   const [items, setItems] = useState<TData[]>(data);
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
@@ -76,6 +66,9 @@ export function Table<TData extends GenericData>(props: Props<TData>) {
     return (
       <ViewColumn flex={1}>
         {SearchFilterComponent}
+        {isSelectMode && (
+          <SelectAllRow items={items} selectedItems={selectedItems} setSelectedItems={setSelectedItems} />
+        )}
         <DraggableFlatList
           data={items}
           renderItem={({ item, drag, isActive }) => (
@@ -89,9 +82,7 @@ export function Table<TData extends GenericData>(props: Props<TData>) {
               draggableProps={{ drag, isActive }}
             />
           )}
-          ListHeaderComponent={() => !hideHeader && <TableHeader columns={columns} />}
           renderPlaceholder={() => <ViewColumn alignItems="center" backgroundColor="#DDD" />}
-          stickyHeaderIndices={[0]}
           keyExtractor={item => item.id.toString()}
           onDragEnd={handleOrderChange}
           initialNumToRender={items.length}
@@ -103,8 +94,9 @@ export function Table<TData extends GenericData>(props: Props<TData>) {
   return (
     <ViewColumn flex={1}>
       {SearchFilterComponent}
+      {isSelectMode && <SelectAllRow items={items} selectedItems={selectedItems} setSelectedItems={setSelectedItems} />}
       <Animated.FlatList
-        itemLayoutAnimation={LinearTransition}
+        itemLayoutAnimation={SequencedTransition}
         data={items}
         renderItem={({ item }) => (
           <TableRow
@@ -116,8 +108,6 @@ export function Table<TData extends GenericData>(props: Props<TData>) {
             handleSelectedItem={handleSelectedItem}
           />
         )}
-        ListHeaderComponent={() => !hideHeader && <TableHeader columns={columns} />}
-        stickyHeaderIndices={[0]}
         keyExtractor={item => item.id.toString()}
         initialNumToRender={items.length}
       />

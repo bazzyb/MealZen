@@ -32,7 +32,7 @@ export function Auth() {
         </>
       )}
       {user && (
-        <MenuItem pv={4} role="link" onPress={goToAccount}>
+        <MenuItem role="link" onPress={goToAccount}>
           <Text>Account</Text>
         </MenuItem>
       )}

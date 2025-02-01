@@ -78,7 +78,7 @@ export function TableRow<TData extends GenericData>({
         width="100%"
         justifyContent="flex-start"
         alignItems="center"
-        paddingVertical={8}
+        paddingVertical={12}
         paddingHorizontal={16}
         gap={8}
         borderBottomWidth={StyleSheet.hairlineWidth}
@@ -86,7 +86,11 @@ export function TableRow<TData extends GenericData>({
         backgroundColor={draggableProps?.isActive ? colors.rowDragBackground : colors.background}
       >
         {isSelectMode && (
-          <Checkbox value={isSelected} onValueChange={checked => handleSelectedItem(item.id, checked)} />
+          <Checkbox
+            style={{ padding: 14 }}
+            value={isSelected}
+            onValueChange={checked => handleSelectedItem(item.id, checked)}
+          />
         )}
         {columns.map(({ id, label, width, ...accessors }) => {
           const accessor = "accessor" in accessors ? accessors.accessor : accessors.accessorFn;

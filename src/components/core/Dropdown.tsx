@@ -82,7 +82,7 @@ export function Dropdown<T extends DropdownItem>(props: PropsWithChildren<Props<
         }}
         style={{
           width: "100%",
-          paddingVertical: clearable ? 4 : 8,
+          paddingVertical: clearable ? 12 : 16,
           paddingHorizontal: 16,
           borderRadius,
           borderWidth: error ? 2 : 1,

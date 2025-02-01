@@ -63,7 +63,6 @@ export function SignInLayout() {
 
   return (
     <ViewColumn height="100%" justifyContent="center" alignItems="center" padding={32} gap={8}>
-      <Text size={24}>Sign In</Text>
       <Controller
         name="email"
         control={control}
@@ -73,6 +72,7 @@ export function SignInLayout() {
             onChangeText={field.onChange}
             value={field.value}
             autoComplete="username"
+            placeholder="Enter your email"
             keyboardType="email-address"
             error={formState.errors.email?.message}
           />
@@ -87,6 +87,7 @@ export function SignInLayout() {
             onChangeText={field.onChange}
             value={field.value}
             autoComplete="current-password"
+            placeholder="Enter your password"
             secureTextEntry
             error={formState.errors.password?.message}
           />
@@ -100,7 +101,6 @@ export function SignInLayout() {
           disabled={isSigningIn}
           loading={isSigningIn}
           onPress={handleSubmit(handleSignIn)}
-          accessibilityLabel="Sign In Button"
         >
           Sign In
         </Button>

@@ -31,6 +31,7 @@ function ModalBody({ selectedBook, handleClose }: ModalBodyProps) {
         render={({ field }) => (
           <TextInput
             label="Name"
+            placeholder="Enter book name"
             onChangeText={field.onChange}
             value={field.value}
             error={formState.errors.name?.message}
@@ -44,6 +45,7 @@ function ModalBody({ selectedBook, handleClose }: ModalBodyProps) {
         render={({ field }) => (
           <TextInput
             label="Author"
+            placeholder="Enter book author"
             onChangeText={field.onChange}
             value={field.value}
             error={formState.errors.author?.message}

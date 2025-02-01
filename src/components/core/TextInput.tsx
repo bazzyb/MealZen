@@ -36,7 +36,7 @@ export const TextInput = forwardRef<TextInputBase, PropsWithChildren<Props>>((pr
           fontFamily: bold ? fontBold : fontFamily,
           color: color || colors.black,
           fontSize: size,
-          paddingVertical: 8,
+          paddingVertical: 12,
           paddingHorizontal: 16,
           borderRadius,
           borderWidth: error ? 2 : 1,

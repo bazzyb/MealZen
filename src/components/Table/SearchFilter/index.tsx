@@ -55,12 +55,9 @@ export function SearchFilter(props: SearchFilterProps) {
 
   return (
     <ViewRow padding={8} justifyContent="center" alignItems="center" gap={8}>
-      <TextInput
-        style={{ flex: 1, width: "auto" }}
-        placeholder="Search..."
-        value={searchText}
-        onChangeText={handleSearchChange}
-      />
+      <ViewRow flex={1}>
+        <TextInput placeholder="Search..." value={searchText} onChangeText={handleSearchChange} />
+      </ViewRow>
       <IconButton onPress={toggleSelectedMode} accessibilityLabel="Select multiple rows">
         {isSelectedMode ? (
           <AntDesign name="close" size={24} color={colors.text} />

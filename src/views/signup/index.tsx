@@ -100,7 +100,7 @@ export function SignupLayout() {
           <TextInput
             {...field}
             label="Password"
-            placeholder="Password"
+            placeholder="Enter a password"
             onChangeText={field.onChange}
             value={field.value}
             error={formState.errors.password?.message}
@@ -117,7 +117,7 @@ export function SignupLayout() {
           <TextInput
             {...field}
             label="Confirm Password"
-            placeholder="Confirm Password"
+            placeholder="Confirm your password"
             onChangeText={field.onChange}
             value={field.value}
             error={formState.errors.confirmPassword?.message}
@@ -127,8 +127,14 @@ export function SignupLayout() {
         )}
       />
 
-      <Button loading={isSigningUp} disabled={isSigningUp} onPress={handleSubmit(onSubmit)} style={{ marginTop: 16 }}>
-        Signup
+      <Button
+        accessibilityLabel="Create account"
+        loading={isSigningUp}
+        disabled={isSigningUp}
+        onPress={handleSubmit(onSubmit)}
+        style={{ marginTop: 16 }}
+      >
+        Create account
       </Button>
       <Link style={{ color: colors.link, marginTop: 12 }} href="/signin">
         Already have an account? Sign in here

@@ -1,5 +1,5 @@
 export const colors = {
-  white: "#ededed",
+  white: "#efefef",
   black: "#1c1c1c",
   gray: {
     0: "#2d2d2d",
@@ -10,7 +10,7 @@ export const colors = {
     5: "#919191",
     6: "#a8a8a8",
     7: "#bebebe",
-    8: "#d5d5d5",
+    8: "#dedede",
   },
   purple: {
     0: "#26193b",

@@ -17,14 +17,14 @@ export default function SettingsView() {
       <Auth />
       <Category />
 
-      <MenuItem role="link" pv={4} onPress={() => router.navigate("/(settings)/books")}>
+      <MenuItem role="link" onPress={() => router.navigate("/(settings)/books")}>
         <Text>Books</Text>
       </MenuItem>
       <Category />
-      <MenuItem role="link" pv={4} onPress={() => Linking.openURL("https://www.mealzen.co.uk/privacy-policy")}>
+      <MenuItem role="link" onPress={() => Linking.openURL("https://www.mealzen.co.uk/privacy-policy")}>
         <Text>Privacy Policy</Text>
       </MenuItem>
-      <MenuItem pv={6} style={{ minHeight: "auto" }}>
+      <MenuItem style={{ minHeight: "auto" }}>
         <Text style={{ fontSize: 12 }} color={colors.textSecondary}>
           App Version: {DeviceInfo.getVersion()}
         </Text>
@@ -32,7 +32,7 @@ export default function SettingsView() {
       {__DEV__ && (
         <>
           <Category />
-          <MenuItem role="link" pv={4} onPress={() => router.navigate("/dev-settings")}>
+          <MenuItem role="link" onPress={() => router.navigate("/dev-settings")}>
             <Text>Dev Settings</Text>
           </MenuItem>
         </>

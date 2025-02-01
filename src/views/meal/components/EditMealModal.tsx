@@ -33,6 +33,7 @@ function ModalBody({ selectedMeal, handleClose }: ModalBodyProps) {
         render={({ field }) => (
           <TextInput
             label="Name"
+            placeholder="Enter meal name"
             onChangeText={field.onChange}
             value={field.value}
             error={formState.errors.name?.message}
@@ -46,6 +47,7 @@ function ModalBody({ selectedMeal, handleClose }: ModalBodyProps) {
         render={({ field }) => (
           <TextInput
             label="Recipe URL"
+            placeholder="Enter URL for recipe"
             onChangeText={field.onChange}
             value={field.value}
             error={formState.errors.recipe_url?.message}
@@ -78,6 +80,7 @@ function ModalBody({ selectedMeal, handleClose }: ModalBodyProps) {
         render={({ field }) => (
           <TextInput
             label="Page Number"
+            placeholder="Enter page for recipe"
             onChangeText={val => field.onChange(val ? parseInt(val) : null)}
             keyboardType="numeric"
             value={field.value?.toString()}

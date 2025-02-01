@@ -37,7 +37,7 @@ export function Button({
       return variant === "outlined" ? colors.gray[8] : getColor(true);
     }
     if (disabled || loading) {
-      return colors.disabled;
+      return variant === "outlined" ? colors.white : `${getColor()}77`;
     }
     return variant === "outlined" ? colors.white : getColor();
   }
@@ -46,7 +46,7 @@ export function Button({
     <Pressable
       style={({ pressed }) => ({
         fontFamily: fontFamily,
-        paddingVertical: 8,
+        paddingVertical: 12,
         paddingHorizontal: 16,
         borderRadius,
         backgroundColor: getBackgroundColor(pressed),
@@ -54,22 +54,14 @@ export function Button({
         borderColor: variant === "outlined" ? getBackgroundColor(pressed) : undefined,
         ...style,
       })}
+      accessible={!disabled}
       disabled={disabled}
       {...buttonProps}
     >
       {loading ? (
         <ActivityIndicator color={colors.white} />
       ) : (
-        <Text
-          color={
-            disabled || loading
-              ? colors.disabledText
-              : variant === "outlined"
-                ? getColor()
-                : textColor || colors.buttonText
-          }
-          style={textStyle}
-        >
+        <Text color={variant === "outlined" ? getColor() : textColor || colors.buttonText} style={textStyle}>
           {children}
         </Text>
       )}

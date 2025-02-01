@@ -104,7 +104,7 @@ export default function GenerateView() {
           Cancel
         </Button>
         <Button color="success" disabled={isSubmitting} onPress={handleSubmit(onSubmit)}>
-          Generate
+          Generate meal plan
         </Button>
       </ViewColumn>
     </ViewColumn>

@@ -61,7 +61,6 @@ export function BookView() {
           <BookDetails book={book[0]} />
           <ViewColumn gap={8}>
             <Button
-              color="success"
               style={{ paddingVertical: 6 }}
               textStyle={{ textAlign: "center" }}
               onPress={() => setShowEditBookModal(true)}

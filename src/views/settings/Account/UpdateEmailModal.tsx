@@ -80,7 +80,6 @@ export function UpdateEmailModal({ isVisible, handleClose }: Props) {
           Cancel
         </Button>
         <Button
-          color="success"
           style={{ marginTop: 16, width: "auto" }}
           disabled={isUpdatingEmail}
           loading={isUpdatingEmail}

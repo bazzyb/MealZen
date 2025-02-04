@@ -115,7 +115,6 @@ function ModalBody({ selectedMealplanEntry, handleClose }: ModalBodyProps) {
           />
           <Button
             onPress={pickRandomMeal}
-            color="success"
             variant="outlined"
             style={{ paddingVertical: 4, borderWidth: 1, borderColor: colors.success }}
             textStyle={{ fontSize: 10, textAlign: "center" }}
@@ -156,7 +155,7 @@ function ModalBody({ selectedMealplanEntry, handleClose }: ModalBodyProps) {
       />
 
       <ViewRow marginTop={8} justifyContent="space-between" width="100%">
-        <Button color="success" disabled={isUpdatingEntry || isDeletingEntry} onPress={handleSubmit(handleSave)}>
+        <Button disabled={isUpdatingEntry || isDeletingEntry} onPress={handleSubmit(handleSave)}>
           Save
         </Button>
         <Button color="disabled" disabled={isUpdatingEntry || isDeletingEntry} onPress={handleClose}>

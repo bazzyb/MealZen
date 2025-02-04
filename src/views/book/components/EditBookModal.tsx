@@ -57,7 +57,7 @@ function ModalBody({ selectedBook, handleClose }: ModalBodyProps) {
         <Button color="disabled" onPress={handleClose}>
           Cancel
         </Button>
-        <Button color="success" disabled={isUpdating} onPress={handleSubmit(handleSave)}>
+        <Button disabled={isUpdating} onPress={handleSubmit(handleSave)}>
           Save
         </Button>
       </ViewRow>

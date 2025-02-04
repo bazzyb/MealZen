@@ -96,7 +96,6 @@ export function SignInLayout() {
       {signInError && <Text color="red">{signInError}</Text>}
       <ViewRow alignItems="baseline" gap={16}>
         <Button
-          color="success"
           style={{ marginTop: 16, width: "auto" }}
           disabled={isSigningIn}
           loading={isSigningIn}

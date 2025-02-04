@@ -57,7 +57,6 @@ export function ForgotPasswordLayout() {
         )}
       />
       <Button
-        color="success"
         style={{ marginTop: 16, width: "auto" }}
         disabled={isResettingPassword}
         loading={isResettingPassword}

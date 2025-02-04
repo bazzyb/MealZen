@@ -48,7 +48,7 @@ export function AddMealForm({ bookId }: Props) {
         </ViewRow>
       )}
       <ViewRow>
-        <Button onPress={handleCreateMeal} disabled={!mealName || isCreatingMeal} color="success">
+        <Button onPress={handleCreateMeal} disabled={!mealName || isCreatingMeal}>
           Add Meal
         </Button>
       </ViewRow>

@@ -103,7 +103,7 @@ export default function GenerateView() {
         <Button color="disabled" disabled={isSubmitting} onPress={() => router.navigate("/(tab-views)")}>
           Cancel
         </Button>
-        <Button color="success" disabled={isSubmitting} onPress={handleSubmit(onSubmit)}>
+        <Button disabled={isSubmitting} onPress={handleSubmit(onSubmit)}>
           Generate meal plan
         </Button>
       </ViewColumn>

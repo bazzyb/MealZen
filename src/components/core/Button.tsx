@@ -29,7 +29,7 @@ export function Button({
   const { colors, fontFamily, borderRadius } = useAppTheme();
 
   function getColor(dark?: boolean) {
-    return colors[`${color || "primary"}${dark ? "Dark" : ""}`];
+    return colors[`${color || "success"}${dark ? "Dark" : ""}`];
   }
 
   function getBackgroundColor(pressed?: boolean) {
@@ -37,7 +37,7 @@ export function Button({
       return variant === "outlined" ? colors.gray[8] : getColor(true);
     }
     if (disabled || loading) {
-      return variant === "outlined" ? colors.white : `${getColor()}77`;
+      return colors.disabled;
     }
     return variant === "outlined" ? colors.white : getColor();
   }
@@ -61,7 +61,16 @@ export function Button({
       {loading ? (
         <ActivityIndicator color={colors.white} />
       ) : (
-        <Text color={variant === "outlined" ? getColor() : textColor || colors.buttonText} style={textStyle}>
+        <Text
+          color={
+            disabled || loading
+              ? colors.disabledText
+              : variant === "outlined"
+                ? getColor()
+                : textColor || colors.buttonText
+          }
+          style={textStyle}
+        >
           {children}
         </Text>
       )}

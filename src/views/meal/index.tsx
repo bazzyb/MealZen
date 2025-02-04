@@ -113,7 +113,7 @@ export function MealView() {
           </ViewRow>
         </ViewColumn>
         <ViewColumn gap={8} marginTop="auto" marginBottom={insets.bottom + 16}>
-          <Button color="success" textStyle={{ textAlign: "center" }} onPress={() => setShowEditMealModal(true)}>
+          <Button textStyle={{ textAlign: "center" }} onPress={() => setShowEditMealModal(true)}>
             Edit Meal
           </Button>
           <Button color="error" textStyle={{ textAlign: "center" }} onPress={openDeleteAlert} disabled={isDeleting}>

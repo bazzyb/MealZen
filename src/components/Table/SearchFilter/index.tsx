@@ -9,7 +9,7 @@ import { useAppTheme } from "@/styles/useAppTheme";
 import { SelectMenu } from "./SelectMenu";
 
 export type SharedSearchFilterProps = {
-  onSearchChange?: (search: string) => void;
+  onSearchChange: (search: string) => void;
   onDeleteMany?: (ids: Array<string>) => Promise<void>;
   deleteWarning?: string;
 };
@@ -50,8 +50,6 @@ export function SearchFilter(props: SearchFilterProps) {
     await onDeleteMany?.(selectedItems || []);
     toggleSelectedMode();
   }
-
-  if (!onSearchChange) return null;
 
   return (
     <ViewRow padding={8} justifyContent="center" alignItems="center" gap={8}>

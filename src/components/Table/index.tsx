@@ -65,7 +65,7 @@ export function Table<TData extends GenericData>(props: Props<TData>) {
   if (isSortable) {
     return (
       <ViewColumn flex={1}>
-        {SearchFilterComponent}
+        {!!onSearchChange && SearchFilterComponent}
         {isSelectMode && (
           <SelectAllRow items={items} selectedItems={selectedItems} setSelectedItems={setSelectedItems} />
         )}

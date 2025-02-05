@@ -54,7 +54,7 @@ export function SelectMenu({ selectedItems, handleDeleteMany, deleteWarning }: P
         },
       ]}
     >
-      <IconButton accessibilityLabel="Clear selection">
+      <IconButton accessibilityLabel="Open selection menu">
         <Entypo name="dots-three-vertical" size={24} color={colors.text} />
       </IconButton>
     </MenuView>

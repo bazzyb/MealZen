@@ -8,7 +8,7 @@ import { ExampleMealsTable } from "./components/ExampleMealsTable";
 export function CuisineView() {
   const { id } = useLocalSearchParams<{ id: string }>();
 
-  const { data: cuisine, isLoading: isCuisineLoading } = useGetCuisine(id);
+  const { data: cuisine } = useGetCuisine(id);
 
   return (
     <ViewColumn padding={0} flex={1}>

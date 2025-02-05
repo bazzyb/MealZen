@@ -81,6 +81,7 @@ export function TableRow<TData extends GenericData>({
         paddingVertical={12}
         paddingHorizontal={16}
         gap={8}
+        minHeight={60}
         borderBottomWidth={StyleSheet.hairlineWidth}
         borderBottomColor={colors.gray[0]}
         backgroundColor={draggableProps?.isActive ? colors.rowDragBackground : colors.background}

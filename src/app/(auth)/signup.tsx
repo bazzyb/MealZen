@@ -1,4 +1,4 @@
-import { SignupLayout } from "@/views/signup";
+import { SignupLayout } from "@/views/auth/signup";
 
 export default function Signup() {
   return <SignupLayout />;

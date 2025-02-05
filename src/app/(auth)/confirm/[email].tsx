@@ -1,4 +1,4 @@
-import { ConfirmLayout } from "@/views/confirm";
+import { ConfirmLayout } from "@/views/auth/confirm";
 
 export default function Confirm() {
   return <ConfirmLayout />;

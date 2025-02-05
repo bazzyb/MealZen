@@ -1,4 +1,4 @@
-import { Entypo, Ionicons } from "@expo/vector-icons";
+import { Entypo, MaterialCommunityIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
 
 import { Text, ViewColumn, ViewRow } from "@/components";
@@ -9,7 +9,7 @@ export default function CollectionView() {
     <ViewColumn>
       <MenuItem role="link" onPress={() => router.navigate("/(collection)/meals")}>
         <ViewRow alignItems="center" gap={8}>
-          <Ionicons name="fast-food-outline" size={24} />
+          <MaterialCommunityIcons name="silverware-fork-knife" size={24} />
           <Text>Meals</Text>
         </ViewRow>
       </MenuItem>
@@ -17,6 +17,12 @@ export default function CollectionView() {
         <ViewRow alignItems="center" gap={8}>
           <Entypo name="book" size={24} />
           <Text>Books</Text>
+        </ViewRow>
+      </MenuItem>
+      <MenuItem role="link" onPress={() => router.navigate("/(collection)/cuisines")}>
+        <ViewRow alignItems="center" gap={8}>
+          <MaterialCommunityIcons name="chef-hat" size={24} />
+          <Text>Cuisines</Text>
         </ViewRow>
       </MenuItem>
     </ViewColumn>

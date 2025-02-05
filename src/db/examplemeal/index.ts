@@ -1,0 +1,1 @@
+export { useGetExampleMeals } from "./useGetExampleMeals";

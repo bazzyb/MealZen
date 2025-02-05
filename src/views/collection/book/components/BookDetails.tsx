@@ -11,7 +11,7 @@ export function BookDetails({ book }: Props) {
 
   return (
     <ViewColumn flex={1}>
-      <Heading style={{ fontSize: 18 }}>{book.name}</Heading>
+      <Heading size={18}>{book.name}</Heading>
       <Text style={{ color: colors.textSecondary }}>{book.author}</Text>
     </ViewColumn>
   );

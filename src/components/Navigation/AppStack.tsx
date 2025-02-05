@@ -14,6 +14,9 @@ function getTitle(route: string) {
   if (route.endsWith("meals/[id]")) {
     return "Meal Details";
   }
+  if (route.endsWith("cuisines/[id]")) {
+    return "Cuisine Details";
+  }
   if (route.endsWith("/index")) {
     return route.split("/").slice(-2)[0];
   }

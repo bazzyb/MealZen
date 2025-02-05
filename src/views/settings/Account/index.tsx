@@ -1,4 +1,4 @@
-import { MenuItem } from "../components/MenuItem";
+import { MenuItem } from "../../../components/MenuItem";
 import { usePowerSync } from "@powersync/react-native";
 import { useState } from "react";
 import { Alert } from "react-native";

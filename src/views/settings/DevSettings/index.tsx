@@ -1,5 +1,5 @@
 import { LoadingOverlay } from "../../../components/LoadingOverlay";
-import { MenuItem } from "../components/MenuItem";
+import { MenuItem } from "../../../components/MenuItem";
 import { usePowerSync, useStatus } from "@powersync/react-native";
 import { useState } from "react";
 

@@ -1,4 +1,4 @@
-import { MenuItem } from "../components/MenuItem";
+import { MenuItem } from "../../../components/MenuItem";
 import { router } from "expo-router";
 
 import { Text } from "@/components";

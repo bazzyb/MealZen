@@ -19,7 +19,7 @@ export default function MealPlanView() {
       <ViewColumn height="100%" alignItems="center" justifyContent="center">
         <Text>No meals found.</Text>
         <Text>Add some meals to generate a meal plan.</Text>
-        <LinkButton href="/meals" style={{ marginTop: 8 }}>
+        <LinkButton href="/(collection)/meals" style={{ marginTop: 8 }}>
           Go to meals
         </LinkButton>
       </ViewColumn>

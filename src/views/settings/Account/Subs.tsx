@@ -1,4 +1,4 @@
-import { MenuItem } from "../components/MenuItem";
+import { MenuItem } from "../../../components/MenuItem";
 import { Linking } from "react-native";
 import RevenueCatUI from "react-native-purchases-ui";
 

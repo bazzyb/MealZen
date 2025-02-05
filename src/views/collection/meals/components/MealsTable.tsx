@@ -31,7 +31,7 @@ export function MealsTable({ bookId }: Props) {
       data={meals}
       onRowPress={row =>
         router.navigate({
-          pathname: "/meals/[id]",
+          pathname: "/(collection)/meals/[id]",
           params: { id: row.id },
         })
       }

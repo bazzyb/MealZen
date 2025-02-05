@@ -7,9 +7,9 @@ import { LoadingOverlay } from "@/components/LoadingOverlay";
 import { useDeleteBooks } from "@/db/book";
 import { useGetBook } from "@/db/book";
 import { useAppTheme } from "@/styles/useAppTheme";
-import { EditBookModal } from "@/views/book/components/EditBookModal";
-import { AddMealForm } from "@/views/meals/components/AddMealForm";
-import { MealsTable } from "@/views/meals/components/MealsTable";
+import { EditBookModal } from "@/views/collection/book/components/EditBookModal";
+import { AddMealForm } from "@/views/collection/meals/components/AddMealForm";
+import { MealsTable } from "@/views/collection/meals/components/MealsTable";
 
 import { BookDetails } from "./components/BookDetails";
 
@@ -41,7 +41,7 @@ export function BookView() {
 
   async function handleDeleteBook() {
     await deleteBook([id]);
-    router.navigate("/(settings)/books");
+    router.navigate("/(collection)/books");
   }
 
   if (!book[0]) {

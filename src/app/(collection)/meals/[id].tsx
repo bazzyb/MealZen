@@ -1,4 +1,4 @@
-import { MealView } from "@/views/meal";
+import { MealView } from "@/views/collection/meal";
 
 export default function Meal() {
   return <MealView />;

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import DraggableFlatList, { DragEndParams } from "react-native-draggable-flatlist";
-import Animated, { SequencedTransition } from "react-native-reanimated";
+import Animated from "react-native-reanimated";
 
 import { ViewColumn } from "@/components/Layout/ViewColumn";
 
@@ -96,7 +96,7 @@ export function Table<TData extends GenericData>(props: Props<TData>) {
       {SearchFilterComponent}
       {isSelectMode && <SelectAllRow items={items} selectedItems={selectedItems} setSelectedItems={setSelectedItems} />}
       <Animated.FlatList
-        itemLayoutAnimation={SequencedTransition}
+        // itemLayoutAnimation={CurvedTransition}
         data={items}
         renderItem={({ item }) => (
           <TableRow
@@ -108,7 +108,6 @@ export function Table<TData extends GenericData>(props: Props<TData>) {
             handleSelectedItem={handleSelectedItem}
           />
         )}
-        keyExtractor={item => item.id.toString()}
         initialNumToRender={items.length}
       />
     </ViewColumn>

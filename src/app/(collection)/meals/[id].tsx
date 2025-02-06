@@ -1,5 +1,16 @@
+import { Stack } from "expo-router";
+
 import { MealView } from "@/views/collection/meal";
 
 export default function Meal() {
-  return <MealView />;
+  return (
+    <>
+      <Stack.Screen
+        options={{
+          title: "Meal Details",
+        }}
+      />
+      <MealView />
+    </>
+  );
 }

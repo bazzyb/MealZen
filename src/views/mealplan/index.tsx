@@ -2,6 +2,7 @@ import { router } from "expo-router";
 import { useState } from "react";
 
 import { Button, Text, ViewColumn } from "@/components";
+import { SectionOverlay } from "@/components/SectionOverlay";
 import { LinkButton } from "@/components/core/LinkButton";
 import { useGetMeals } from "@/db/meal";
 import { Mealplan } from "@/db/mealplan/schema";
@@ -29,10 +30,10 @@ export default function MealPlanView() {
   return (
     <>
       <ViewColumn height="100%">
-        <Button style={{ width: "auto", margin: 16 }} onPress={() => router.navigate("/generate")}>
-          Generate New Meal Plan
-        </Button>
         <MealplanTable setSelectedMealplanEntry={setSelectedMealplanEntry} />
+        <SectionOverlay>
+          <Button onPress={() => router.navigate("/generate")}>Generate New Meal Plan</Button>
+        </SectionOverlay>
       </ViewColumn>
       <EditMealplanEntryModal
         selectedMealplanEntry={selectedMealplanEntry}

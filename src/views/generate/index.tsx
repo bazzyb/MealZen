@@ -7,6 +7,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { z } from "zod";
 
 import { Button, Switch, ViewColumn, ViewRow } from "@/components";
+import { SectionOverlay } from "@/components/SectionOverlay";
 import { CalendarPicker } from "@/components/core/CalendarPicker";
 import { useCreateMealplan } from "@/db/mealplan";
 import { getMealplanWithoutJoin } from "@/db/mealplan/queries";
@@ -70,43 +71,49 @@ export default function GenerateView() {
   }
 
   return (
-    <ViewColumn height="100%" padding={16} paddingBottom={insets.bottom + 16} gap={8}>
-      <ViewRow gap={8} justifyContent="center">
-        <Button
-          color={pickerType === "range" ? "primary" : "disabled"}
-          onPress={() => handlePickerChange("range")}
-          disabled={isSubmitting}
-        >
-          Range
-        </Button>
-        <Button
-          color={pickerType === "multiple" ? "primary" : "disabled"}
-          onPress={() => handlePickerChange("multiple")}
-          disabled={isSubmitting}
-        >
-          Multiple
-        </Button>
-      </ViewRow>
-      <Controller
-        name="generateDates"
-        control={control}
-        render={({ field }) => <CalendarPicker pickerType={pickerType} value={field.value} onChange={field.onChange} />}
-      />
-      <Controller
-        name="preserveExisting"
-        control={control}
-        render={({ field }) => (
-          <Switch label="Preserve existing meals on mealplan" value={field.value} onValueChange={field.onChange} />
-        )}
-      />
-      <ViewColumn gap={8} marginTop="auto">
-        <Button color="disabled" disabled={isSubmitting} onPress={() => router.navigate("/(tab-views)")}>
-          Cancel
-        </Button>
-        <Button disabled={isSubmitting} onPress={handleSubmit(onSubmit)}>
-          Generate meal plan
-        </Button>
+    <ViewColumn>
+      <ViewColumn height="100%" padding={16} paddingBottom={insets.bottom + 16} gap={8}>
+        <ViewRow gap={8} justifyContent="center">
+          <Button
+            color={pickerType === "range" ? "primary" : "disabled"}
+            onPress={() => handlePickerChange("range")}
+            disabled={isSubmitting}
+          >
+            Range
+          </Button>
+          <Button
+            color={pickerType === "multiple" ? "primary" : "disabled"}
+            onPress={() => handlePickerChange("multiple")}
+            disabled={isSubmitting}
+          >
+            Multiple
+          </Button>
+        </ViewRow>
+        <Controller
+          name="generateDates"
+          control={control}
+          render={({ field }) => (
+            <CalendarPicker pickerType={pickerType} value={field.value} onChange={field.onChange} />
+          )}
+        />
+        <Controller
+          name="preserveExisting"
+          control={control}
+          render={({ field }) => (
+            <Switch label="Preserve existing meals on mealplan" value={field.value} onValueChange={field.onChange} />
+          )}
+        />
       </ViewColumn>
+      <SectionOverlay styles={{ marginTop: "auto" }}>
+        <ViewRow gap={8} justifyContent="flex-end">
+          <Button color="error" disabled={isSubmitting} onPress={() => router.navigate("/(tab-views)")}>
+            Cancel
+          </Button>
+          <Button disabled={isSubmitting} onPress={handleSubmit(onSubmit)}>
+            Generate meal plan
+          </Button>
+        </ViewRow>
+      </SectionOverlay>
     </ViewColumn>
   );
 }

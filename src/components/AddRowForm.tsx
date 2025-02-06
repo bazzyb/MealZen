@@ -1,11 +1,11 @@
-import { TextInputProps } from "../core/TextInput";
 import { AntDesign } from "@expo/vector-icons";
 import { useState } from "react";
 
 import { Button, TextInput, ViewColumn, ViewRow } from "@/components";
 import { useAppTheme } from "@/styles/useAppTheme";
 
-import { FormSection } from "./FormSection";
+import { SectionOverlay } from "./SectionOverlay";
+import { TextInputProps } from "./core/TextInput";
 
 type Props = {
   onAdd: (val: string, secondaryVal: string) => Promise<void>;
@@ -43,7 +43,7 @@ export function AddRowForm(props: Props) {
 
   if (!showAddRowForm) {
     return (
-      <FormSection>
+      <SectionOverlay>
         <Button
           onPress={() => setShowAddRowForm(true)}
           textStyle={{ textAlign: "center" }}
@@ -51,13 +51,13 @@ export function AddRowForm(props: Props) {
         >
           <AntDesign name="pluscircle" size={16} color={colors.text} /> {addButtonText}
         </Button>
-      </FormSection>
+      </SectionOverlay>
     );
   }
 
   return (
     <ViewColumn height="100%" width="100%" backgroundColor="#2228" position="absolute" justifyContent="flex-end">
-      <FormSection>
+      <SectionOverlay>
         <ViewRow gap={8}>
           <ViewRow flex={1} minWidth="50%">
             <TextInput placeholder="Name" value={value} onChangeText={setValue} />
@@ -76,7 +76,7 @@ export function AddRowForm(props: Props) {
             <AntDesign name="pluscircle" size={16} color={colors.text} /> Add
           </Button>
         </ViewRow>
-      </FormSection>
+      </SectionOverlay>
     </ViewColumn>
   );
 }

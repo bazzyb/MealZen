@@ -1,12 +1,12 @@
 import { ViewColumn } from "../Layout/ViewColumn";
 import { PropsWithChildren, forwardRef } from "react";
-import { TextInput as TextInputBase, TextInputProps, TextStyle } from "react-native";
+import { TextInputProps as RNTextInputProps, TextInput as TextInputBase, TextStyle } from "react-native";
 
 import { useAppTheme } from "@/styles/useAppTheme";
 
 import { Text } from "./Text";
 
-type Props = Omit<TextInputProps, "style" | "value"> & {
+export type TextInputProps = Omit<RNTextInputProps, "style" | "value"> & {
   label?: string;
   value?: string | null;
   style?: TextStyle;
@@ -16,7 +16,7 @@ type Props = Omit<TextInputProps, "style" | "value"> & {
   error?: string;
 };
 
-export const TextInput = forwardRef<TextInputBase, PropsWithChildren<Props>>((props, ref) => {
+export const TextInput = forwardRef<TextInputBase, PropsWithChildren<TextInputProps>>((props, ref) => {
   const { children, label, value, error, style, color, size, bold, ...textInputProps } = props;
 
   const { colors, fontFamily, fontBold, borderRadius } = useAppTheme();

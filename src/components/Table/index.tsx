@@ -56,7 +56,7 @@ export function Table<TData extends GenericData>(props: Props<TData>) {
   if (!items.length) {
     return (
       <ViewColumn flex={1} height="100%">
-        {SearchFilterComponent}
+        {!!onSearchChange && SearchFilterComponent}
         <NoItemsFound />
       </ViewColumn>
     );
@@ -93,7 +93,7 @@ export function Table<TData extends GenericData>(props: Props<TData>) {
 
   return (
     <ViewColumn flex={1}>
-      {SearchFilterComponent}
+      {!!onSearchChange && SearchFilterComponent}
       {isSelectMode && <SelectAllRow items={items} selectedItems={selectedItems} setSelectedItems={setSelectedItems} />}
       <Animated.FlatList
         // itemLayoutAnimation={CurvedTransition}

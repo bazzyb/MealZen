@@ -9,7 +9,7 @@ import { useAppTheme } from "@/styles/useAppTheme";
 import { SelectMenu } from "./SelectMenu";
 
 export type SharedSearchFilterProps = {
-  onSearchChange: (search: string) => void;
+  onSearchChange?: (search: string) => void;
   onDeleteMany?: (ids: Array<string>) => Promise<void>;
   deleteWarning?: string;
 };

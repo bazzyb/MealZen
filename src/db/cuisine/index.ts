@@ -1,1 +1,0 @@
-export { useGetCuisines } from "./useGetCuisines";

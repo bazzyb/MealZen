@@ -1,30 +1,34 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 
 import { supabase } from "@/supabase";
 import { Logger } from "@/utils/logger";
 
-import { EXAMPLE_MEAL_TABLE, ExampleMealRecord } from "./schema";
+import { EXAMPLE_MEAL_TABLE, ExampleMeal, ExampleMealRecord } from "./schema";
 
-export function useGetExampleMeals(cuisineId: string) {
-  const [isLoading, setIsLoading] = useState(true);
-  const [data, setData] = useState<ExampleMealRecord[]>([]);
+function formatResponse(data: ExampleMealRecord[]): ExampleMeal[] {
+  return data.map(item => ({
+    ...item,
+    cuisine: item.cuisine.name,
+  }));
+}
 
-  useEffect(() => {
-    supabase.client
-      .from(EXAMPLE_MEAL_TABLE)
-      .select()
-      .eq("cuisine_id", cuisineId)
-      .order("name", { ascending: true })
-      .then(({ data, error }) => {
-        if (error) {
-          Logger.error(error);
-          return;
-        }
+export function useGetExampleMeals() {
+  return useQuery<ExampleMeal[]>({
+    queryKey: ["EXAMPLE_MEALS"],
+    initialData: [],
 
-        setData(data);
-        setIsLoading(false);
-      });
-  }, []);
+    queryFn: async () => {
+      const { data, error } = await supabase.client
+        .from(EXAMPLE_MEAL_TABLE)
+        .select(`*, cuisine ( name )`)
+        .order("name", { ascending: true });
 
-  return { data, isLoading };
+      if (error) {
+        Logger.error(error);
+        return [];
+      }
+
+      return formatResponse(data);
+    },
+  });
 }

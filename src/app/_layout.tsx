@@ -1,6 +1,7 @@
 import * as SplashScreen from "expo-splash-screen";
 import { NotoSans_400Regular, NotoSans_700Bold, useFonts } from "@expo-google-fonts/noto-sans";
-import { useEffect } from "react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useEffect, useMemo } from "react";
 import Toast, { ErrorToast, InfoToast, SuccessToast } from "react-native-toast-message";
 
 import { LoadingSplash } from "@/components/LoadingSplash";
@@ -21,6 +22,8 @@ export default function RootLayout() {
     NotoSans_700Bold,
     Wittgenstein: require("../../assets/fonts/Wittgenstein-VariableFont_wght.ttf"),
   });
+
+  const queryClient = useMemo(() => new QueryClient(), []);
 
   useEffect(() => {
     if (fontsLoaded) {
@@ -48,9 +51,11 @@ export default function RootLayout() {
       <ThemeProvider>
         <AuthProvider>
           <SubsProvider>
-            <PowerSyncProvider>
-              <AppStack />
-            </PowerSyncProvider>
+            <QueryClientProvider client={queryClient}>
+              <PowerSyncProvider>
+                <AppStack />
+              </PowerSyncProvider>
+            </QueryClientProvider>
           </SubsProvider>
         </AuthProvider>
       </ThemeProvider>

@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/supabase";
 import { Logger } from "@/utils/logger";
 
-import { EXAMPLE_MEAL_TABLE, ExampleMeal, ExampleMealRecord } from "./schema";
+import { CUISINE_TABLE, EXAMPLE_MEAL_TABLE, ExampleMeal, ExampleMealRecord } from "./schema";
 
 function formatResponse(data: ExampleMealRecord[]): ExampleMeal[] {
   return data.map(item => ({
@@ -20,7 +20,7 @@ export function useGetExampleMeals() {
     queryFn: async () => {
       const { data, error } = await supabase.client
         .from(EXAMPLE_MEAL_TABLE)
-        .select(`*, cuisine ( name )`)
+        .select(`*, ${CUISINE_TABLE} ( name )`)
         .order("name", { ascending: true });
 
       if (error) {

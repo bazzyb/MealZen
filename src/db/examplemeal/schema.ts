@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 export const EXAMPLE_MEAL_TABLE = "examplemeal";
+export const CUISINE_TABLE = "cuisine";
 
 export const ExampleMealZodSchema = z.object({
   id: z.string().uuid(),

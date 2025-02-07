@@ -7,7 +7,7 @@ export default function ExampleMeals() {
     <>
       <Stack.Screen
         options={{
-          title: "Example Meals",
+          title: "Inspiration",
         }}
       />
       <ExampleMealsView />

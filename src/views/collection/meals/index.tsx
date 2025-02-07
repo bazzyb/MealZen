@@ -1,5 +1,6 @@
 import { ViewColumn } from "@/components";
 import { AddRowForm } from "@/components/AddRowForm";
+import { LinkButton } from "@/components/core/LinkButton";
 import { useCreateMeal } from "@/db/meal";
 import { Logger } from "@/utils/logger";
 
@@ -25,6 +26,11 @@ export default function MealsView() {
         isAdding={isCreatingMeal}
         onAdd={handleCreateMeal}
         onError={err => Logger.error("Failed to create meal", err)}
+        leftButton={
+          <LinkButton href="/(collection)/examplemeals" style={{ marginRight: "auto" }}>
+            Ideas
+          </LinkButton>
+        }
       />
     </ViewColumn>
   );

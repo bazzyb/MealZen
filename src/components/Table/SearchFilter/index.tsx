@@ -55,14 +55,14 @@ export function SearchFilter(props: SearchFilterProps) {
 
   return (
     <SectionOverlay position="top" style={{ gap: 8, padding: 12 }}>
-      <ViewRow gap={8}>
+      <ViewRow gap={8} height={50}>
         <TextInput placeholder="Search..." value={searchText} onChangeText={handleSearchChange} style={{ flex: 1 }} />
-        {!isSelectedMode && (
+        {onDeleteMany && !isSelectedMode && (
           <IconButton onPress={toggleSelectedMode} accessibilityLabel="Turn on select mode">
             <FontAwesome6 name="edit" size={24} color={colors.text} />
           </IconButton>
         )}
-        {isSelectedMode && (
+        {onDeleteMany && isSelectedMode && (
           <IconButton onPress={toggleSelectedMode} accessibilityLabel="Turn off select mode">
             <AntDesign name="close" size={24} color={colors.text} />
           </IconButton>
@@ -72,7 +72,13 @@ export function SearchFilter(props: SearchFilterProps) {
       {isSelectedMode && (
         <ViewRow justifyContent="flex-end" alignItems="center" gap={8}>
           <Text>Selected Items: {selectedItems.length}</Text>
-          <SelectMenu selectedItems={selectedItems} handleDeleteMany={handleDeleteMany} deleteWarning={deleteWarning} />
+          {onDeleteMany && (
+            <SelectMenu
+              selectedItems={selectedItems}
+              handleDeleteMany={handleDeleteMany}
+              deleteWarning={deleteWarning}
+            />
+          )}
         </ViewRow>
       )}
     </SectionOverlay>

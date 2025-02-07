@@ -22,12 +22,6 @@ export default function CollectionView() {
           <Text>Books</Text>
         </ViewRow>
       </MenuItem>
-      <MenuItem role="link" onPress={() => router.navigate("/(collection)/examplemeals")}>
-        <ViewRow alignItems="center" gap={8}>
-          <MaterialCommunityIcons name="chef-hat" size={24} color={colors.text} />
-          <Text>Example Meals</Text>
-        </ViewRow>
-      </MenuItem>
     </ViewColumn>
   );
 }

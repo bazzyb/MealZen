@@ -1,5 +1,5 @@
 import { AntDesign } from "@expo/vector-icons";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 
 import { Button, TextInput, ViewColumn, ViewRow } from "@/components";
 import { useAppTheme } from "@/styles/useAppTheme";
@@ -13,10 +13,11 @@ type Props = {
   addButtonText: string;
   isAdding: boolean;
   secondaryProps?: TextInputProps;
+  leftButton?: ReactNode;
 };
 
 export function AddRowForm(props: Props) {
-  const { onAdd, onError, addButtonText, isAdding, secondaryProps } = props;
+  const { onAdd, onError, addButtonText, isAdding, secondaryProps, leftButton } = props;
   const [showAddRowForm, setShowAddRowForm] = useState(false);
   const [value, setValue] = useState("");
   const [secondaryValue, setSecondaryValue] = useState("");
@@ -69,6 +70,7 @@ export function AddRowForm(props: Props) {
           )}
         </ViewRow>
         <ViewRow gap={8} justifyContent="flex-end">
+          {leftButton}
           <Button onPress={handleClose} color="error">
             <AntDesign name="close" size={16} color={colors.text} /> Cancel
           </Button>

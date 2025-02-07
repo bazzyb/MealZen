@@ -4,6 +4,7 @@ import { useState } from "react";
 import { ExternalLink, Table, Text, ViewColumn, ViewRow } from "@/components";
 import { LongCookIcon, LongPrepIcon, OvernightIcon, SimpleMealIcon } from "@/components/Icons";
 import { LoadingOverlay } from "@/components/LoadingOverlay";
+import { LinkButton } from "@/components/core/LinkButton";
 import { useGetBooks } from "@/db/book";
 import { useDeleteMeals, useGetMeals } from "@/db/meal";
 
@@ -29,6 +30,11 @@ export function MealsTable({ bookId }: Props) {
       onSearchChange={setSearchMeals}
       onDeleteMany={deleteMeals}
       data={meals}
+      noItemsButton={
+        <LinkButton href="/(collection)/examplemeals" style={{ marginTop: 16 }}>
+          Looking for inspiration?
+        </LinkButton>
+      }
       onRowPress={row =>
         router.navigate({
           pathname: "/(collection)/meals/[id]",

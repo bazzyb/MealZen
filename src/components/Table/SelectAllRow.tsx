@@ -23,7 +23,7 @@ export function SelectAllRow<TData extends GenericData>({ items, selectedItems, 
   }
 
   return (
-    <ViewRow alignItems="center" height={40} paddingHorizontal={16} gap={8}>
+    <ViewRow alignItems="center" height={60} paddingHorizontal={16} gap={8}>
       <Checkbox
         accessibilityLabel="Select all"
         value={allSelected}

@@ -13,7 +13,8 @@ export function IconButton({ children, style, ...buttonProps }: PropsWithChildre
   return (
     <Pressable
       style={({ pressed }) => ({
-        padding: 16,
+        paddingVertical: 12,
+        paddingHorizontal: 16,
         borderRadius,
         backgroundColor: pressed ? colors.activeBackground : colors.background,
         ...style,

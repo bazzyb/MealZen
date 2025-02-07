@@ -1,8 +1,10 @@
-import { IconButton } from "../../core/IconButton";
 import { AntDesign, FontAwesome6 } from "@expo/vector-icons";
 import { useState } from "react";
 
 import { ViewRow } from "@/components/Layout/ViewRow";
+import { SectionOverlay } from "@/components/SectionOverlay";
+import { IconButton } from "@/components/core/IconButton";
+import { Text } from "@/components/core/Text";
 import { TextInput } from "@/components/core/TextInput";
 import { useAppTheme } from "@/styles/useAppTheme";
 
@@ -52,20 +54,27 @@ export function SearchFilter(props: SearchFilterProps) {
   }
 
   return (
-    <ViewRow padding={8} justifyContent="center" alignItems="center" gap={8}>
-      <ViewRow flex={1}>
-        <TextInput placeholder="Search..." value={searchText} onChangeText={handleSearchChange} />
-      </ViewRow>
-      <IconButton onPress={toggleSelectedMode} accessibilityLabel="Select multiple rows">
-        {isSelectedMode ? (
-          <AntDesign name="close" size={24} color={colors.text} />
-        ) : (
-          <FontAwesome6 name="edit" size={24} color={colors.text} />
+    <SectionOverlay position="top" style={{ gap: 8, padding: 12 }}>
+      <ViewRow gap={8}>
+        <TextInput placeholder="Search..." value={searchText} onChangeText={handleSearchChange} style={{ flex: 1 }} />
+        {!isSelectedMode && (
+          <IconButton onPress={toggleSelectedMode} accessibilityLabel="Turn on select mode">
+            <FontAwesome6 name="edit" size={24} color={colors.text} />
+          </IconButton>
         )}
-      </IconButton>
+        {isSelectedMode && (
+          <IconButton onPress={toggleSelectedMode} accessibilityLabel="Turn off select mode">
+            <AntDesign name="close" size={24} color={colors.text} />
+          </IconButton>
+        )}
+      </ViewRow>
+
       {isSelectedMode && (
-        <SelectMenu selectedItems={selectedItems} handleDeleteMany={handleDeleteMany} deleteWarning={deleteWarning} />
+        <ViewRow justifyContent="flex-end" alignItems="center" gap={8}>
+          <Text>Selected Items: {selectedItems.length}</Text>
+          <SelectMenu selectedItems={selectedItems} handleDeleteMany={handleDeleteMany} deleteWarning={deleteWarning} />
+        </ViewRow>
       )}
-    </ViewRow>
+    </SectionOverlay>
   );
 }

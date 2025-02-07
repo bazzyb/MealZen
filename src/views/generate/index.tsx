@@ -104,7 +104,7 @@ export default function GenerateView() {
           )}
         />
       </ViewColumn>
-      <SectionOverlay styles={{ marginTop: "auto" }}>
+      <SectionOverlay position="bottom" style={{ marginTop: "auto" }}>
         <ViewRow gap={8} justifyContent="flex-end">
           <Button color="error" disabled={isSubmitting} onPress={() => router.navigate("/(tab-views)")}>
             Cancel

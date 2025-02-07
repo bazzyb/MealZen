@@ -43,7 +43,7 @@ export function AddRowForm(props: Props) {
 
   if (!showAddRowForm) {
     return (
-      <SectionOverlay>
+      <SectionOverlay position="bottom">
         <Button
           onPress={() => setShowAddRowForm(true)}
           textStyle={{ textAlign: "center" }}
@@ -57,7 +57,7 @@ export function AddRowForm(props: Props) {
 
   return (
     <ViewColumn height="100%" width="100%" backgroundColor="#2228" position="absolute" justifyContent="flex-end">
-      <SectionOverlay>
+      <SectionOverlay position="bottom">
         <ViewRow gap={8}>
           <ViewRow flex={1} minWidth="50%">
             <TextInput placeholder="Name" value={value} onChangeText={setValue} />

@@ -31,7 +31,7 @@ export default function MealPlanView() {
     <>
       <ViewColumn height="100%">
         <MealplanTable setSelectedMealplanEntry={setSelectedMealplanEntry} />
-        <SectionOverlay>
+        <SectionOverlay position="bottom">
           <Button onPress={() => router.navigate("/generate")}>Generate New Meal Plan</Button>
         </SectionOverlay>
       </ViewColumn>

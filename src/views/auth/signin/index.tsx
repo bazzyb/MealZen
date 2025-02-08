@@ -5,7 +5,11 @@ import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { Button, Text, TextInput, ViewColumn, ViewRow } from "@/components";
+import { ViewColumn } from "@/components/Layout/ViewColumn";
+import { ViewRow } from "@/components/Layout/ViewRow";
+import { Button } from "@/components/core/Button";
+import { Text } from "@/components/core/Text";
+import { TextInput } from "@/components/core/TextInput";
 import { useAuth } from "@/providers/AuthProvider";
 import { useAppTheme } from "@/styles/useAppTheme";
 import { handleEnableSync } from "@/utils/sync";

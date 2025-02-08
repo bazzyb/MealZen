@@ -1,8 +1,8 @@
-import { MenuItem } from "../../../components/MenuItem";
 import { Linking } from "react-native";
 import RevenueCatUI from "react-native-purchases-ui";
 
-import { Text } from "@/components";
+import { MenuItem } from "@/components/MenuItem";
+import { Text } from "@/components/core/Text";
 import { useSubs } from "@/providers/SubsProvider";
 
 export function SubInfo() {

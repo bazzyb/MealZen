@@ -1,7 +1,7 @@
-import { ViewColumn } from "../Layout/ViewColumn";
 import { PropsWithChildren, forwardRef } from "react";
 import { FlexAlignType, Switch as SwitchBase, SwitchProps, ViewStyle } from "react-native";
 
+import { ViewColumn } from "@/components/Layout/ViewColumn";
 import { useAppTheme } from "@/styles/useAppTheme";
 
 import { Text } from "./Text";

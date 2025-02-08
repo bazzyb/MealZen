@@ -1,6 +1,7 @@
 import { PropsWithChildren } from "react";
 
-import { Text, ViewRow } from "@/components";
+import { ViewRow } from "@/components/Layout/ViewRow";
+import { Text } from "@/components/core/Text";
 import { useAppTheme } from "@/styles/useAppTheme";
 
 export function Category({ children }: PropsWithChildren<object>) {

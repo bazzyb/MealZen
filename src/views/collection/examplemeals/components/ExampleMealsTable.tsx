@@ -1,9 +1,12 @@
 import { AntDesign } from "@expo/vector-icons";
 import { useMemo, useState } from "react";
 
-import { Table, Text, ViewColumn, ViewRow } from "@/components";
+import { ViewColumn } from "@/components/Layout/ViewColumn";
+import { ViewRow } from "@/components/Layout/ViewRow";
 import { LoadingOverlay } from "@/components/LoadingOverlay";
+import { Table } from "@/components/Table";
 import { IconButton } from "@/components/core/IconButton";
+import { Text } from "@/components/core/Text";
 import { useGetExampleMeals } from "@/db/examplemeal";
 import { useCreateMeal, useGetMeals } from "@/db/meal";
 import { useAppTheme } from "@/styles/useAppTheme";

@@ -1,6 +1,6 @@
 import { StyleSheet, ViewStyle } from "react-native";
 
-import { ViewColumn } from "@/components";
+import { ViewColumn } from "@/components/Layout/ViewColumn";
 import { useAppTheme } from "@/styles/useAppTheme";
 
 type Props = {

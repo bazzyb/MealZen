@@ -1,8 +1,11 @@
 import { router } from "expo-router";
 import { useState } from "react";
 
-import { Table, Text, ViewColumn, ViewRow } from "@/components";
+import { ViewColumn } from "@/components/Layout/ViewColumn";
+import { ViewRow } from "@/components/Layout/ViewRow";
 import { LoadingOverlay } from "@/components/LoadingOverlay";
+import { Table } from "@/components/Table";
+import { Text } from "@/components/core/Text";
 import { useDeleteBooks, useGetBooks } from "@/db/book";
 import { useAppTheme } from "@/styles/useAppTheme";
 

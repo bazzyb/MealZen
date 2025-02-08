@@ -1,8 +1,8 @@
 import { useLocalSearchParams } from "expo-router";
 import { useState } from "react";
 
-import { ViewColumn } from "@/components";
 import { AddRowForm } from "@/components/AddRowForm";
+import { ViewColumn } from "@/components/Layout/ViewColumn";
 import { LoadingOverlay } from "@/components/LoadingOverlay";
 import { useGetBook } from "@/db/book";
 import { useCreateMeal } from "@/db/meal";

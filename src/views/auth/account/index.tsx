@@ -1,12 +1,13 @@
-import { MenuItem } from "../../../components/MenuItem";
 import { usePowerSync } from "@powersync/react-native";
 import { useState } from "react";
 import { Alert } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import Toast from "react-native-toast-message";
 
-import { Text, ViewColumn } from "@/components";
+import { ViewColumn } from "@/components/Layout/ViewColumn";
 import { LoadingOverlay } from "@/components/LoadingOverlay";
+import { MenuItem } from "@/components/MenuItem";
+import { Text } from "@/components/core/Text";
 import { useAuth } from "@/providers/AuthProvider";
 import { handleDisableSync } from "@/utils/sync";
 

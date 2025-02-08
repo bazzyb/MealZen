@@ -1,9 +1,10 @@
-import { LoadingOverlay } from "../../../components/LoadingOverlay";
-import { MenuItem } from "../../../components/MenuItem";
 import { usePowerSync, useStatus } from "@powersync/react-native";
 import { useState } from "react";
 
-import { Text, ViewColumn } from "@/components";
+import { ViewColumn } from "@/components/Layout/ViewColumn";
+import { LoadingOverlay } from "@/components/LoadingOverlay";
+import { MenuItem } from "@/components/MenuItem";
+import { Text } from "@/components/core/Text";
 import { TEST_EMAIL, TEST_FREE_EMAIL, TEST_PASSWORD } from "@/consts";
 import { useAuth } from "@/providers/AuthProvider";
 import { useSubs } from "@/providers/SubsProvider";

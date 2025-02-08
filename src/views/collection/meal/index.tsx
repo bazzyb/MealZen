@@ -3,9 +3,14 @@ import { useState } from "react";
 import { Alert } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { Button, ExternalLink, Heading, Text, ViewColumn, ViewRow } from "@/components";
 import { LongCookIcon, LongPrepIcon, OvernightIcon, SimpleMealIcon } from "@/components/Icons";
+import { ViewColumn } from "@/components/Layout/ViewColumn";
+import { ViewRow } from "@/components/Layout/ViewRow";
 import { LoadingOverlay } from "@/components/LoadingOverlay";
+import { Button } from "@/components/core/Button";
+import { ExternalLink } from "@/components/core/ExternalLink";
+import { Heading } from "@/components/core/Heading";
+import { Text } from "@/components/core/Text";
 import { useDeleteMeals, useGetMeal } from "@/db/meal";
 import { useAppTheme } from "@/styles/useAppTheme";
 

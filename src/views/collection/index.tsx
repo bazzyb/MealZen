@@ -1,8 +1,10 @@
 import { Entypo, MaterialCommunityIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
 
-import { Text, ViewColumn, ViewRow } from "@/components";
+import { ViewColumn } from "@/components/Layout/ViewColumn";
+import { ViewRow } from "@/components/Layout/ViewRow";
 import { MenuItem } from "@/components/MenuItem";
+import { Text } from "@/components/core/Text";
 import { useAppTheme } from "@/styles/useAppTheme";
 
 export default function CollectionView() {

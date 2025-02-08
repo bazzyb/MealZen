@@ -1,11 +1,12 @@
 import { AntDesign } from "@expo/vector-icons";
 import { ReactNode, useState } from "react";
 
-import { Button, TextInput, ViewColumn, ViewRow } from "@/components";
+import { ViewColumn } from "@/components/Layout/ViewColumn";
+import { ViewRow } from "@/components/Layout/ViewRow";
+import { SectionOverlay } from "@/components/SectionOverlay";
+import { Button } from "@/components/core/Button";
+import { TextInput, TextInputProps } from "@/components/core/TextInput";
 import { useAppTheme } from "@/styles/useAppTheme";
-
-import { SectionOverlay } from "./SectionOverlay";
-import { TextInputProps } from "./core/TextInput";
 
 type Props = {
   onAdd: (val: string, secondaryVal: string) => Promise<void>;

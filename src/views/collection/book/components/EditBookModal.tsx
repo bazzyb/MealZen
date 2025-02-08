@@ -1,7 +1,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 
-import { Button, Modal, TextInput, ViewRow } from "@/components";
+import { ViewRow } from "@/components/Layout/ViewRow";
+import { Modal } from "@/components/Modal";
+import { Button } from "@/components/core/Button";
+import { TextInput } from "@/components/core/TextInput";
 import { useUpdateBook } from "@/db/book";
 import { BookRecord, BookZodSchema } from "@/db/book/schema";
 

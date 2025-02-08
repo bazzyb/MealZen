@@ -1,10 +1,14 @@
 import { router } from "expo-router";
 import { useState } from "react";
 
-import { ExternalLink, Table, Text, ViewColumn, ViewRow } from "@/components";
 import { LongCookIcon, LongPrepIcon, OvernightIcon, SimpleMealIcon } from "@/components/Icons";
+import { ViewColumn } from "@/components/Layout/ViewColumn";
+import { ViewRow } from "@/components/Layout/ViewRow";
 import { LoadingOverlay } from "@/components/LoadingOverlay";
+import { Table } from "@/components/Table";
+import { ExternalLink } from "@/components/core/ExternalLink";
 import { LinkButton } from "@/components/core/LinkButton";
+import { Text } from "@/components/core/Text";
 import { useGetBooks } from "@/db/book";
 import { useDeleteMeals, useGetMeals } from "@/db/meal";
 

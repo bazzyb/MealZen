@@ -2,7 +2,9 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import dayjs from "dayjs";
 import { StyleSheet } from "react-native";
 
-import { Text, ViewColumn, ViewRow } from "@/components";
+import { ViewColumn } from "@/components/Layout/ViewColumn";
+import { ViewRow } from "@/components/Layout/ViewRow";
+import { Text } from "@/components/core/Text";
 import { LIFETIME_SUBSCRIPTION_SKU } from "@/consts";
 import { useAuth } from "@/providers/AuthProvider";
 import { useSubs } from "@/providers/SubsProvider";

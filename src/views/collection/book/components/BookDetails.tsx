@@ -1,7 +1,11 @@
 import { router } from "expo-router";
 import { Alert, StyleSheet } from "react-native";
 
-import { Button, Heading, Text, ViewColumn, ViewRow } from "@/components";
+import { ViewColumn } from "@/components/Layout/ViewColumn";
+import { ViewRow } from "@/components/Layout/ViewRow";
+import { Button } from "@/components/core/Button";
+import { Heading } from "@/components/core/Heading";
+import { Text } from "@/components/core/Text";
 import { useDeleteBooks } from "@/db/book";
 import { BookRecord } from "@/db/book/schema";
 import { useAppTheme } from "@/styles/useAppTheme";

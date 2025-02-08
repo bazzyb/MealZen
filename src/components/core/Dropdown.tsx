@@ -1,10 +1,10 @@
-import { ViewColumn } from "../Layout/ViewColumn";
 import { Entypo } from "@expo/vector-icons";
 import { PropsWithChildren } from "react";
 import { Pressable, TextStyle } from "react-native";
 import { Dropdown as DropdownBase } from "react-native-element-dropdown";
 import { DropdownProps } from "react-native-element-dropdown/lib/typescript/components/Dropdown/model";
 
+import { ViewColumn } from "@/components/Layout/ViewColumn";
 import { useAppTheme } from "@/styles/useAppTheme";
 
 import { Text } from "./Text";

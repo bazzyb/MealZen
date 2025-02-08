@@ -1,8 +1,8 @@
-import { ViewColumn } from "../Layout/ViewColumn";
-import { Text } from "../core/Text";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { ReactNode } from "react";
 
+import { ViewColumn } from "@/components/Layout/ViewColumn";
+import { Text } from "@/components/core/Text";
 import { useAppTheme } from "@/styles/useAppTheme";
 
 type Props = {

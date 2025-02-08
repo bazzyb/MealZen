@@ -1,9 +1,11 @@
 import { router } from "expo-router";
 import { useState } from "react";
 
-import { Button, Text, ViewColumn } from "@/components";
+import { ViewColumn } from "@/components/Layout/ViewColumn";
 import { SectionOverlay } from "@/components/SectionOverlay";
+import { Button } from "@/components/core/Button";
 import { LinkButton } from "@/components/core/LinkButton";
+import { Text } from "@/components/core/Text";
 import { useGetMeals } from "@/db/meal";
 import { useGetMealplan } from "@/db/mealplan";
 import { Mealplan } from "@/db/mealplan/schema";

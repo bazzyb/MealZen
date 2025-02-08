@@ -1,4 +1,4 @@
-import { ViewColumn } from "@/components";
+import { ViewColumn } from "@/components/Layout/ViewColumn";
 
 import { ExampleMealsTable } from "./components/ExampleMealsTable";
 

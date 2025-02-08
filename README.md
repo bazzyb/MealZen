@@ -122,12 +122,6 @@ You'll need to run the required device, before running the e2e tests
 ### Prod release TODO steps
 
 - CHANGE APP ACCESS and DATA SAFETY IN GOOGLE PLAY CONSOLE ONCE SUBSCRIPTION STUFF ADDED
-- Icon handling
-  - import all icons consistently
-  - Allow setting left icon on buttons
-  - choose icon for button and icon button via string
-  - ensure icons are vertically aligned with text on buttons
-- Get rid of @/components/index.ts
 - Email content and styles
 - Allow cancelling email change request
 - sign up

@@ -1,5 +1,5 @@
-import { ViewColumn } from "@/components";
 import { AddRowForm } from "@/components/AddRowForm";
+import { ViewColumn } from "@/components/Layout/ViewColumn";
 import { useCreateBook } from "@/db/book";
 import { Logger } from "@/utils/logger";
 

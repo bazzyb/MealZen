@@ -1,7 +1,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 
-import { Button, Dropdown, Modal, Switch, TextInput, ViewRow } from "@/components";
+import { ViewRow } from "@/components/Layout/ViewRow";
+import { Modal } from "@/components/Modal";
+import { Button } from "@/components/core/Button";
+import { Dropdown } from "@/components/core/Dropdown";
+import { Switch } from "@/components/core/Switch";
+import { TextInput } from "@/components/core/TextInput";
 import { useGetBooks } from "@/db/book";
 import { useUpdateMeal } from "@/db/meal";
 import { MealRecord, MealZodSchema } from "@/db/meal/schema";

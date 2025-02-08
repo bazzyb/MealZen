@@ -1,7 +1,7 @@
-import { ViewRow } from "../Layout/ViewRow";
 import { PropsWithChildren, ReactNode } from "react";
 import { ActivityIndicator, Pressable, PressableProps, TextStyle, ViewStyle } from "react-native";
 
+import { ViewRow } from "@/components/Layout/ViewRow";
 import { ColorSet } from "@/styles/theme";
 import { useAppTheme } from "@/styles/useAppTheme";
 

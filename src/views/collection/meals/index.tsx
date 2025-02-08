@@ -1,5 +1,5 @@
-import { ViewColumn } from "@/components";
 import { AddRowForm } from "@/components/AddRowForm";
+import { ViewColumn } from "@/components/Layout/ViewColumn";
 import { LinkButton } from "@/components/core/LinkButton";
 import { useCreateMeal } from "@/db/meal";
 import { Logger } from "@/utils/logger";

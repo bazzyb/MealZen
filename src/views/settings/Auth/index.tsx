@@ -1,7 +1,7 @@
-import { MenuItem } from "../../../components/MenuItem";
 import { router } from "expo-router";
 
-import { Text } from "@/components";
+import { MenuItem } from "@/components/MenuItem";
+import { Text } from "@/components/core/Text";
 import { useAuth } from "@/providers/AuthProvider";
 
 export function Auth() {

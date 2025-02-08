@@ -4,7 +4,13 @@ import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Alert } from "react-native";
 
-import { Button, DeleteButton, Dropdown, Modal, TextInput, ViewColumn, ViewRow } from "@/components";
+import { ViewColumn } from "@/components/Layout/ViewColumn";
+import { ViewRow } from "@/components/Layout/ViewRow";
+import { Modal } from "@/components/Modal";
+import { Button } from "@/components/core/Button";
+import { DeleteButton } from "@/components/core/DeleteButton";
+import { Dropdown } from "@/components/core/Dropdown";
+import { TextInput } from "@/components/core/TextInput";
 import { useGetMeals } from "@/db/meal";
 import { useUpdateMealplanEntry } from "@/db/mealplan";
 import { Mealplan, MealplanRecord, MealplanZodSchema } from "@/db/mealplan/schema";

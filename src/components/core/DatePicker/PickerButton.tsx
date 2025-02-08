@@ -1,6 +1,6 @@
-import { Button } from "../Button";
 import dayjs from "dayjs";
 
+import { Button } from "@/components/core/Button";
 import { useAppTheme } from "@/styles/useAppTheme";
 
 type Props = {

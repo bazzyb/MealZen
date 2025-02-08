@@ -1,7 +1,7 @@
-import { Text } from "../Text";
 import { Platform } from "react-native";
 
 import { ViewColumn } from "@/components/Layout/ViewColumn";
+import { Text } from "@/components/core/Text";
 import { useAppTheme } from "@/styles/useAppTheme";
 
 import { AndroidDatePicker } from "./AndroidDatePicker";

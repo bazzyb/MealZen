@@ -1,6 +1,8 @@
 import { useLocalSearchParams } from "expo-router";
 
-import { Button, Text, ViewColumn } from "@/components";
+import { ViewColumn } from "@/components/Layout/ViewColumn";
+import { Button } from "@/components/core/Button";
+import { Text } from "@/components/core/Text";
 import { useAuth } from "@/providers/AuthProvider";
 
 export function ConfirmLayout() {

@@ -1,9 +1,10 @@
-import { MenuItem } from "../../components/MenuItem";
 import { router } from "expo-router";
 import { Linking } from "react-native";
 import DeviceInfo from "react-native-device-info";
 
-import { Text, ViewColumn } from "@/components";
+import { ViewColumn } from "@/components/Layout/ViewColumn";
+import { MenuItem } from "@/components/MenuItem";
+import { Text } from "@/components/core/Text";
 import { useAppTheme } from "@/styles/useAppTheme";
 
 import { Auth } from "./Auth";

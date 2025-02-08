@@ -1,6 +1,3 @@
-import { ViewColumn } from "../Layout/ViewColumn";
-import { ViewRow } from "../Layout/ViewRow";
-import { Text } from "../core/Text";
 import { PropsWithChildren } from "react";
 import {
   KeyboardAvoidingView,
@@ -11,6 +8,9 @@ import {
   View,
 } from "react-native";
 
+import { ViewColumn } from "@/components/Layout/ViewColumn";
+import { ViewRow } from "@/components/Layout/ViewRow";
+import { Text } from "@/components/core/Text";
 import { useAppTheme } from "@/styles/useAppTheme";
 
 type BodyProps = {

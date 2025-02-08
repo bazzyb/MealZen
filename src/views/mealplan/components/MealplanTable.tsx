@@ -1,8 +1,11 @@
 import { reorderMealPlan } from "../utils/dates";
 import dayjs from "dayjs";
 
-import { Table, Text, ViewColumn, ViewRow } from "@/components";
 import { SimpleMealIcon } from "@/components/Icons";
+import { ViewColumn } from "@/components/Layout/ViewColumn";
+import { ViewRow } from "@/components/Layout/ViewRow";
+import { Table } from "@/components/Table";
+import { Text } from "@/components/core/Text";
 import { useReorderMealplan } from "@/db/mealplan";
 import { Mealplan } from "@/db/mealplan/schema";
 import { useAppTheme } from "@/styles/useAppTheme";

@@ -4,7 +4,11 @@ import { Controller, useForm } from "react-hook-form";
 import Toast from "react-native-toast-message";
 import { z } from "zod";
 
-import { Button, Modal, Text, TextInput, ViewRow } from "@/components";
+import { ViewRow } from "@/components/Layout/ViewRow";
+import { Modal } from "@/components/Modal";
+import { Button } from "@/components/core/Button";
+import { Text } from "@/components/core/Text";
+import { TextInput } from "@/components/core/TextInput";
 import { useAuth } from "@/providers/AuthProvider";
 import { parseError } from "@/utils/errors";
 

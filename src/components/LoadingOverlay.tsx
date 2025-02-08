@@ -1,22 +1,22 @@
-import { ActivityIndicator, StyleSheet, View } from "react-native";
+import { ActivityIndicator, StyleSheet } from "react-native";
 
 import { useAppTheme } from "@/styles/useAppTheme";
+
+import { ViewColumn } from "./Layout/ViewColumn";
 
 export function LoadingOverlay() {
   const { colors } = useAppTheme();
 
   return (
-    <View
-      style={{
-        ...StyleSheet.absoluteFillObject,
-        zIndex: 10,
-        backgroundColor: `${colors.black}77`,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
+    <ViewColumn
+      {...StyleSheet.absoluteFillObject}
+      zIndex={10}
+      backgroundColor={`${colors.black}77`}
+      justifyContent="center"
+      alignItems="center"
+      gap={16}
     >
-      {/* spinning loading icon with expo vector icons */}
       <ActivityIndicator size="large" color={colors.white} />
-    </View>
+    </ViewColumn>
   );
 }

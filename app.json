@@ -65,6 +65,14 @@
             "enableShrinkResourcesInReleaseBuilds": true
           }
         }
+      ],
+      [
+        "@sentry/react-native/expo",
+        {
+          "url": "https://sentry.io/",
+          "project": "react-native-app",
+          "organization": "mealzen"
+        }
       ]
     ],
     "experiments": {

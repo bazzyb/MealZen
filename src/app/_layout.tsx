@@ -1,3 +1,4 @@
+import * as Sentry from "@sentry/react-native";
 import * as SplashScreen from "expo-splash-screen";
 import { NotoSans_400Regular, NotoSans_700Bold, useFonts } from "@expo-google-fonts/noto-sans";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -12,6 +13,13 @@ import { SubsProvider } from "@/providers/SubsProvider";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import { colors } from "@/styles/colors";
 import { Logger } from "@/utils/logger";
+
+Sentry.init({
+  dsn: "https://e357865f04533a08889509729444e51a@o4508784199991296.ingest.de.sentry.io/4508784206217296",
+
+  // uncomment the line below to enable Spotlight (https://spotlightjs.com)
+  // spotlight: __DEV__,
+});
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();

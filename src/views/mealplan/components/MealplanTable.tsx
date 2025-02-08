@@ -66,11 +66,11 @@ export function MealplanTable({ mealplan, setSelectedMealplanEntry }: Props) {
                 <Text size={14} color={colors.text} style={{ flex: 1 }}>
                   {row.meal || row.name}
                 </Text>
-                <ViewRow width={70}>
-                  {row.isSimple && <SimpleMealIcon />}
-                  {row.isOvernight && <OvernightIcon />}
-                  {row.isLongCook && <LongCookIcon />}
-                  {row.isLongPrep && <LongPrepIcon />}
+                <ViewRow>
+                  {!!row.isSimple && <SimpleMealIcon />}
+                  {!!row.isOvernight && <OvernightIcon />}
+                  {!!row.isLongCook && <LongCookIcon />}
+                  {!!row.isLongPrep && <LongPrepIcon />}
                 </ViewRow>
               </ViewRow>
               {row.book && (

@@ -1,3 +1,4 @@
+import { AntDesign, FontAwesome } from "@expo/vector-icons";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { usePowerSync } from "@powersync/react-native";
 import { router } from "expo-router";
@@ -17,6 +18,7 @@ import { getMealplanWithoutJoin } from "@/db/mealplan/queries";
 import { MealplanRecord } from "@/db/mealplan/schema";
 import { useClearMealplan } from "@/db/mealplan/useClearMealplan";
 import { useAuth } from "@/providers/AuthProvider";
+import { useAppTheme } from "@/styles/useAppTheme";
 import { buildDateList, getNoonToday } from "@/utils/dates";
 
 import { pickRandomMeals } from "./utils/dates";
@@ -28,9 +30,11 @@ const GenerateSchema = z.object({
 type GenerateFields = z.infer<typeof GenerateSchema>;
 
 export default function GenerateView() {
+  const { colors } = useAppTheme();
+  const { user } = useAuth();
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [pickerType, setPickerType] = useState<"range" | "multiple">("range");
-  const { user } = useAuth();
 
   const { control, handleSubmit, setValue, getValues } = useForm<GenerateFields>({
     defaultValues: {
@@ -109,10 +113,19 @@ export default function GenerateView() {
       </ViewColumn>
       <SectionOverlay position="bottom" style={{ marginTop: "auto" }}>
         <ViewRow gap={8} justifyContent="flex-end">
-          <Button color="error" disabled={isSubmitting} onPress={() => router.navigate("/(tab-views)")}>
+          <Button
+            color="error"
+            disabled={isSubmitting}
+            onPress={() => router.navigate("/(tab-views)")}
+            leftIcon={<AntDesign name="close" size={20} color={colors.text} />}
+          >
             Cancel
           </Button>
-          <Button disabled={isSubmitting} onPress={handleSubmit(onSubmit)}>
+          <Button
+            disabled={isSubmitting}
+            onPress={handleSubmit(onSubmit)}
+            leftIcon={<FontAwesome name="calendar" size={20} color={colors.text} />}
+          >
             Generate meal plan
           </Button>
         </ViewRow>

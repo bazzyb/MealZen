@@ -1,3 +1,4 @@
+import { MaterialIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { useState } from "react";
 
@@ -9,11 +10,14 @@ import { Text } from "@/components/core/Text";
 import { useGetMeals } from "@/db/meal";
 import { useGetMealplan } from "@/db/mealplan";
 import { Mealplan } from "@/db/mealplan/schema";
+import { useAppTheme } from "@/styles/useAppTheme";
 
 import { EditMealplanEntryModal } from "./components/EditMealplanEntryModal";
 import { MealplanTable } from "./components/MealplanTable";
 
 export default function MealPlanView() {
+  const { colors } = useAppTheme();
+
   const [selectedMealplanEntry, setSelectedMealplanEntry] = useState<Mealplan | null>(null);
 
   const { data: meals } = useGetMeals();
@@ -36,7 +40,12 @@ export default function MealPlanView() {
       <ViewColumn height="100%">
         <MealplanTable setSelectedMealplanEntry={setSelectedMealplanEntry} mealplan={mealplan} />
         <SectionOverlay position="bottom">
-          <Button onPress={() => router.navigate("/generate")}>Generate New Meal Plan</Button>
+          <Button
+            onPress={() => router.navigate("/generate")}
+            leftIcon={<MaterialIcons name="create" size={20} color={colors.text} />}
+          >
+            Generate New Meal Plan
+          </Button>
         </SectionOverlay>
       </ViewColumn>
       <EditMealplanEntryModal

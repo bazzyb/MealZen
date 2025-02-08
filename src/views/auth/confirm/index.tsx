@@ -23,11 +23,7 @@ export function ConfirmLayout() {
       </Text>
 
       <Text>If you don't see the email, check your spam folder or click the button below to resend the email.</Text>
-      <Button
-        style={{ marginTop: 16 }}
-        textStyle={{ textAlign: "center" }}
-        onPress={() => resendEmailConfirmation(email)}
-      >
+      <Button style={{ marginTop: 16 }} onPress={() => resendEmailConfirmation(email)}>
         Resend Email
       </Button>
     </ViewColumn>

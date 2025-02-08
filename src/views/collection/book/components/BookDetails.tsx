@@ -1,3 +1,4 @@
+import { Feather, MaterialIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { Alert, StyleSheet } from "react-native";
 
@@ -57,18 +58,16 @@ export function BookDetails({ book, setShowEditBookModal }: Props) {
       </ViewColumn>
       <ViewColumn gap={8}>
         <Button
-          style={{ paddingVertical: 6 }}
-          textStyle={{ textAlign: "center" }}
           onPress={() => setShowEditBookModal(true)}
+          leftIcon={<Feather name="edit" size={18} color={colors.text} />}
         >
           Edit
         </Button>
         <Button
           color="error"
-          style={{ paddingVertical: 6 }}
-          textStyle={{ textAlign: "center" }}
           onPress={openDeleteAlert}
           disabled={isDeleting}
+          leftIcon={<MaterialIcons name="delete-forever" size={22} color={colors.white} />}
         >
           Delete
         </Button>

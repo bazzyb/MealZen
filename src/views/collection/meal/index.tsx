@@ -1,3 +1,4 @@
+import { Feather, MaterialIcons } from "@expo/vector-icons";
 import { router, useLocalSearchParams } from "expo-router";
 import { useState } from "react";
 import { Alert } from "react-native";
@@ -118,10 +119,18 @@ export function MealView() {
           </ViewRow>
         </ViewColumn>
         <ViewColumn gap={8} marginTop="auto" marginBottom={insets.bottom + 16}>
-          <Button textStyle={{ textAlign: "center" }} onPress={() => setShowEditMealModal(true)}>
+          <Button
+            onPress={() => setShowEditMealModal(true)}
+            leftIcon={<Feather name="edit" size={18} color={colors.text} />}
+          >
             Edit Meal
           </Button>
-          <Button color="error" textStyle={{ textAlign: "center" }} onPress={openDeleteAlert} disabled={isDeleting}>
+          <Button
+            color="error"
+            onPress={openDeleteAlert}
+            disabled={isDeleting}
+            leftIcon={<MaterialIcons name="delete-forever" size={22} color={colors.white} />}
+          >
             Delete Meal
           </Button>
         </ViewColumn>

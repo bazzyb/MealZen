@@ -27,7 +27,7 @@ export function DeleteButton({ id, disabled, style, onPress }: DeleteButtonProps
       }}
       disabled={disabled}
     >
-      <MaterialIcons name="delete-forever" size={24} color={colors.white} style={{ textAlign: "center" }} />
+      <MaterialIcons name="delete-forever" size={24} color={colors.white} />
     </Pressable>
   );
 }

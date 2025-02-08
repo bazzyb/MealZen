@@ -1,5 +1,5 @@
 import { PropsWithChildren, ReactNode } from "react";
-import { ActivityIndicator, Pressable, PressableProps, TextStyle, ViewStyle } from "react-native";
+import { ActivityIndicator, Pressable, PressableProps, ViewStyle } from "react-native";
 
 import { ViewRow } from "@/components/Layout/ViewRow";
 import { ColorSet } from "@/styles/theme";
@@ -12,7 +12,7 @@ type Props = Omit<PressableProps, "style"> & {
   textColor?: string;
   variant?: "filled" | "outlined";
   style?: ViewStyle;
-  textStyle?: TextStyle;
+  fontSize?: number;
   loading?: boolean;
   leftIcon?: ReactNode;
 };
@@ -22,7 +22,7 @@ export function Button({
   loading,
   color,
   textColor,
-  textStyle,
+  fontSize,
   style,
   variant,
   disabled,
@@ -30,6 +30,8 @@ export function Button({
   ...buttonProps
 }: PropsWithChildren<Props>) {
   const { colors, buttonStyles } = useAppTheme();
+
+  const buttonFontSize = fontSize || 14;
 
   function getColor(dark?: boolean) {
     return colors[`${color || "success"}${dark ? "Dark" : ""}`];
@@ -61,7 +63,7 @@ export function Button({
       {loading ? (
         <ActivityIndicator color={colors.white} />
       ) : (
-        <ViewRow alignItems="baseline" gap={8}>
+        <ViewRow alignItems="center" justifyContent="center" gap={8}>
           {leftIcon}
           <Text
             color={
@@ -71,7 +73,7 @@ export function Button({
                   ? getColor()
                   : textColor || colors.buttonText
             }
-            style={{ textAlign: "center", ...textStyle }}
+            style={{ textAlign: "center", height: buttonFontSize * 2, fontSize: buttonFontSize }}
           >
             {children}
           </Text>

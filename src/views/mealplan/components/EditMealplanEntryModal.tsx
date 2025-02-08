@@ -1,4 +1,4 @@
-import { Entypo } from "@expo/vector-icons";
+import { AntDesign, Entypo, Feather } from "@expo/vector-icons";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -85,7 +85,6 @@ function ModalBody({ selectedMealplanEntry, handleClose }: ModalBodyProps) {
         <Button
           color={mealSelector === "select" ? "primary" : "disabled"}
           onPress={handleSetSelect}
-          textStyle={{ textAlign: "center" }}
           style={{ flex: 1, borderRadius: 0 }}
         >
           Select
@@ -93,7 +92,6 @@ function ModalBody({ selectedMealplanEntry, handleClose }: ModalBodyProps) {
         <Button
           color={mealSelector === "custom" ? "primary" : "disabled"}
           onPress={handleSetCustom}
-          textStyle={{ textAlign: "center" }}
           style={{ flex: 1, borderRadius: 0 }}
         >
           Custom
@@ -123,7 +121,7 @@ function ModalBody({ selectedMealplanEntry, handleClose }: ModalBodyProps) {
             onPress={pickRandomMeal}
             variant="outlined"
             style={{ paddingVertical: 4, borderWidth: 1, borderColor: colors.success }}
-            textStyle={{ fontSize: 12 }}
+            fontSize={12}
             leftIcon={<Entypo name="shuffle" size={12} color={colors.success} />}
           >
             Pick Random
@@ -163,10 +161,19 @@ function ModalBody({ selectedMealplanEntry, handleClose }: ModalBodyProps) {
 
       <ViewRow marginTop={8} justifyContent="space-between" width="100%" gap={8}>
         <DeleteButton style={{ marginRight: "auto" }} onPress={openDeleteConfirmAlert} />
-        <Button color="disabled" disabled={isUpdatingEntry || isDeletingEntry} onPress={handleClose}>
+        <Button
+          color="disabled"
+          disabled={isUpdatingEntry || isDeletingEntry}
+          onPress={handleClose}
+          leftIcon={<AntDesign name="close" size={20} color={colors.text} />}
+        >
           Cancel
         </Button>
-        <Button disabled={isUpdatingEntry || isDeletingEntry} onPress={handleSubmit(handleSave)}>
+        <Button
+          disabled={isUpdatingEntry || isDeletingEntry}
+          onPress={handleSubmit(handleSave)}
+          leftIcon={<Feather name="save" size={20} color={colors.text} />}
+        >
           Save
         </Button>
       </ViewRow>

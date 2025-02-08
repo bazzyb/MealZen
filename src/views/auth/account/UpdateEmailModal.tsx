@@ -1,3 +1,4 @@
+import { AntDesign } from "@expo/vector-icons";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -10,6 +11,7 @@ import { Button } from "@/components/core/Button";
 import { Text } from "@/components/core/Text";
 import { TextInput } from "@/components/core/TextInput";
 import { useAuth } from "@/providers/AuthProvider";
+import { useAppTheme } from "@/styles/useAppTheme";
 import { parseError } from "@/utils/errors";
 
 type Props = {
@@ -23,7 +25,9 @@ const UpdateEmailSchema = z.object({
 type UpdateEmailFields = z.infer<typeof UpdateEmailSchema>;
 
 export function UpdateEmailModal({ isVisible, handleClose }: Props) {
+  const { colors } = useAppTheme();
   const { user, updateEmail } = useAuth();
+
   const [isUpdatingEmail, setIsUpdatingEmail] = useState(false);
   const [updateEmailError, setUpdateEmailError] = useState<string | null>(null);
 
@@ -80,6 +84,7 @@ export function UpdateEmailModal({ isVisible, handleClose }: Props) {
           loading={isUpdatingEmail}
           onPress={onClose}
           accessibilityLabel="Cancel Button"
+          leftIcon={<AntDesign name="close" size={20} color={colors.text} />}
         >
           Cancel
         </Button>

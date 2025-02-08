@@ -125,7 +125,6 @@ You'll need to run the required device, before running the e2e tests
 - Allow cancelling email change request
 - sign up
   - redirect from email back to app?
-  - confirm and sign up styles
 - account view
   - delete account
 - convert mealzen.co.uk to store page

@@ -50,8 +50,6 @@
 
 - I want to be able to sign up ✓
   - I want feedback when signup request is pending ✓
-  - verify email screen needs padding and spacing
-  - should be logged in, but only allow purchasing sub when verified?
 - I want to be able to sign in ✓
   - I want feedback while sign in is pending ✓
 - I want to stay logged in after closing and reopening app ✓
@@ -67,7 +65,7 @@
 - I want to be able to reset my password ✓
   - I want feedback while reset is pending ✓
   - 500 screen when reset link out of date/invalid
-- I want to recover account if password lost
+- I want to recover account if password lost ✓
 - I want to be able to change my email address ✓
   - I want feedback while email change request is pending ✓
   - I want to see the change without needing to sign out and in to app ✓

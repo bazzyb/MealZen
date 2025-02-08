@@ -1,4 +1,4 @@
-import Feather from "@expo/vector-icons/Feather";
+import { Feather } from "@expo/vector-icons";
 import { useStatus } from "@powersync/react-native";
 import { useEffect, useState } from "react";
 import Animated, { useAnimatedStyle, useSharedValue, withRepeat, withTiming } from "react-native-reanimated";

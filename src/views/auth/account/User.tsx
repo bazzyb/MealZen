@@ -1,8 +1,8 @@
-import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import dayjs from "dayjs";
 import { StyleSheet } from "react-native";
 
-import { Text, ViewColumn } from "@/components";
+import { Text, ViewColumn, ViewRow } from "@/components";
 import { LIFETIME_SUBSCRIPTION_SKU } from "@/consts";
 import { useAuth } from "@/providers/AuthProvider";
 import { useSubs } from "@/providers/SubsProvider";
@@ -30,9 +30,12 @@ export function UserInfo() {
         </Text>
       )}
       {isPremiumEnabled && (
-        <Text size={12} color={colors.textSecondary} bold>
-          <FontAwesome6 name="crown" size={14} color={colors.secondary} /> Premium User
-        </Text>
+        <ViewRow alignItems="center" gap={4}>
+          <MaterialCommunityIcons name="crown" size={18} color={colors.secondary} />
+          <Text size={12} color={colors.textSecondary} bold>
+            Premium User
+          </Text>
+        </ViewRow>
       )}
       {isPremiumEnabled && !isLifetime && (
         <Text size={12} color={colors.textSecondary}>

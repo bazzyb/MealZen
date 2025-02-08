@@ -1,6 +1,4 @@
-import Feather from "@expo/vector-icons/Feather";
-import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import { Feather, FontAwesome, Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -32,7 +30,7 @@ export default function TabsLayout() {
         name="index"
         options={{
           title: "Meal Plan",
-          tabBarIcon: ({ color, size }) => <FontAwesome6 name="calendar-days" size={size} color={color} />,
+          tabBarIcon: ({ color, size }) => <FontAwesome name="calendar" size={size} color={color} />,
         }}
       />
       <Tabs.Screen

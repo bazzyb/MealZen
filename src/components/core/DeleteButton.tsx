@@ -1,4 +1,4 @@
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import { MaterialIcons } from "@expo/vector-icons";
 import { Pressable, ViewStyle } from "react-native";
 
 import { useAppTheme } from "@/styles/useAppTheme";

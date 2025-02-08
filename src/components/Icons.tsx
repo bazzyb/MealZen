@@ -1,4 +1,4 @@
-import { FontAwesome5, MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 
 import { useAppTheme } from "@/styles/useAppTheme";
 
@@ -11,7 +11,11 @@ export function SimpleMealIcon({ size, disabled }: IconProps) {
   const { colors } = useAppTheme();
 
   return (
-    <FontAwesome5 name="umbrella-beach" size={size || 16} color={disabled ? colors.gray[5] : colors.successLight} />
+    <MaterialCommunityIcons
+      name="umbrella-beach"
+      size={size || 16}
+      color={disabled ? colors.gray[5] : colors.successLight}
+    />
   );
 }
 

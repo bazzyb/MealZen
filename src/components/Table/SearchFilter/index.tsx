@@ -1,4 +1,4 @@
-import { AntDesign, FontAwesome6 } from "@expo/vector-icons";
+import { AntDesign, Feather } from "@expo/vector-icons";
 import { useState } from "react";
 
 import { ViewRow } from "@/components/Layout/ViewRow";
@@ -59,7 +59,7 @@ export function SearchFilter(props: SearchFilterProps) {
         <TextInput placeholder="Search..." value={searchText} onChangeText={handleSearchChange} style={{ flex: 1 }} />
         {onDeleteMany && !isSelectedMode && (
           <IconButton onPress={toggleSelectedMode} accessibilityLabel="Turn on select mode">
-            <FontAwesome6 name="edit" size={24} color={colors.text} />
+            <Feather name="edit" size={24} color={colors.text} />
           </IconButton>
         )}
         {onDeleteMany && isSelectedMode && (

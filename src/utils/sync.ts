@@ -14,7 +14,7 @@ export async function handleEnableSync(userId: string, powerSync: AbstractPowerS
 
   // Finish by having powerSync connect to supabase
   await powerSync.connect(supabase);
-  Logger.log("connected");
+  Logger.info("connected");
 
   await waitForNewSync(powerSync);
 }
@@ -23,7 +23,7 @@ export async function handleDisableSync(powerSync: AbstractPowerSyncDatabase) {
   if (powerSync.connected) {
     await powerSync.disconnect();
     await powerSync.updateSchema(buildSchema(false));
-    Logger.log("disconnected");
+    Logger.info("disconnected");
   }
 }
 

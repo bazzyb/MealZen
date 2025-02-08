@@ -97,7 +97,7 @@ export class SupabaseConnector implements PowerSyncBackendConnector {
       await transaction.complete();
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (ex: any) {
-      Logger.log(ex);
+      Logger.debug(ex);
       if (typeof ex.code == "string" && FATAL_RESPONSE_CODES.some(regex => regex.test(ex.code))) {
         /**
          * Instead of blocking the queue with these errors,

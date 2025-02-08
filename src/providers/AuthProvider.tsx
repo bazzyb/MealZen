@@ -42,7 +42,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
 
   async function signUp(email: string, password: string) {
-    Logger.log("signUp");
+    Logger.debug("signUp");
 
     const { data, error } = await supabase.client.auth.signUp({
       email,
@@ -63,7 +63,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   async function resendEmailConfirmation(email: string) {
-    Logger.log("resendEmailConfirmation");
+    Logger.debug("resendEmailConfirmation");
 
     const { error } = await supabase.client.auth.resend({
       type: "signup",
@@ -76,7 +76,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   async function signIn(email: string, password: string) {
-    Logger.log("signIn");
+    Logger.debug("signIn");
 
     const { data, error } = await supabase.client.auth.signInWithPassword({
       email,
@@ -107,7 +107,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   async function signOut() {
-    Logger.log("signOut");
+    Logger.debug("signOut");
     setIsLoading(true);
     const { error } = await supabase.client.auth.signOut();
 

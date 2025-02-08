@@ -117,9 +117,10 @@ function ModalBody({ selectedMealplanEntry, handleClose }: ModalBodyProps) {
             onPress={pickRandomMeal}
             variant="outlined"
             style={{ paddingVertical: 4, borderWidth: 1, borderColor: colors.success }}
-            textStyle={{ fontSize: 10, textAlign: "center" }}
+            textStyle={{ fontSize: 12 }}
+            leftIcon={<Entypo name="shuffle" size={12} color={colors.success} />}
           >
-            <Entypo name="shuffle" size={10} color={colors.success} /> Pick Random
+            Pick Random
           </Button>
         </ViewColumn>
       )}
@@ -154,14 +155,14 @@ function ModalBody({ selectedMealplanEntry, handleClose }: ModalBodyProps) {
         )}
       />
 
-      <ViewRow marginTop={8} justifyContent="space-between" width="100%">
-        <Button disabled={isUpdatingEntry || isDeletingEntry} onPress={handleSubmit(handleSave)}>
-          Save
-        </Button>
+      <ViewRow marginTop={8} justifyContent="space-between" width="100%" gap={8}>
+        <DeleteButton style={{ marginRight: "auto" }} onPress={openDeleteConfirmAlert} />
         <Button color="disabled" disabled={isUpdatingEntry || isDeletingEntry} onPress={handleClose}>
           Cancel
         </Button>
-        <DeleteButton style={{ marginLeft: "auto" }} onPress={openDeleteConfirmAlert} />
+        <Button disabled={isUpdatingEntry || isDeletingEntry} onPress={handleSubmit(handleSave)}>
+          Save
+        </Button>
       </ViewRow>
     </>
   );

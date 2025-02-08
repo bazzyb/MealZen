@@ -1,4 +1,5 @@
-import { PropsWithChildren } from "react";
+import { ViewRow } from "../Layout/ViewRow";
+import { PropsWithChildren, ReactNode } from "react";
 import { ActivityIndicator, Pressable, PressableProps, TextStyle, ViewStyle } from "react-native";
 
 import { ColorSet } from "@/styles/theme";
@@ -13,6 +14,7 @@ type Props = Omit<PressableProps, "style"> & {
   style?: ViewStyle;
   textStyle?: TextStyle;
   loading?: boolean;
+  leftIcon?: ReactNode;
 };
 
 export function Button({
@@ -24,9 +26,10 @@ export function Button({
   style,
   variant,
   disabled,
+  leftIcon,
   ...buttonProps
 }: PropsWithChildren<Props>) {
-  const { colors, fontFamily, borderRadius } = useAppTheme();
+  const { colors, buttonStyles } = useAppTheme();
 
   function getColor(dark?: boolean) {
     return colors[`${color || "success"}${dark ? "Dark" : ""}`];
@@ -45,10 +48,7 @@ export function Button({
   return (
     <Pressable
       style={({ pressed }) => ({
-        fontFamily: fontFamily,
-        paddingVertical: 12,
-        paddingHorizontal: 16,
-        borderRadius,
+        ...buttonStyles,
         backgroundColor: getBackgroundColor(pressed),
         borderWidth: variant === "outlined" ? 1 : 0,
         borderColor: variant === "outlined" ? getBackgroundColor(pressed) : undefined,
@@ -61,18 +61,21 @@ export function Button({
       {loading ? (
         <ActivityIndicator color={colors.white} />
       ) : (
-        <Text
-          color={
-            disabled || loading
-              ? colors.disabledText
-              : variant === "outlined"
-                ? getColor()
-                : textColor || colors.buttonText
-          }
-          style={textStyle}
-        >
-          {children}
-        </Text>
+        <ViewRow alignItems="baseline" gap={8}>
+          {leftIcon}
+          <Text
+            color={
+              disabled || loading
+                ? colors.disabledText
+                : variant === "outlined"
+                  ? getColor()
+                  : textColor || colors.buttonText
+            }
+            style={{ textAlign: "center", ...textStyle }}
+          >
+            {children}
+          </Text>
+        </ViewRow>
       )}
     </Pressable>
   );

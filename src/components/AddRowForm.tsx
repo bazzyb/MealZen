@@ -49,8 +49,9 @@ export function AddRowForm(props: Props) {
           onPress={() => setShowAddRowForm(true)}
           textStyle={{ textAlign: "center" }}
           style={{ width: "100%", alignItems: "center", gap: 8 }}
+          leftIcon={<AntDesign name="pluscircle" size={16} color={colors.text} />}
         >
-          <AntDesign name="pluscircle" size={16} color={colors.text} /> {addButtonText}
+          {addButtonText}
         </Button>
       </SectionOverlay>
     );
@@ -71,11 +72,19 @@ export function AddRowForm(props: Props) {
         </ViewRow>
         <ViewRow gap={8} justifyContent="flex-end">
           {leftButton}
-          <Button onPress={handleClose} color="error">
-            <AntDesign name="close" size={16} color={colors.text} /> Cancel
+          <Button
+            onPress={handleClose}
+            color="error"
+            leftIcon={<AntDesign name="close" size={16} color={colors.text} />}
+          >
+            Cancel
           </Button>
-          <Button onPress={handleSubmit} disabled={!value || isAdding}>
-            <AntDesign name="pluscircle" size={16} color={colors.text} /> Add
+          <Button
+            onPress={handleSubmit}
+            disabled={!value || isAdding}
+            leftIcon={<AntDesign name="pluscircle" size={16} color={colors.text} />}
+          >
+            Add
           </Button>
         </ViewRow>
       </SectionOverlay>

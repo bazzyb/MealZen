@@ -88,6 +88,11 @@ export function getTheme(theme: ColorSchemeName) {
       ...(theme === "light" ? lightColors : darkColors),
     },
     borderRadius: 4,
+    buttonStyles: {
+      paddingVertical: 12,
+      paddingHorizontal: 16,
+      borderRadius: 4,
+    },
     fontFamily: "NotoSans_400Regular",
     fontBold: "NotoSans_700Bold",
     headerFontFamily: "Wittgenstein",

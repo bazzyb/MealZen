@@ -1,5 +1,4 @@
 export { Button } from "./core/Button";
-export { CloseButton } from "./core/CloseButton";
 export { DatePicker } from "./core/DatePicker";
 export { DeleteButton } from "./core/DeleteButton";
 export { Dropdown } from "./core/Dropdown";

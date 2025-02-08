@@ -8,14 +8,12 @@ type Props = Omit<PressableProps, "style"> & {
 };
 
 export function IconButton({ children, style, ...buttonProps }: PropsWithChildren<Props>) {
-  const { colors, borderRadius } = useAppTheme();
+  const { colors, buttonStyles } = useAppTheme();
 
   return (
     <Pressable
       style={({ pressed }) => ({
-        paddingVertical: 12,
-        paddingHorizontal: 16,
-        borderRadius,
+        ...buttonStyles,
         backgroundColor: pressed ? colors.activeBackground : colors.background,
         ...style,
       })}

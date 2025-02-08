@@ -11,16 +11,14 @@ type Props = Omit<LinkProps<string>, "style"> & {
 };
 
 export function LinkButton({ children, style, href }: PropsWithChildren<Props>) {
-  const { colors, borderRadius } = useAppTheme();
+  const { colors, buttonStyles } = useAppTheme();
 
   return (
     <Pressable
       role="link"
       style={({ pressed }) => ({
-        paddingVertical: 8,
-        paddingHorizontal: 16,
-        borderRadius,
         backgroundColor: pressed ? colors.blue[2] : colors.blue[3],
+        ...buttonStyles,
         ...style,
       })}
       onPress={() => router.navigate(href)}

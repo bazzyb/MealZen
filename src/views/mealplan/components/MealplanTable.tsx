@@ -1,7 +1,7 @@
 import { reorderMealPlan } from "../utils/dates";
 import dayjs from "dayjs";
 
-import { SimpleMealIcon } from "@/components/Icons";
+import { LongCookIcon, LongPrepIcon, OvernightIcon, SimpleMealIcon } from "@/components/Icons";
 import { ViewColumn } from "@/components/Layout/ViewColumn";
 import { ViewRow } from "@/components/Layout/ViewRow";
 import { Table } from "@/components/Table";
@@ -61,24 +61,27 @@ export function MealplanTable({ mealplan, setSelectedMealplanEntry }: Props) {
         {
           label: "Name",
           accessorFn: row => (
-            <ViewColumn>
-              <ViewRow gap={4} alignItems="center">
-                <Text size={14} color={colors.text}>
+            <ViewColumn flex={1} justifyContent="center">
+              <ViewRow gap={4} alignItems="center" justifyContent="space-between">
+                <Text size={14} color={colors.text} style={{ flex: 1 }}>
                   {row.meal || row.name}
                 </Text>
-                {!!row.isSimple && <SimpleMealIcon />}
+                <ViewRow width={70}>
+                  {row.isSimple && <SimpleMealIcon />}
+                  {row.isOvernight && <OvernightIcon />}
+                  {row.isLongCook && <LongCookIcon />}
+                  {row.isLongPrep && <LongPrepIcon />}
+                </ViewRow>
               </ViewRow>
-
               {row.book && (
                 <Text size={12} color={colors.textSecondary}>
                   {row.book} {row.page && `| p${row.page}`}
                 </Text>
               )}
+              {row.notes && <Text size={12}>{row.notes}</Text>}
             </ViewColumn>
           ),
-          width: 120,
         },
-        { label: "Notes", accessorFn: row => <Text size={12}>{row.notes}</Text> },
       ]}
     />
   );

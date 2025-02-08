@@ -88,7 +88,6 @@ You'll need to run the required device, before running the e2e tests
 
 ### testing
 
-- mobile accessibility (screen readers? tabbing equivalent? accessibility testing?)
 - E2E test which writes to db for unauthed user, then checks it's not persistent on new device?
 - As above, but for authed user, and data is persisted
 
@@ -129,8 +128,6 @@ You'll need to run the required device, before running the e2e tests
   - confirm and sign up styles
 - account view
   - delete account
-  - forgot password
-  - manage subscription
 - convert mealzen.co.uk to store page
 - setup apple store
 - Maestro cloud CI - https://console.mobile.dev/quickstart?teamId=36513706-3609-41ab-a5e9-e28339db6964

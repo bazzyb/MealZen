@@ -5,6 +5,7 @@ import { Button, Text, ViewColumn } from "@/components";
 import { SectionOverlay } from "@/components/SectionOverlay";
 import { LinkButton } from "@/components/core/LinkButton";
 import { useGetMeals } from "@/db/meal";
+import { useGetMealplan } from "@/db/mealplan";
 import { Mealplan } from "@/db/mealplan/schema";
 
 import { EditMealplanEntryModal } from "./components/EditMealplanEntryModal";
@@ -14,8 +15,9 @@ export default function MealPlanView() {
   const [selectedMealplanEntry, setSelectedMealplanEntry] = useState<Mealplan | null>(null);
 
   const { data: meals } = useGetMeals();
+  const { data: mealplan } = useGetMealplan();
 
-  if (!meals.length) {
+  if (!mealplan.length && !meals.length) {
     return (
       <ViewColumn height="100%" alignItems="center" justifyContent="center">
         <Text>No meals found.</Text>
@@ -30,7 +32,7 @@ export default function MealPlanView() {
   return (
     <>
       <ViewColumn height="100%">
-        <MealplanTable setSelectedMealplanEntry={setSelectedMealplanEntry} />
+        <MealplanTable setSelectedMealplanEntry={setSelectedMealplanEntry} mealplan={mealplan} />
         <SectionOverlay position="bottom">
           <Button onPress={() => router.navigate("/generate")}>Generate New Meal Plan</Button>
         </SectionOverlay>

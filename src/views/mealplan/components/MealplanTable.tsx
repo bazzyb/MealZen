@@ -3,18 +3,18 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import dayjs from "dayjs";
 
 import { Table, Text, ViewColumn, ViewRow } from "@/components";
-import { useGetMealplan, useReorderMealplan } from "@/db/mealplan";
+import { useReorderMealplan } from "@/db/mealplan";
 import { Mealplan } from "@/db/mealplan/schema";
 import { useAppTheme } from "@/styles/useAppTheme";
 
 type Props = {
   setSelectedMealplanEntry: (entry: Mealplan | null) => void;
+  mealplan: Array<Mealplan>;
 };
 
-export function MealplanTable({ setSelectedMealplanEntry }: Props) {
+export function MealplanTable({ mealplan, setSelectedMealplanEntry }: Props) {
   const { colors } = useAppTheme();
 
-  const { data: mealplan } = useGetMealplan();
   const { mutate } = useReorderMealplan();
 
   async function handleMealReorder(reorderedItems: Array<Mealplan>, setItem: (items: Array<Mealplan>) => void) {

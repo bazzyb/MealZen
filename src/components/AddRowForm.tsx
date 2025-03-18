@@ -1,5 +1,6 @@
 import { AntDesign } from "@expo/vector-icons";
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
+import { TextInput as TextInputBase } from "react-native";
 
 import { ViewColumn } from "@/components/Layout/ViewColumn";
 import { ViewRow } from "@/components/Layout/ViewRow";
@@ -19,11 +20,20 @@ type Props = {
 
 export function AddRowForm(props: Props) {
   const { onAdd, onError, addButtonText, isAdding, secondaryProps, leftButton } = props;
+
+  const { colors } = useAppTheme();
+
   const [showAddRowForm, setShowAddRowForm] = useState(false);
   const [value, setValue] = useState("");
   const [secondaryValue, setSecondaryValue] = useState("");
 
-  const { colors } = useAppTheme();
+  const nameRef = useRef<TextInputBase | null>(null);
+
+  useEffect(() => {
+    if (showAddRowForm) {
+      nameRef.current?.focus();
+    }
+  }, [showAddRowForm]);
 
   function handleClose() {
     setShowAddRowForm(false);
@@ -62,7 +72,7 @@ export function AddRowForm(props: Props) {
       <SectionOverlay position="bottom">
         <ViewRow gap={8}>
           <ViewRow flex={1} minWidth="50%">
-            <TextInput placeholder="Name" value={value} onChangeText={setValue} />
+            <TextInput placeholder="Name" value={value} onChangeText={setValue} ref={nameRef} />
           </ViewRow>
           {secondaryProps && (
             <ViewRow flexBasis="20%">

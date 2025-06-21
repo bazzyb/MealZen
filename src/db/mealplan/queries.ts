@@ -54,8 +54,15 @@ export const MealplanQuery = `
   ORDER BY date ASC
 `;
 
-export function getMealplanWithoutJoin(db: AbstractPowerSyncDatabase, userId?: string) {
-  return db.getAll<MealplanRecord>(`SELECT * FROM ${MEALPLAN_TABLE} WHERE user_id = ?`, [userId || LOCAL_USER_ID]);
+export function getMealplanWithoutJoin(db: AbstractPowerSyncDatabase, userId?: string, dates?: Array<Date>) {
+  let query = `SELECT * FROM ${MEALPLAN_TABLE} WHERE user_id = ?`;
+
+  if (dates && dates.length > 0) {
+    const datePlaceholders = dates.map(() => "?").join(", ");
+    query += ` AND date IN (${datePlaceholders})`;
+  }
+
+  return db.getAll<MealplanRecord>(query, [userId || LOCAL_USER_ID, ...(dates || []).map(date => date.toISOString())]);
 }
 
 export async function reorderMealplan(meals: Array<Mealplan>, db: AbstractPowerSyncDatabase, userId?: string) {

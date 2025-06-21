@@ -62,7 +62,7 @@ export default function GenerateView() {
     setIsSubmitting(true);
     let existingMealplanEntries: Array<MealplanRecord> = [];
     if (preserveExisting) {
-      existingMealplanEntries = await getMealplanWithoutJoin(powerSync, user?.id);
+      existingMealplanEntries = await getMealplanWithoutJoin(powerSync, user?.id, generateDates);
     }
 
     const randomMeals = await pickRandomMeals(powerSync, generateDates, existingMealplanEntries, user?.id);

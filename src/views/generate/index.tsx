@@ -65,11 +65,12 @@ export default function GenerateView() {
       existingMealplanEntries = await getMealplanWithoutJoin(powerSync, user?.id, generateDates);
     }
 
+    // should clear existing mealplan entries, bar any within existingMealplanEntries
+    const existingMealplanIds = existingMealplanEntries.map(meal => meal.id || "").filter(Boolean);
+    await clearMealplan(existingMealplanIds);
+
     const randomMeals = await pickRandomMeals(powerSync, generateDates, existingMealplanEntries, user?.id);
     if (randomMeals.length) {
-      const existingMealplanIds = existingMealplanEntries.map(meal => meal.id || "").filter(Boolean);
-
-      await clearMealplan(existingMealplanIds);
       await createMealplan(randomMeals);
     }
 

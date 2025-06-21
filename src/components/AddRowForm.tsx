@@ -1,6 +1,7 @@
 import { AntDesign } from "@expo/vector-icons";
 import { ReactNode, useEffect, useRef, useState } from "react";
 import { TextInput as TextInputBase } from "react-native";
+import Toast from "react-native-toast-message";
 
 import { ViewColumn } from "@/components/Layout/ViewColumn";
 import { ViewRow } from "@/components/Layout/ViewRow";
@@ -35,10 +36,13 @@ export function AddRowForm(props: Props) {
     }
   }, [showAddRowForm]);
 
-  function handleClose() {
-    setShowAddRowForm(false);
+  function clearFields() {
     setValue("");
     setSecondaryValue("");
+  }
+
+  function handleClose() {
+    setShowAddRowForm(false);
   }
 
   async function handleSubmit() {
@@ -47,7 +51,13 @@ export function AddRowForm(props: Props) {
     }
     try {
       await onAdd(value, secondaryValue);
-      handleClose();
+      Toast.show({
+        type: "success",
+        text1: "Added successfully",
+        text2: `Added ${value}${secondaryValue ? ` with ${secondaryValue}` : ""}`,
+        visibilityTime: 3000,
+      });
+      clearFields();
     } catch (err) {
       onError?.(err as Error);
     }
@@ -87,7 +97,7 @@ export function AddRowForm(props: Props) {
             color="error"
             leftIcon={<AntDesign name="close" size={20} color={colors.text} />}
           >
-            Cancel
+            Close
           </Button>
           <Button
             onPress={handleSubmit}

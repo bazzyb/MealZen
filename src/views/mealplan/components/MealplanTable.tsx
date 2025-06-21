@@ -34,17 +34,6 @@ export function MealplanTable({ mealplan, setSelectedMealplanEntry }: Props) {
       onRowPress={setSelectedMealplanEntry}
       columns={[
         {
-          id: "sort-handle",
-          width: 20,
-          accessorFn: () => (
-            <ViewColumn>
-              <Text size={14} color={colors.textSecondary}>
-                ☰
-              </Text>
-            </ViewColumn>
-          ),
-        },
-        {
           label: "Date",
           accessorFn: date => (
             <ViewColumn>
